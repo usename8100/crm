@@ -1,0 +1,50 @@
+<center>
+  <div class="login-form">
+    <h2>Log in</h2>
+
+    <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+      <div class="field form-group">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
+      </div>
+
+      <div class="field form-group">
+        <%= f.password_field :password, autocomplete: "current-password", class: "form-control", placeholder: "Password" %>
+      </div>
+
+      <% if devise_mapping.rememberable? %>
+        <div class="field remember_me">
+          <%= f.check_box :remember_me %>
+          <%= f.label :remember_me %>
+        </div>
+      <% end %>
+
+      <div class="actions">
+        <br><%= f.submit "Log in", class: "btn btn-primary" %>
+      </div>
+      <div class="note"></div>
+    <% end %>
+
+    <br><%= render "devise/shared/links" %>
+  </div>
+</center>
+
+<style type="text/css">
+  @media (min-width:1500px) {
+    body {
+      background-image: url("https://wallpaperaccess.com/full/2675398.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+</style>
+<script type="text/javascript">
+  $(".btn").click(function () {
+    if ($("input[type=text]").filter(function () {
+        return this.value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/);
+    })) {
+        $(".note").text("pass");
+    } else {
+        $(".note").text("fail");
+    }
+});
+</script>

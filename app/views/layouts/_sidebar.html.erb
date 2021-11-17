@@ -1,0 +1,103 @@
+<div class="col-sm-3 col-md-2 sidebar">
+	<ul class="nav nav-sidebar">
+		<li><%= link_to "Dashboard" %></li>
+		<li>
+			<a class="leads_btn">Leads <span class="fas fa-caret-down"></span></a>
+			<ul class="leads_item">
+			    <li>
+			        <a href="#">Manage Leads</a>
+			    </li>
+			    <li>
+			        <a href="#">Success Leads</a>
+			    </li>
+			    <li>
+			        <a href="#">Recycle Bin</a>
+			    </li>
+			</ul>
+	  </li>
+	  <li>
+			<a class="customer_btn">Customers <span class="fas fa-caret-down"></span></a>
+			<ul class="customer_item">
+			    <li>
+			        <a href="#">Manage Customers</a>
+			    </li>
+			    <li>
+			        <a href="#">Recycle Bin</a>
+			    </li>
+			</ul>
+	  </li>
+	  <li>
+			<a class="catalog_btn">Catalogs <span class="fas fa-caret-down"></span></a>
+			<ul class="catalog_item">
+			    <li>
+			        <a href="#">Products</a>
+			    </li>
+			    <li>
+			        <a href="#">Category</a>
+			    </li>
+			</ul>
+	  </li>
+	  <li>
+			<a class="sale_btn">Sales <span class="fas fa-caret-down"></span></a>
+			<ul class="sale_item">
+			    <li>
+			        <a href="#">Proposals</a>
+			    </li>
+			    <li>
+			        <a href="#">Estimates</a>
+			    </li>
+			    <li>
+			        <a href="#">Invoices</a>
+			    </li>
+			    <li>
+			        <a href="#">Taxes</a>
+			    </li>
+			</ul>
+	  </li>
+	  <li>
+			<a class="staff_btn">Staff <span class="fas fa-caret-down"></span></a>
+			<ul class="staff_item">
+			    <li>
+			        <a href="#">Add staff</a>
+			    </li>
+			    <li>
+			        <a href="#">Manage Staff</a>
+			    </li>
+			</ul>
+	  </li>
+	  <li>
+			<a class="report_btn">Report <span class="fas fa-caret-down"></span></a>
+			<ul class="report_item">
+			    <li>
+			        <a href="#">Proposals Report</a>
+			    </li>
+			    <li>
+			        <a href="#">Estimates Report</a>
+			    </li>
+			    <li>
+			        <a href="#">Invoices Report</a>
+			    </li>
+			</ul>
+	  </li>
+	</ul>
+</div>
+<script>
+	$('.leads_btn').click(function(){
+		$('.nav .leads_item').toggleClass("show");
+	});
+	$('.customer_btn').click(function(){
+		$('.nav .customer_item').toggleClass("show");
+	});
+	$('.catalog_btn').click(function(){
+		$('.nav .catalog_item').toggleClass("show");
+	});
+	$('.sale_btn').click(function(){
+		$('.nav .sale_item').toggleClass("show");
+	});
+	$('.staff_btn').click(function(){
+		$('.nav .staff_item').toggleClass("show");
+	});
+	$('.report_btn').click(function(){
+		$('.nav .report_item').toggleClass("show");
+	});
+</script>

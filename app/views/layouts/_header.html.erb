@@ -1,0 +1,14 @@
+<header class="navbar navbar-fixed-top navbar-inverse">
+  <div class="container">
+    
+		<%= link_to "CRM", root_path, id: "logo"%>
+    <nav>
+      <ul class="nav navbar-nav navbar-right">
+        <% if account_signed_in? %>
+          <li><%= link_to current_account.email %></li>
+          <li><%= link_to 'Logout', destroy_account_session_path, method: :delete %></li>
+        <% end %>
+      </ul>
+    </nav>
+  </div>
+</header>

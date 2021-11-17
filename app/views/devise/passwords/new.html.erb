@@ -1,0 +1,42 @@
+
+
+<center>
+  <div class="login-form">
+    <h3>Forgot your password?</h3>
+
+    <%= form_for(resource, as: resource_name, url: password_path(resource_name), html: { method: :post }) do |f| %>
+      <%= render "devise/shared/error_messages", resource: resource %>
+
+      <div class="field form-group">
+        <%= f.email_field :email, autofocus: true, autocomplete: "email", class: "form-control", placeholder: "Email" %>
+      </div>
+
+      <div class="actions">
+        <%= f.submit "Send me reset password instructions", class: "btn btn-primary btn_forgot" %>
+      </div>
+    <% end %>
+
+    <%= render "devise/shared/links" %>
+  </div>
+</center>
+
+<style type="text/css">
+  @media (min-width:1500px) {
+    body {
+      background-image: url("https://wallpaperaccess.com/full/2675398.jpg");
+      background-repeat: no-repeat;
+      background-size: cover;
+    }
+  }
+</style>
+<script type="text/javascript">
+  $(".btn").click(function () {
+    if ($("input[type=text]").filter(function () {
+        return this.value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/);
+    })) {
+        $(".note").text("pass");
+    } else {
+        $(".note").text("fail");
+    }
+});
+</script>
