@@ -1,0 +1,19 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  customer_id: 1
+  subject: MyText
+  start_date: 2021-11-18 13:27:50
+  end_date: 2021-11-18 13:27:50
+  status: MyString
+  discount: 1
+  total: MyString
+
+two:
+  customer_id: 1
+  subject: MyText
+  start_date: 2021-11-18 13:27:50
+  end_date: 2021-11-18 13:27:50
+  status: MyString
+  discount: 1
+  total: MyString

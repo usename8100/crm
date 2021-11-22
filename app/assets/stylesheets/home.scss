@@ -1,3 +1,84 @@
-// Place all the styles related to the home controller here.
-// They will automatically be included in application.css.
-// You can use Sass (SCSS) here: https://sass-lang.com/
+.dashboard-main {
+	min-width: 950px;
+	margin: 0 30px;
+	border: 1px solid #ccc;
+	padding: 15px;
+}
+.dashboard-title {
+	border-bottom: 2px solid black;
+}
+.dashboard-title h2 {
+	font-size: 20px;
+	margin-left: 10px;
+}
+.dashboard-general {
+	margin: 15px;
+	min-width: 950px;
+}
+.dashboard-general h3{
+	font-size: 14px;
+	margin-left: 40px;
+}
+.dashboard-general-list {
+	max-height: 200px;
+	max-width: 100%;
+}
+.dashboard-general-list li {
+	list-style: none;
+}
+.dashboard-general-item {
+	border: 1px solid #222;
+	display: inline-block;
+	padding: 10px;
+	border-radius: 10px;
+	margin-right: 1%;
+}
+.dashboard-general-item-quan {
+	display: block;
+	font-size: 40px;
+	font-weight: 700;
+}
+.dashboard-general-item-icon {
+	height: 60px;
+	width: 60px;
+	background: blue;
+	float: right;
+	display: inline-block;
+}
+.dashboard-general-column-sec {
+	min-width: 280px;
+	max-width: 290px;
+	width: 30%;
+	list-style: none;
+	padding: 10px;
+	border: 1px solid #ccc;
+	display: inline-block;
+	margin: 10px;
+}
+.dashboard-general-column-title {
+	border-bottom: 2px solid #222;
+}
+.dashboard-general-column-item {
+	list-style: none;
+	padding: 10px;
+}
+.dashboard-general-column-item-date {
+	background: rgb(25, 25, 71);
+	height: 55px;
+	width: 55px;
+	border-radius: 10px;
+	color: white;
+	text-align: center;
+	line-height: 23px;
+	padding: 2px;
+	display: inline-block;
+}
+.dashboard-general-item-content {
+	height: 55px;
+	font-size: 14px;
+	line-height: 18px;
+	display: inline-block;
+}
+.dashboard-general-item-content span {
+	display: block;
+}

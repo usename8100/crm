@@ -1,0 +1,77 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="list-lead-main">
+		<div class="lead-bo">
+			
+			<br><h3 style="margin-left: 30px;display: inline;">Manage Proposals</h3>
+			<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Proposal</button>
+			<div class="border-x"></div>
+			<select style="float:right;margin-right: 30px; width: auto;" class="form-select" aria-label="Default select example">
+				<option selected disabled="">Sort by</option>
+				<option value="1">1</option>
+				<option value="2">2</option>
+			</select>
+			<div>
+				<center>
+					<table>
+						<tr>
+							<th>Proposals
+								<span style="float:right;margin-right: 30px;">
+									<div class="input-group">
+										<input  type="text" class="form-control" id="" placeholder="search">
+										<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+									</div>
+								</span>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								Lead: new proposal for customer<br>
+								Proposal ID: 1<br>
+								Lead: ABC<br>
+								Date From: ..... - Open Till: ......<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+										<button type="button" class="btn btn-light btn-sm"><i class="fas fa-file-import"></i> Pdf</button>
+										<button type="button" class="btn btn-info btn-sm"><i class="fas fa-envelope"></i> Send to Customer</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								Lead: new proposal for customer<br>
+								Proposal ID 1<br>
+								Lead: ABC<br>
+								Date From: .....<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Lead: new proposal for customer<br>
+								Proposal ID 1<br>
+								Lead: ABC<br>
+								Date From: .....<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+							</td>
+						</tr>
+					</table>
+				</center>
+				
+
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,60 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="cata-main">
+		<div class="cata-bo">
+			
+			<br><h3 style="margin-left: 30px;display: inline;">Category</h3>
+			<%= link_to new_category_path do %>
+				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add Category</button>
+			<% end -%>
+			<div class="cata-border-x"></div>
+			<span style="float:left;margin-left: 30px; padding-top: 5px ;" >show</span>
+			<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example">
+				<option selected disabled="">Null</option>
+				<option value="1">10</option>
+				<option value="2">20</option>
+			</select>
+			<span style="float:left;margin-left: 5px; padding-top: 5px ;" >Enteries</span>
+			<span style="float:right;margin-right: 30px;">
+				<div class="input-group">
+					<input  type="text" class="form-control" id="" placeholder="search">
+					<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+				</div>
+			</span>
+
+			<div>
+				<center>
+					<div class="table-c-bo"><table>
+						<tr>
+							<th style="width: 60px;">Stt</th>
+							<th>Name</th>
+							<th style="width: 200px;">Action</th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>Phone</td>
+							<td>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+					</table></div>
+					<div>
+						<button style="margin-right: 10px;" type="button" class="btn btn-secondary btn-sm"> Previous</button>
+						<button type="button" class="btn btn-secondary btn-sm"> next</button>				
+						<div style="padding-bottom: 20px;"></div>
+					</div>
+
+				</center>
+				
+			</div>
+
+		</div>
+	</div>
+</div>

@@ -1,0 +1,68 @@
+.cata-main{
+	margin: 30px 30px 30px 30px;
+	width: 90%;
+}
+.cata-bo{border: 1px solid gray;}
+.cata-border-x{
+	border-bottom: 3px solid gray;
+	margin: 10px 20px 10px 20px;
+}
+.cata-border-add-x{
+	border-bottom: 1.5px solid black;
+	margin: 15px 0px 20px 0px;
+}
+.cata-bo table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  margin: 60px 0px 30px 0px;
+}
+.cata-bo td, th {
+	border: 1px solid #dddddd; 
+	padding: 10px;
+}
+.cata-bo th{
+	background-color: gray;
+	height: 50px;
+	color: white;
+}
+.cata-bo tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.cata-btn-mini button{
+	font-size:12px;
+	height: 19px;
+	padding-top: 0px ;
+	width: auto;
+}
+
+.table-c-bo table{
+  border:1px solid black;
+  border-collapse: collapse;
+}
+.table-c-bo td,th{
+	height: 40px;
+	padding-left: 9px ;
+	border:1px solid black;
+	border-collapse: collapse;
+}
+.table-c-bo th{
+	border-right: 1px solid black ;
+}
+.table-c-bo tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.width-add-p{
+	width: 80%;
+	margin: 20px 50px 20px 50px ;
+}
+.width-add-p p{
+	width: 10%;
+}
+.width-add-p {
+	textarea, input, select{
+		width: 90%;
+		padding-left: 0px;
+		float: left;
+	}
+}

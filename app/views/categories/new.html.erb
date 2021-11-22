@@ -1,0 +1,24 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="cata-main">
+		<div class="cata-bo">
+			<h4 style="margin-left: 30px;margin-top: 20px;">Add Category</h4>
+			<div class="cata-border-add-x"></div>
+			<center >
+				
+				<div style="width:70%;" class="input-group mb-3">
+					<span style="margin-right: 10px;">Name</span>
+					<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+				</div>
+			</center>
+			<div style="padding-top: 8px;"></div>
+			<div class="cata-border-add-x"></div>
+			<div style="padding-left: 5%; padding-bottom: 20px;">
+				<button type="button" class="btn btn-success btn-sm"> Save</button>
+				<button type="button" class="btn btn-secondary btn-sm"> Close</button>				
+			</div>
+		</div>
+	</div>
+</div>

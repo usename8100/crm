@@ -1,0 +1,75 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="list-lead-main">
+		<div class="lead-bo">
+			
+			<br><h3 style="margin-left: 30px;display: inline;"> Invoices Report</h3>
+			<div class="border-x"></div>
+			<div>
+				<br>
+				<center> <b>
+					<span style="margin-right: 20px ;">From </span>
+					<input type="date" id="" name="">
+					<span style="margin-left: 200px; margin-right: 20px ;">To </span>
+					<input type="date" id="" name="">
+					<button style="margin-left:30px;" type="button" class="btn btn-success btn-sm">Search</button></b>
+				</center><br><br>
+				<div style="border-bottom: 2px solid gray; margin-left: 20px;margin-right:20px"></div>
+				<center>
+					<table>
+						<tr>
+							<th style="height: 60px;">Invoices</th>
+						</tr>
+						<tr>
+							<td>
+								Invoice ID: 1<br>
+								Customer: AAAA<br>
+								Date From: ....... - Due Date: .......<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+										<button type="button" class="btn btn-light btn-sm"><i class="fas fa-file-import"></i> Pdf</button>
+										<button type="button" class="btn btn-info btn-sm"><i class="fas fa-envelope"></i> Send to Customer</button>
+										<select style="background-color: green; color: white;border-radius: 4px;">
+											<option selected disabled="">Convert</option>
+											<option value="1">1</option>
+											<option value="2">2</option>
+										</select>
+									</div>	
+								</span>
+							</td>
+						</tr>
+						
+						<tr>
+							<td>
+								Invoice ID 1<br>
+								Customer: AAAA<br>				    	
+								Date From: .....<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Invoice ID 1<br>
+								Customer: AAAA<br>
+								Date From: .....<br>
+								Total: 1000000$<br>
+								Status: Draft<br>
+							</td>
+						</tr>
+					</table>
+				</center>
+				
+
+			</div>
+
+		</div>
+	</div>
+</div>

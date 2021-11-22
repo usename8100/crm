@@ -1,0 +1,76 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="cata-main">
+		<div class="cata-bo">		
+			<br><h3 style="margin-left: 30px;display: inline;">Manage Staff</h3>
+			<%= link_to new_staff_path do %>
+				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Staff</button>
+			<% end -%>
+			<div class="cata-border-x"></div>
+			<div style="float:right;margin-right:5%"> 
+				<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example">
+					<option selected disabled="">Sort By</option>
+					<option value="1">Name</option>
+					<option value="2">2</option>
+				</select>
+			</div>
+			<div>
+				<center>
+					<div class="table-c-bo"><table>
+						<tr>
+							<th>Name</th>
+							<th>Email</th>
+							<th>Phone</th>
+							<th>Status</th>
+							<th style="width:350px;"><span style="float:right;margin-right: 30px;width: 310px;">
+								<div class="input-group">
+									<input  type="text" class="form-control" id="" placeholder="search">
+									<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+								</div>
+							</span></th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>dadsadas@.com</td>
+							<td>00000000</td>
+							<td>
+								<button style="width:85px" type="button" class="btn btn-success btn-sm"><i class="fas fa-check-circle"></i> active</button>
+							</td>
+							<td>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+						<tr>
+							<td>2</td>
+							<td>dadsadas@.com</td>
+							<td>00000000</td>
+							<td>
+								<button style="width:85px" type="button" class="btn btn-danger btn-sm"><i class="fas fa-times-circle"></i> inactive</button>	
+							</td>
+							<td>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+					</table>
+				</div>
+			</center>
+
+		</div>
+
+	</div>
+</div>
+</div>
