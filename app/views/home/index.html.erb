@@ -1,67 +1,184 @@
 <%= content_for(:sidebar) do %>
-	<%= render :partial => "layouts/sidebar" %>
+<%= render :partial => "layouts/sidebar" %>
 <% end -%>
 <div class="col-md-10 main">
-	<div class="list-lead-main">
-		<div class="lead-bo">
-			
-			<br><h3 style="margin-left: 30px;display: inline;">Manage Leads </h3>
-			<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Lead</button>
-			<div class="border-x"></div>
-			<select style="float:right;margin-right: 30px; width: auto;" class="form-select" aria-label="Default select example">
-			  <option selected disabled="">Oldest Company</option>
-			  <option value="1">Company1</option>
-			  <option value="2">Company2</option>
-			</select>
-			<div>
-				<center>
-					<table>
-				  <tr>
-				    <th>Companies
-				    	<span style="float:right;margin-right: 30px;">
-				    		<div class="input-group">
-					    		<input  type="text" class="form-control" id="" placeholder="search">
-					    		<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
-					    	</div>
-				    	</span>
-				    </th>
-				  </tr>
-				  <tr>
-				    <td>
-				    	Company1<br>
-				    	Phone<br>
-				    	Address<br>
-				    	<span>
-				    		<div class="btn-mini">
-				    			<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
-					    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-					    		<button type="button" class="btn btn-success btn-sm"><i class="fas fa-exchange-alt"></i> Convert to Customer</button>
-					    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-				    		</div>	
-				    	</span>
-				  	</td>
-				  </tr>
-				  
-				  <tr>
-				    <td>
-				    	Company2<br>
-				    	Phone<br>
-				    	Address
-				  	</td>
-				  </tr>
-				  <tr>
-				    <td>
-				    	Company3<br>
-				    	Phone<br>
-				    	Address
-				  	</td>
-				  </tr>
-					</table>
-				</center>
-				
 
+	<div class="dashboard-main">
+		<div class="dashboard-title">
+			<h2>Dashboard</h2>
+		</div>
+		<div class="dashboard-content">
+			<div class="dashboard-general">
+				<h3>Welcome to Admin Panel</h3>
+				<div>
+					<ul class="dashboard-general-list">
+						<li class="dashboard-general-item">
+							<div style="display: inline-block;">
+								<span class="dashboard-general-item-quan">5</span>
+								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
+							</div>
+							<div class="dashboard-general-item-icon"></div>
+						</li>
+						<li class="dashboard-general-item">
+							<div style="display: inline-block;">
+								<span class="dashboard-general-item-quan">5</span>
+								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
+							</div>
+							<div class="dashboard-general-item-icon"></div>
+						</li>
+						<li class="dashboard-general-item">
+							<div style="display: inline-block;">
+								<span class="dashboard-general-item-quan">5</span>
+								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
+							</div>
+							<div class="dashboard-general-item-icon"></div>
+						</li>
+						<li class="dashboard-general-item">
+							<div style="display: inline-block;">
+								<span class="dashboard-general-item-quan">5</span>
+								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
+							</div>
+							<div class="dashboard-general-item-icon"></div>
+						</li>
+					</ul>
+				</div>
+				<div>
+					<ul class="dashboard-general-column">
+						<li class="dashboard-general-column-sec">
+							<div class="dashboard-general-column-title">
+								<span style="font-size: 22px;font-weight: 400;">Leads</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
+								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+							</div>
+							<div>
+								<ul style="padding: 0;">
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="dashboard-general-column-sec">
+							<div class="dashboard-general-column-title">
+								<span style="font-size: 22px;font-weight: 400;">Leads</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
+								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+							</div>
+							<div>
+								<ul style="padding: 0;">
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+						<li class="dashboard-general-column-sec">
+							<div class="dashboard-general-column-title">
+								<span style="font-size: 22px;font-weight: 400;">Leads</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
+								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+							</div>
+							<div>
+								<ul style="padding: 0;">
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+									<li class="dashboard-general-column-item">
+										<div class="dashboard-general-column-item-date">
+											<span style="font-weight:600; font-size: 27px;">15</span>
+											<span>Mon</span>
+										</div>
+										<div class="dashboard-general-item-content">
+											<span style="font-weight: 700">Sample Lead 8</span>
+											<span>Phone: 012783712</span>
+											<span>Email: sample8@gmail.com</span>
+										</div>
+									</li>
+								</ul>
+							</div>
+						</li>
+					</ul>
+				</div>
 			</div>
-
 		</div>
 	</div>
 </div>

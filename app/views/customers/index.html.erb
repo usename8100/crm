@@ -1,0 +1,68 @@
+<%= content_for(:sidebar) do %>
+	<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+
+<div class="col-md-10 main">
+	<div class="list-lead-main">
+		<div class="lead-bo">
+
+			<br><h3 style="margin-left: 30px;display: inline;">Manage Customers </h3>
+			<%= link_to new_lead_path do %>
+				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Customer</button>
+			<% end -%>
+			<div class="border-x"></div>
+			<select style="float:right;margin-right: 30px; width: auto;" class="form-select" aria-label="Default select example">
+				<option selected disabled="">Oldest Company</option>
+				<option value="1">Company1</option>
+				<option value="2">Company2</option>
+			</select>
+			<div>
+				<center>
+					<table>
+						<tr>
+							<th>Manage Customers
+								<span style="float:right;margin-right: 30px;">
+									<div class="input-group">
+										<input  type="text" class="form-control" id="" placeholder="search">
+										<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+									</div>
+								</span>
+							</th>
+						</tr>
+						<tr>
+							<td>
+								Customer1<br>
+								Phone<br>
+								Address<br>
+								<span>
+									<div class="btn-mini">
+										<%= link_to customer_path(1) do %>
+											<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+										<% end -%>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+
+						<tr>
+							<td>
+								Cus2<br>
+								Phone<br>
+								Address
+							</td>
+						</tr>
+						<tr>
+							<td>
+								Cus3<br>
+								Phone<br>
+								Address
+							</td>
+						</tr>
+					</table>
+				</center>
+			</div>
+		</div>
+	</div>
+</div>

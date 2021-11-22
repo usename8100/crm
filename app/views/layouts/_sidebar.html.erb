@@ -1,11 +1,11 @@
 <div class="col-sm-3 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
-		<li><%= link_to "Dashboard" %></li>
+		<li><%= link_to "Dashboard", root_path %></li>
 		<li>
 			<a class="leads_btn">Leads <span class="fas fa-caret-down"></span></a>
 			<ul class="leads_item">
 			    <li>
-			        <a href="#">Manage Leads</a>
+			        <%= link_to 'Manage Leads', leads_path %>
 			    </li>
 			    <li>
 			        <a href="#">Success Leads</a>
@@ -19,7 +19,7 @@
 			<a class="customer_btn">Customers <span class="fas fa-caret-down"></span></a>
 			<ul class="customer_item">
 			    <li>
-			        <a href="#">Manage Customers</a>
+			    	<%= link_to 'Manage Customers', customers_path %>
 			    </li>
 			    <li>
 			        <a href="#">Recycle Bin</a>
@@ -30,10 +30,10 @@
 			<a class="catalog_btn">Catalogs <span class="fas fa-caret-down"></span></a>
 			<ul class="catalog_item">
 			    <li>
-			        <a href="#">Products</a>
+		    		<%= link_to 'Products', products_path %>
 			    </li>
 			    <li>
-			        <a href="#">Category</a>
+			    	<%= link_to 'Category', categories_path %>
 			    </li>
 			</ul>
 	  </li>
@@ -41,16 +41,16 @@
 			<a class="sale_btn">Sales <span class="fas fa-caret-down"></span></a>
 			<ul class="sale_item">
 			    <li>
-			        <a href="#">Proposals</a>
+			        <%= link_to 'Proposals', proposals_path %>
 			    </li>
 			    <li>
-			        <a href="#">Estimates</a>
+			        <%= link_to 'Estimates', estimates_path %>
 			    </li>
 			    <li>
-			        <a href="#">Invoices</a>
+			        <%= link_to 'Invoices', invoices_path %>
 			    </li>
 			    <li>
-			        <a href="#">Taxes</a>
+			        <%= link_to 'Taxes', taxes_path %>
 			    </li>
 			</ul>
 	  </li>
@@ -58,10 +58,11 @@
 			<a class="staff_btn">Staff <span class="fas fa-caret-down"></span></a>
 			<ul class="staff_item">
 			    <li>
-			        <a href="#">Add staff</a>
+			    	<%= link_to 'Add Staff', new_staff_path %>
+
 			    </li>
 			    <li>
-			        <a href="#">Manage Staff</a>
+			    	<%= link_to 'Manage Staff', staffs_path %>
 			    </li>
 			</ul>
 	  </li>
@@ -69,13 +70,13 @@
 			<a class="report_btn">Report <span class="fas fa-caret-down"></span></a>
 			<ul class="report_item">
 			    <li>
-			        <a href="#">Proposals Report</a>
+			    	<%= link_to 'Proposals Report', reports_proposals_path %>
 			    </li>
 			    <li>
-			        <a href="#">Estimates Report</a>
+			        <%= link_to 'Estimates Report', reports_estimates_path %>
 			    </li>
 			    <li>
-			        <a href="#">Invoices Report</a>
+			        <%= link_to 'Invoices Report', reports_invoices_path %>
 			    </li>
 			</ul>
 	  </li>

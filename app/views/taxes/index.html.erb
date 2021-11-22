@@ -1,0 +1,58 @@
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="cata-main">
+		<div class="cata-bo">
+			
+			<br><h3 style="margin-left: 30px;display: inline;">Manage Taxes</h3>
+			<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Tax</button>
+			<div class="cata-border-x"></div>
+			<div style="float:right;margin-right:5%"> 
+				<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example">
+					<option selected disabled="">Sort By</option>
+					<option value="1">Name</option>
+					<option value="2">2</option>
+				</select>
+			</div>
+			<div>
+				<center>
+					<div class="table-c-bo"><table>
+						<tr>
+							<th style="width: 60px;">Stt</th>
+							<th>Name</th>
+							<th>Tax</th>
+							<th style="width:350px;"><span style="float:right;margin-right: 30px;width: 310px;">
+								<div class="input-group">
+									<input  type="text" class="form-control" id="" placeholder="search">
+									<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+								</div>
+							</span></th>
+						</tr>
+						<tr>
+							<td>1</td>
+							<td>TGTGT</td>
+							<td>5%</td>
+							<td>
+								<span>
+									<div class="btn-mini">
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									</div>	
+								</span>
+							</td>
+						</tr>
+					</table></div>
+					<div>
+						<button style="margin-right: 10px;" type="button" class="btn btn-secondary btn-sm"> Previous</button>
+						<button type="button" class="btn btn-secondary btn-sm"> next</button>				
+						<div style="padding-bottom: 20px;"></div>
+					</div>
+					
+				</center>
+				
+			</div>
+
+		</div>
+	</div>
+</div>
