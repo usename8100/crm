@@ -7,16 +7,17 @@
 			<h4 style="margin-left: 30px;margin-top: 20px;">Add Category</h4>
 			<div class="cata-border-add-x"></div>
 			<center >
-				
+				<%= form_with(model: @category) do |f| %>
 				<div style="width:70%;" class="input-group mb-3">
 					<span style="margin-right: 10px;">Name</span>
-					<input type="text" class="form-control" aria-label="Dollar amount (with dot and two decimal places)">
+			     <%= f.text_field :name, class:"form-control", placeholder: "Name" %>
 				</div>
 			</center>
 			<div style="padding-top: 8px;"></div>
 			<div class="cata-border-add-x"></div>
 			<div style="padding-left: 5%; padding-bottom: 20px;">
-				<button type="button" class="btn btn-success btn-sm"> Save</button>
+				<%= f.submit "Save", class: "btn btn-success btn-sm", style:"width: 50px" %>
+				<% end %>
 				<button type="button" class="btn btn-secondary btn-sm"> Close</button>				
 			</div>
 		</div>
