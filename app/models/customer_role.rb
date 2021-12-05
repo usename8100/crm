@@ -1,0 +1,2 @@
+class CustomerRole < ApplicationRecord
+end

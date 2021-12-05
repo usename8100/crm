@@ -1,0 +1,103 @@
+<%= content_for(:sidebar) do %>
+	<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="lead-p-main">
+		<div class="lead-p-left">
+			<div class="lead-bo">
+				<div class="lead-p-center">
+					<h3><b><%= @lead.name %></b></h3>
+					<center><img src="https://infofinance.vn/wp-content/uploads/2020/09/bieu-tuong-y-nghia-lo-go-cua-ngan-hang-quan-doi-MB-Bank...jpg" class="img-thumbnail" ></center>
+					<p><i class="fas fa-phone-alt"></i> Phone: <b><%= @lead.phone %></b></p>
+					<p><i class="fas fa-briefcase"></i> Email: <b><%= @lead.email %></b></p>
+					<div class="border-x"></div>
+
+					<div class="d-grid gap-1">
+						<center>
+							<%= link_to lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
+							<% end -%>
+						<center>
+							<%= link_to contact_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-briefcase"></i> Contacts</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to call_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to appointment_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-car"></i> Apointments</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to note_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to proposal_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary active" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
+							<% end -%>
+						</center>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="lead-p-right">
+			<div class="lead-top-title">
+				<h2>Proposals</h2>
+				<%= link_to new_proposal_path do %>
+					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Proposal</button>
+				<% end -%>
+			</div>
+			<div class="lead-contact-content">
+				<table class="lead-proposal-table">
+					<thead>
+						<tr>
+							<th scope="col">Proposal Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td>
+								<span>Subject: <b>Some item</b></span>
+								<span>Date <b>02-03-2021</b></span>
+								<span>Total <b>199000</b></span>
+								<span>Status <b>Sent</b></span>
+								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>Subject: <b>Some item 2</b></span>
+								<span>Date <b>02-03-2021</b></span>
+								<span>Total <b>199000</b></span>
+								<span>Status <b>Sent</b></span>
+								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+							</td>
+						</tr>
+						<tr>
+							<td>
+								<span>Subject: <b>Some item 3</b></span>
+								<span>Date <b>02-03-2021</b></span>
+								<span>Total <b>199000</b></span>
+								<span>Status <b>Sent</b></span>
+								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>

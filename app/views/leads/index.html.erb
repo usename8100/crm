@@ -23,60 +23,32 @@
 				    <th>Companies
 				    	<span style="float:right;margin-right: 30px;">
 				    		<div class="input-group">
-					    		<input  type="text" class="form-control" id="" placeholder="search">
+					    		<input  type="text" id="" placeholder="search">
 					    		<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
 					    	</div>
 				    	</span>
 				    </th>
 				  </tr>
-				  <tr>
-				    <td>
-				    	Company 1<br>
-				    	Phone<br>
-				    	Address<br>
-				    	<span>
-				    		<div class="btn-mini">
-				    			<%= link_to lead_path(1) do %>
-				    				<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
-					    		<% end -%>
-					    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-					    		<button type="button" class="btn btn-success btn-sm"><i class="fas fa-exchange-alt"></i> Convert to Customer</button>
-					    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-				    		</div>	
-				    	</span>
-				  	</td>
-				  </tr>
-				  
-				  <tr>
-				    <td>
-				    	Company 2<br>
-				    	Phone<br>
-				    	Address<br>
-				    	<span>
-				    		<div class="btn-mini">
-				    			<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
-					    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-					    		<button type="button" class="btn btn-success btn-sm"><i class="fas fa-exchange-alt"></i> Convert to Customer</button>
-					    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-				    		</div>	
-				    	</span>
-				  	</td>
-				  </tr>
-				  <tr>
-				    <td>
-				    	Company 3<br>
-				    	Phone<br>
-				    	Address<br>
-				    	<span>
-				    		<div class="btn-mini">
-				    			<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
-					    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-					    		<button type="button" class="btn btn-success btn-sm"><i class="fas fa-exchange-alt"></i> Convert to Customer</button>
-					    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-				    		</div>	
-				    	</span>
-				  	</td>
-				  </tr>
+				  <% @leads.each do |lead|%>
+					  <tr>
+					    <td>
+					    	<%= lead.name %><br>
+					    	<%= lead.phone %><br>
+					    	<%= lead.detail_address %><br>
+					    	<span>
+					    		<div class="btn-mini">
+					    			<%= link_to lead_path(lead.id) do %>
+					    				<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
+						    		<% end -%>
+						    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+						    		<button type="button" class="btn btn-success btn-sm"><i class="fas fa-exchange-alt"></i> Convert to Customer</button>
+						    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+					    		</div>	
+					    	</span>
+					  	</td>
+					  </tr>
+				  <% end -%>
+
 					</table>
 				</center>
 				

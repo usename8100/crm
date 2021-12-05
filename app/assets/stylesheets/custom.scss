@@ -86,3 +86,13 @@ body {
 li{
 	list-style: none;	
 }
+
+
+/*** active button ***/
+.active {
+	background-color: red;
+	color: white;
+	&:hover {
+		color: yellow;
+	}
+}

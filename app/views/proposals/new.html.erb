@@ -1,2 +1,107 @@
-<h1>Proposals#new</h1>
-<p>Find me in app/views/proposals/new.html.erb</p>
+<%= content_for(:sidebar) do %>
+	<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<h2>Add Proposal</h2>
+	<div class="proposal-upper">
+		<div class="proposal-upper-left" style="float: left;">
+			<div class="proposal-title">
+				<h2>Proposal Details</h2>
+			</div>
+			<div style="margin-top: 20px;">
+				<form>
+					<div class="form-group">
+						<div class="form-group">
+							<label><b>Subject</b></label>
+							<input type="text" class="form-control">
+						</div>
+						<div class="form-group">
+							<label><b>Related</b></label>
+							<select class="form-control" >
+								<option>Lead</option>
+								<option>Customer</option>
+							</select>
+						</div>
+						<div class="form-group">
+							<label><b>Lead</b></label>
+							<select class="form-control" >
+								<option>IBM</option>
+								<option>Samsung</option>
+							</select>
+						</div>
+						<div>
+							<span style="margin-right: 20px ;">From </span>
+							<input type="date" id="" name="">
+							<span style="margin-left: 20px; margin-right: 20px ;">To </span>
+							<input type="date" id="" name="">
+						</div><br>
+						<div class="form-group">
+							<label><b>Status</b></label>
+							<select class="form-control" >
+								<option>Draft</option>
+								<option>New</option>
+							</select>
+						</div>
+					</div>
+				</form>
+			</div>
+		</div>
+
+		<div class="proposal-upper-right">
+			<div class="proposal-title">
+				<h2>Customer Details</h2>
+			</div>
+			<div class="proposal-upper-right-content">
+				<span><b>Address:</b> 12th floor, Khali Building, 123 Kesh Street</span>
+				<span><b>City:</b> New York</span>
+				<span><b>Country:</b> United States</span>
+				<span><b>Email:</b> famousemail@mail.com</span>
+				<span><b>Phone:</b> 09127722889</span>
+			</div>
+		</div>
+	</div>
+	<div class="proposal-lower">
+		<div class="proposal-lower-title">
+			<h2>Item Details</h2>
+		</div>
+		<div class="proposal-middle">
+			<h3>Add Item</h3>
+			<div class="item-select">
+				<select class="form-control">
+					<option>Select an item</option>
+					<option>New</option>
+				</select>
+			</div>
+			<button type="button" class="btn btn-success btn-sm btn-plus"><i class="fas fa-plus"></i></button>
+			<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Item</button>
+		</div>
+		<div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Tax</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tr>
+					<td><input type="text" class="form-control" placeholder="Item"></td>
+					<td><input type="text" class="form-control" placeholder="1"></td>
+					<td><input type="text" class="form-control" placeholder="Price"></td>
+					<td>
+						<select class="form-control">
+							<option>No Tax</option>
+							<option>New</option>
+						</select>
+					</td>
+					<td><input type="text" class="form-control" placeholder="Amount"></td>
+				</tr>
+			</table>
+			<center>
+				<button class="btn btn-success">Calculate</button>
+			</center>
+		</div>
+	</div>
+</div>
