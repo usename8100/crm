@@ -32,6 +32,9 @@
 	padding: 10px;
 	border-radius: 10px;
 	margin-right: 1%;
+	div span {
+		margin: 10px 0;
+	}
 }
 .dashboard-general-item-quan {
 	display: block;
@@ -41,9 +44,12 @@
 .dashboard-general-item-icon {
 	height: 60px;
 	width: 60px;
-	background: blue;
 	float: right;
 	display: inline-block;
+	img {
+		height: 60px;
+		width: 60px;
+	}
 }
 .dashboard-general-column-sec {
 	min-width: 280px;

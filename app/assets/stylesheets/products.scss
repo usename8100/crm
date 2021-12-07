@@ -59,8 +59,10 @@
 .width-add-p p{
 	width: 10%;
 }
-.width-add-p textarea, input, select{
-	width: 90%;
-	padding-left: 0px;
-	float: left;
+.width-add-p {
+	textarea, input, select{
+		width: 90%;
+		padding-left: 0px;
+		float: left;
+	}
 }

@@ -5,4 +5,32 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Account.create(email: 'qwe@qwe.qwe', password: '123123')AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
+Account.create!(name: Faker::Name.unique.name, email: 'qwe@qwe.qwe', password: '123123')
+CustomerRole.create!(name: 'lead')
+CustomerRole.create!(name: 'customer')
+Staff.create!(user_id: 1, designation: 'Manager')
+Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Contact.create!(customer_id: 1, name: 'Hannah', phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, designation: 'Secretary', notes: 'secondary contact for work')
+Contact.create!(customer_id: 1, name: 'Tom', phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, designation: 'Secretary', notes: 'contact for entertainment')
+Call.create!(customer_id: 1, staff_id: 1, date: Time.zone.now, description: 'Talk about newest product')
+Call.create!(customer_id: 1, staff_id: 1, date: Time.zone.now, description: 'Talk about ordering experience')
+Call.create!(customer_id: 1, staff_id: 1, date: Time.zone.now, description: "Talk about customer's feedback")
+Appointment.create!(customer_id: 1, date: Time.zone.now, subject: 'New product information', 
+							content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+Appointment.create!(customer_id: 1, date: Time.now.tomorrow, subject: 'New product information', 
+							content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
+						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
+Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
+Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
