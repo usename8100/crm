@@ -15,7 +15,7 @@
 					<div class="d-grid gap-1">
 						<center>
 							<%= link_to lead_path(@lead.id) do %>
-								<button class="btn btn-secondary active" type="button"><i class="fas fa-user"></i> Profile</button></center>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
 							<% end -%>
 						<center>
 							<%= link_to contact_lead_path(@lead.id) do %>
@@ -34,7 +34,7 @@
 						</center>
 						<center>
 							<%= link_to note_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
+								<button class="btn btn-secondary active" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
 							<% end -%>
 						</center>
 						<center>
@@ -48,62 +48,31 @@
 			</div>
 		</div>
 		<div class="lead-p-right">
-			<div class="lead-bo-p">
-				<div class="lead-p-center">
-					<h5>Lead Details</h5>
-					<div class="border-x"></div>
-					<div class="table-f-bo">
-						<table style="width:100%">
+			<div class="lead-top-title">
+				<h2>Notes</h2>
+				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Note</button>
+			</div>
+			<div class="lead-contact-content">
+				<table class="lead-proposal-table">
+					<thead>
+						<tr>
+							<th scope="col">Note Details</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @notes.each do |note| %>
 							<tr>
-								<td style="width:20%">Name: </td>
-								<td><%= @lead.name %></td>
+								<td>
+									<p><%= note.content %></p>
+									<span>Created bt <b><%= @lead.get_staff_name %></b> on <b><%= note.created_at.strftime('%a, %d %B %Y %H:%M %p')%></b></span>
+									<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+									<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+								</td>
 							</tr>
-							<tr>
-								<td>Phone: </td>
-								<td><%= @lead.phone %></td>
-							</tr>
-							<tr>
-								<td>Email: </td>
-								<td><%= @lead.email %></td>
-							</tr>
-							<tr>
-								<td>Website:</td>
-								<td>....</td>
-							</tr>
-							<tr>
-								<td>Street: </td>
-								<td><%= @lead.detail_address %></td>
-							</tr>
-							<tr>
-								<td>City: </td>
-								<td><%= @lead.city %></td>
-							</tr>
-							<tr>
-								<td>Country:</td>
-								<td><%= @lead.city %></td>
-							</tr>
-							<tr>
-								<td>Source:</td>
-								<td>....</td>
-							</tr>
-							<tr>
-								<td>Assign To:</td>
-								<td><%= @staff_acc.name %></td>
-							</tr>
-							<tr>
-								<td>Comment:</td>
-								<td>....</td>
-							</tr>
-							<tr>
-								<td>Status:</td>
-								<td>....</td>
-							</tr>
-						</table>
-					</div>
-
-				</div>
+						<% end -%>
+					</tbody>
+				</table>
 			</div>
 		</div>
-
 	</div>
 </div>

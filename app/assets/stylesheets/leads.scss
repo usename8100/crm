@@ -223,3 +223,269 @@
 	padding-top: 0px ;
 	width: auto;
 }
+
+/*** new file lead css ***/
+.add-lead-main{margin-top: 30px;}
+.add-lead-main .add-lead-left {
+	float: left;
+	width: 49%;
+	min-height: 400px ;
+	margin-left: 10px;
+}
+.lead-bo{border: 1px solid gray;}
+.border-x{
+	border-bottom: 3px solid gray;
+	margin: 10px 20px 10px 20px;
+}
+.add-lead-main .add-lead-left p{
+	float: left;
+	width: 100px;
+	margin-left: 0px;
+}
+.add-lead-main .add-lead-left span{
+	float: left;
+	width: 35px;
+}
+.add-lead-main .add-lead-left input textarea{
+	float: left;
+}
+.add-lead-center{
+	margin: 20px 50px 20px 50px ;
+}
+
+.add-lead-main .add-lead-right {
+	float: left;
+	width: 49%;
+	margin-left: 20px;
+	min-height: 470px ;
+}
+.add-lead-main .add-lead-right p{
+	float: left;
+	width: 100px;
+	margin-left: 0px;
+}
+.add-lead-main .add-lead-right span{
+	float: left;
+	width: 35px;
+}
+
+.add-lead-main{margin-top: 30px;}
+.add-lead-main .add-lead-left {
+	float: left;
+	width: 49%;
+	min-height: 400px ;
+	margin-left: 10px;
+}
+
+.add-lead-main .add-lead-left p{
+	float: left;
+	width: 100px;
+	margin-left: 0px;
+}
+.add-lead-main .add-lead-left span{
+	float: left;
+	width: 35px;
+}
+.add-lead-main .add-lead-left input textarea{
+	float: left;
+}
+.add-lead-center{
+	margin: 20px 50px 20px 50px ;
+}
+
+.add-lead-main .add-lead-right {
+	float: left;
+	width: 49%;
+	margin-left: 20px;
+	min-height: 470px ;
+}
+.add-lead-main .add-lead-right p{
+	float: left;
+	width: 100px;
+	margin-left: 0px;
+}
+.add-lead-main .add-lead-right span{
+	float: left;
+	width: 35px;
+}
+.lead-p-main{margin-top: 30px;}
+.lead-p-main .lead-p-left {
+	float: left;
+	width: 29%;
+	min-height: 400px ;
+	margin-left: 10px;
+}
+.lead-p-center{
+	margin: 50px ;
+}
+.lead-p-left button{
+	text-align: left;
+	width: 80%;
+}
+.lead-p-main .lead-p-right {
+	float: left;
+	width: 69%;
+	margin-left: 20px;
+	min-height: 470px ;
+}
+.lead-bo-p{border: 1px solid gray;}
+.table-f-bo table{
+  border:1px solid black;
+  border-collapse: collapse;
+}
+.table-f-bo td{
+	height: 40px;
+	padding-left: 9px ;
+	border:1px solid black;
+	border-collapse: collapse;
+}
+.table-f-bo tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.lead-p-main img{
+	height: 250px;
+	max-width: 80%;
+}
+
+.lead-p-main .lead-p-left {
+	float: left;
+	width: 29%;
+	min-height: 400px ;
+	margin-left: 10px;
+}
+
+.lead-p-center{
+	margin: 50px ;
+}
+.lead-p-left button{
+	text-align: left;
+	width: 80%;
+}
+.lead-p-main .lead-p-right {
+	float: left;
+	width: 69%;
+	margin-left: 20px;
+	min-height: 470px ;
+}
+
+.lead-p-right table{
+  border:1px solid black;
+  border-collapse: collapse;
+}
+.lead-p-right td{
+	height: 40px;
+	padding-left: 9px ;
+  border:1px solid black;
+  border-collapse: collapse;
+}
+.lead-p-right tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.lead-p-main img{
+	height: 250px;
+	max-width: 80%;
+}
+
+.list-lead-main{
+	margin: 30px 30px 30px 30px;
+	width: 90%;
+}
+.lead-bo table {
+  font-family: arial, sans-serif;
+  border-collapse: collapse;
+  width: 90%;
+  margin: 60px 0px 30px 0px;
+}
+.lead-bo td, th {
+	border: 1px solid #dddddd; 
+	padding: 10px;
+}
+.lead-bo th{
+	background-color: gray;
+	height: 50px;
+	color: white;
+}
+.lead-bo tr:nth-child(even) {
+  background-color: #dddddd;
+}
+.btn-mini button{
+	font-size:12px;
+	height: 19px;
+	padding-top: 0px ;
+	width: auto;
+}
+
+.lead-top-title {
+	padding: 10px;
+	margin-left: 80px;
+	border-bottom: 2px solid #222;
+	max-width: 90%;
+}
+.lead-top-title h2{
+	display: inline-block;
+	font-size: 25px;
+}
+
+.lead-p-right {
+	border: 1px solid #ccc;
+}
+
+.lead-call-content {
+	padding: 10px;
+	margin-left: 80px;
+	border-bottom: 1px solid #222;
+	max-width: 90%;
+}
+.lead-call-content li {
+	list-style-type: none;
+}
+
+.lead-call-list-right span{
+	display: block;
+	font-size: 14px;
+}
+
+.lead-call-date-label {
+	padding: 0 10px;
+	display: inline-block;
+	position: relative;
+	top: -60px;
+	background-image: url("/date_arrow.png");
+	background-repeat: no-repeat;
+	width: 109px;
+	background-size: 100px 60px;
+	line-height: 60px;
+	font-weight: 700;
+}
+
+.lead-call-list-right {
+	margin-left: 20px;
+	border-left: 2px solid orange;
+	padding-left: 20px;
+	display: inline-block;
+	margin-bottom: 10px;
+}
+.lead-call-list-right button{
+	line-height: 10px;
+	margin: 20px 0;
+}
+
+.lead-contact-content table {
+	width: 90%;
+	margin: 20px 6% ;
+}
+.lead-contact-content table span{
+	display: block;
+}
+.lead-contact-content table button{
+	display: block;
+	margin: 20px;
+}
+.left-column {
+	width: 80%;
+}
+
+.lead-proposal-table button{
+	display: inline-block !important;
+	margin: 20px 0 !important;
+}

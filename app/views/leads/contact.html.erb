@@ -1,0 +1,125 @@
+<%= content_for(:sidebar) do %>
+	<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<div class="lead-p-main">
+		<div class="lead-p-left">
+			<div class="lead-bo">
+				<div class="lead-p-center">
+					<h3><b><%= @lead.name %></b></h3>
+					<center><img src="https://infofinance.vn/wp-content/uploads/2020/09/bieu-tuong-y-nghia-lo-go-cua-ngan-hang-quan-doi-MB-Bank...jpg" class="img-thumbnail" ></center>
+					<p><i class="fas fa-phone-alt"></i> Phone: <b><%= @lead.phone %></b></p>
+					<p><i class="fas fa-briefcase"></i> Email: <b><%= @lead.email %></b></p>
+					<div class="border-x"></div>
+
+					<div class="d-grid gap-1">
+						<center>
+							<%= link_to lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
+							<% end -%>
+						<center>
+							<%= link_to contact_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary active" type="button"><i class="fas fa-briefcase"></i> Contacts</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to call_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to appointment_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-car"></i> Apointments</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to note_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
+							<% end -%>
+						</center>
+						<center>
+							<%= link_to proposal_lead_path(@lead.id) do %>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
+							<% end -%>
+						</center>
+					</div>
+
+				</div>
+			</div>
+		</div>
+		<div class="lead-p-right">
+			<div class="lead-top-title">
+				<h2>Contacts</h2>
+					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_contact"><i class="fas fa-plus"></i>Add New Contacts</button>
+			</div>
+			<div class="lead-contact-content">
+				<table >
+					<thead>
+						<tr>
+							<th scope="col">Contacts Details</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @contacts.each do |contact| %>
+							<tr>
+								<td class="left-column">
+									<span><b><%= contact.name %></b></span>
+									<span>Designation: <b><%= contact.designation %></b></span>
+									<span>Phone: <b><%= contact.phone %></b></span>
+									<span>Email: <b><%= contact.email %></b></span>
+									<span>Notes: <b><%= contact.notes %></b></span>
+								</td>
+								<td>
+									<%= link_to edit_lead_contact_path(@lead.id, contact.id) do %>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+									<% end -%>
+									<%= link_to destroy_contact_path(@lead.id, contact.id),method: :delete do %>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									<% end -%>
+								</td>
+							</tr>
+						<% end -%>
+					</tbody>
+				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="form_new_contact" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Contact</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_with(model: @contact, url: new_lead_contact_path(@lead.id)) do |form| %>
+		      <%= form.hidden_field :customer_id, value: @lead.id %>
+					<div class="mb-3 form-group">
+			      <%= form.label :name, "Name" %>
+			      <%= form.text_field :name, class:"form-control", placeholder: "Name"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :phone, "Phone" %>
+			      <%= form.text_field :phone, class:"form-control", placeholder: "Phone"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :email, "Email" %>
+			      <%= form.email_field :email, class:"form-control", placeholder: "Email"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :designation, "Designation" %>
+			      <%= form.text_field :designation, class:"form-control", placeholder: "Designation"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :notes, "Note" %>
+			      <%= form.text_area :notes, class:"form-control", placeholder: "Note"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.submit "Add", class: "btn btn-success" %>
+			    </div>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+</div>
