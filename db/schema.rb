@@ -75,6 +75,12 @@ ActiveRecord::Schema.define(version: 2021_12_02_063835) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "categories", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "contacts", force: :cascade do |t|
     t.integer "customer_id"
     t.string "name"
@@ -122,6 +128,17 @@ ActiveRecord::Schema.define(version: 2021_12_02_063835) do
     t.string "status"
     t.integer "discount"
     t.string "total"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
+  create_table "items", force: :cascade do |t|
+    t.string "name"
+    t.integer "category_id"
+    t.integer "tax_id"
+    t.integer "quantity"
+    t.string "price"
+    t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
