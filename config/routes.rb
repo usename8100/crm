@@ -10,6 +10,7 @@ Rails.application.routes.draw do
       get :appointment
       get :note
       get :proposal
+      get :invoice
     end
   end
   post '/lead/:lead_id/contact/', to: 'contacts#create', as: 'new_lead_contact'
