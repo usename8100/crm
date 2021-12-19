@@ -106,6 +106,10 @@ ActiveRecord::Schema.define(version: 2021_12_02_072106) do
     t.string "city"
     t.string "phone"
     t.string "email"
+    t.string "source"
+    t.string "status"
+    t.text "note"
+    t.string "website"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end

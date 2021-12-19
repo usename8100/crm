@@ -39,7 +39,9 @@ class ContactsController < ApplicationController
   end
 
   def destroy
-    Contact.find(params[:id]).destroy
-    redirect_to contact_lead_path(params[:lead_id])
+    contact = Contact.find(params[:id])
+    if contact.destroy
+      redirect_to contact_lead_path(params[:lead_id])
+    end
   end
 end

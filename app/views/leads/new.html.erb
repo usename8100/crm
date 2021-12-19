@@ -1,118 +1,124 @@
 <%= content_for(:sidebar) do %>
-	<%= render :partial => "layouts/sidebar" %>
+<%= render :partial => "layouts/sidebar" %>
 <% end -%>
 <div class="col-md-10 main">
 	<div class="add-lead-main">
+		<%= form_with(model: @customer, url: new_lead_path) do |form| %>
 		<div class="add-lead-left">
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Company Details </h5>
 				<div class="border-x"></div>
-					<div class="add-lead-center"> 
-						<div class="input-group input-group-sm mb-3"><p>Company*</p> 
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-briefcase"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company or Lead Name">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>Phone*</p> 
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-phone-alt"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company Phone Number">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>Email*</p> 
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-envelope"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company Email">
-						</div>
-						<div class="input-group input-group-sm mb-3">
-					  	<p>Street</p>
-					  	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Street"></textarea>
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>City</p> 
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-university"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="City">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>State</p> 
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-building"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="State">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>Zip Code</p>
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-qrcode"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Zip Code">
-						</div>
-						<div class="input-group input-group-sm mb-3"> <p>Website</p>
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-globe-americas"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company Website www.sitename.com">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>Logo/Photo</p>
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-image"></i></span>
-						   <input class="form-control form-control-sm" id="formFileSm" type="file">
-						</div>
-						<div class="input-group input-group-sm mb-3"><p>Country*</p>
-						  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-flag"></i></span>
-						  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  placeholder="Country">
-						</div>
+				<div class="add-lead-center"> 
+					<div class="form-group">
+						<%= form.label :name, "Company/Name" %>
+						<%= form.text_field :name, class:"form-control", placeholder: "Company/Name"%>
 					</div>
+					<div class="form-group">
+						<%= form.label :phone, "Phone" %>
+						<%= form.text_field :phone, class:"form-control", placeholder: "Phone"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :email, "Email" %>
+						<%= form.email_field :email, class:"form-control", placeholder: "Email"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :website, "Website" %>
+						<%= form.text_field :website, class:"form-control", placeholder: "Website"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :detail_address, "Detail Address" %>
+						<%= form.text_field :detail_address, class:"form-control", placeholder: "Detail Address"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :city, "City" %>
+						<%= form.text_field :city, class:"form-control", placeholder: "City"%>
+					</div>
+				</div>
 			</div>	
 		</div>
-
 		<div class="add-lead-right"> 
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Primary Contact</h5>
 				<div class="border-x" ></div>
 				<div class="add-lead-center"> 
-
-							<div class="input-group input-group-sm mb-3"><p>Name*</p> 
-							  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-user"></i></span>
-							  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Primary Name">
-							</div>
-							<div class="input-group input-group-sm mb-3"><p>Phone*</p>
-							  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-phone-alt"></i></span>
-							  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Primary Phone Number">
-							</div>
-							<div class="input-group input-group-sm mb-3"> <p>Email*</p>
-							  <span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-envelope"></i></span> 
-							  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Primary Email">
-							</div>
-							<div class="input-group input-group-sm mb-3"><p>Designation</p>
-							  <input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Designation">
-							</div>
-							
+					<div class="form-group">
+						<%= form.label :contact_name, "Name" %>
+						<%= form.text_field :contact_name, class:"form-control", placeholder: "Name"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :contact_phone, "Phone" %>
+						<%= form.text_field :contact_phone, class:"form-control", placeholder: "Phone"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :contact_email, "Email" %>
+						<%= form.text_field :contact_email, class:"form-control", placeholder: "Email"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :designation, "Designation" %>
+						<%= form.text_field :designation, class:"form-control", placeholder: "Designation"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :contact_note, "Note" %>
+						<%= form.text_field :contact_note, class:"form-control", placeholder: "Note"%>
+					</div>
 				</div>
 			</div>
 			<br>
-
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Lead Details </h5>
 				<div class="border-x" ></div>
 				<div class="add-lead-center">
-			
-							<div class="input-group input-group-sm mb-3"><p>Source</p> 
-							  <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-								  <option selected disabled>Select A Source</option>
-								  <option value="1">Google</option>
-								  <option value="2">Facebook</option>
-								  <option value="3">Twitter</option>
-								  <option value="4">Skype</option>
-								</select>
-							</div>
-							<div class="input-group input-group-sm mb-3"><p>Assigned To*</p> 
-							   <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-								  <option selected disabled>Select A Staff Member</option>
-								  <option value="1">Devil</option>
-								  <option value="2">kkkk</option>
-								</select>
-							</div>
-							<div class="input-group input-group-sm mb-3">
-						  	<p>Comment</p>
-						  	<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment"></textarea>
-							</div>
-							<div class="input-group input-group-sm mb-3"><p>Status</p> 
-							  <select class="form-select form-select-sm" aria-label=".form-select-sm example">
-								  <option selected>New</option>
-								  <option value="1">111</option>
-								</select>
-							</div>
+					<div class="input-group input-group-sm mb-3"><p>Source</p> 
+						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="source_select">
+							<option selected disabled>Select A Source</option>
+							<option value="Google">Google</option>
+							<option value="Facebook">Facebook</option>
+							<option value="Twitter">Twitter</option>
+							<option value="Skype">Skype</option>
+						</select>
+						<%= form.hidden_field :source, id:"f_source" %>
+					</div>
+					<div class="input-group input-group-sm mb-3"><p>Assigned To*</p> 
+						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="staff_select">
+							<option selected disabled>Select A Staff Member</option>
+							<% @staffs.each do |staff| %>
+								<option value="<%= staff.id %>"><%= staff.get_name %></option>
+							<% end -%>
+						</select>
+						<%= form.hidden_field :staff_id, id:"f_staff_id" %>
+					</div>
+					<div class="mb-3 form-group">
+						<%= form.label :notes, "Note" %>
+						<%= form.text_area :notes, class:"form-control", placeholder: "Note"%>
+					</div>
+					<div class="input-group input-group-sm mb-3"><p>Status</p> 
+						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="status_select">
+							<option selected value="New">New</option>
+							<option value="Familar">Familar</option>
+						</select>
+						<%= form.hidden_field :status, id:"f_status" %>
+					</div>
 				</div>
 			</div>
 		</div>
 		<div style="clear: left; margin-bottom: 50px;"></div>
-		<center><button type="button" class="btn btn-success">Save</button></center>
+		<div class="mb-3 form-group">
+			<center><%= form.submit "Save", class: "btn btn-success" %></center>
+		</div>
+		<% end -%>
 	</div>
 </div>
+<script type="text/javascript">
+	$( document ).ready(function() {
+		$("#f_status").val($("#status_select").val());
+	});
+	$('#source_select').on('change', function() {
+	  $("#f_source").val(this.value);
+	});
+	$('#staff_select').on('change', function() {
+	  $("#f_staff_id").val(this.value);
+	});
+	$('#status_select').on('change', function() {
+	  $("#f_status").val(this.value);
+	});
+</script>
