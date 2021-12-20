@@ -19,12 +19,12 @@
 							<% end -%>
 						<center>
 							<%= link_to contact_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary active" type="button"><i class="fas fa-briefcase"></i> Contacts</button>
+								<button class="btn btn-secondary" type="button"><i class="fas fa-briefcase"></i> Contacts</button>
 							<% end -%>
 						</center>
 						<center>
 							<%= link_to call_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
+								<button class="btn btn-secondary active" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
 							<% end -%>
 						</center>
 						<center>
@@ -54,32 +54,20 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>Edit <%= @lead.name %>'s Contact</h2>
-					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_contact"><i class="fas fa-plus"></i>Add New Contacts</button>
+				<h2>Edit <%= @lead.name %>'s Call</h2>
+					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_call"><i class="fas fa-plus"></i>Add New Call</button>
 			</div><br>
 			<div class="lead-contact-content">
 				<div class="col-md-10 col-md-offset-1">
-				<%= form_with(model: @contact, url: update_lead_contact_path(params[:id])) do |form| %>
+				<%= form_with(model: @call, url: update_lead_call_path(params[:id])) do |form| %>
 		      <%= form.hidden_field :customer_id, value: @lead.id %>
 					<div class="mb-3 form-group">
-			      <%= form.label :name, "Name" %>
-			      <%= form.text_field :name, class:"form-control", placeholder: "Name"%>
+			      <%= form.label :date, "Call Time" %>
+			      <%= form.datetime_field :date, class:"form-control"%>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.label :phone, "Phone" %>
-			      <%= form.text_field :phone, class:"form-control", placeholder: "Phone"%>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.label :email, "Email" %>
-			      <%= form.email_field :email, class:"form-control", placeholder: "Email"%>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.label :designation, "Designation" %>
-			      <%= form.text_field :designation, class:"form-control", placeholder: "Designation"%>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.label :notes, "Note" %>
-			      <%= form.text_area :notes, class:"form-control", placeholder: "Note"%>
+			    	<%= form.label :description, "Description" %>
+			      <%= form.text_area :description, rows: 5,class:"form-control"%>
 			    </div>
 			    <div class="mb-3 form-group">
 			      <%= form.submit "Save", class: "btn btn-success" %>
@@ -89,37 +77,25 @@
 		</div>
 	</div>
 </div>
-<div id="form_new_contact" class="modal fade">
+<div id="form_new_call" class="modal fade">
 	<div class="modal-dialog">
 		<div class="modal-content">
 			<div class="modal-header">
-				<h4 class="modal-title">Add Contact</h4>
+				<h4 class="modal-title">Add New Call</h4>
 			</div>
 			<div class="modal-body">
-				<%= form_with(model: @contact, url: new_lead_contact_path(@lead.id)) do |form| %>
+				<%= form_with(model: @call, url: new_lead_call_path(@lead.id)) do |form| %>
 		      <%= form.hidden_field :customer_id, value: @lead.id %>
 					<div class="mb-3 form-group">
-			      <%= form.label :name, "Name" %>
-			      <%= form.text_field :name, class:"form-control", placeholder: "Name", value: '' %>
+			      <%= form.label :date, "Call Time" %>
+			      <%= form.datetime_field :date, class:"form-control", value: '' %>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.label :phone, "Phone" %>
-			      <%= form.text_field :phone, class:"form-control", placeholder: "Phone", value: '' %>
+			    	<%= form.label :description, "Description" %>
+			      <%= form.text_area :description, rows: 5,class:"form-control", value: '' %>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.label :email, "Email" %>
-			      <%= form.email_field :email, class:"form-control", placeholder: "Email", value: '' %>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.label :designation, "Designation" %>
-			      <%= form.text_field :designation, class:"form-control", placeholder: "Designation", value: '' %>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.label :notes, "Note" %>
-			      <%= form.text_area :notes, class:"form-control", placeholder: "Note", value: '' %>
-			    </div>
-			    <div class="mb-3 form-group">
-			      <%= form.submit "Add", class: "btn btn-success" %>
+			      <%= form.submit "Save", class: "btn btn-success" %>
 			    </div>
 				<% end -%>
 			</div>

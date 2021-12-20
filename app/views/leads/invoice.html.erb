@@ -40,10 +40,10 @@
 						<% if @lead.customer_role_id == 2 %>
 							<center>
 								<%= link_to proposal_lead_path(@lead.id) do %>
-									<button class="btn btn-secondary active" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
+									<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
 								<% end -%>
 								<%= link_to invoice_lead_path(@lead.id) do %>
-									<button class="btn btn-secondary" type="button"><i class="fas fa-file-invoice"></i> Invoices</button>
+									<button class="btn btn-secondary active" type="button"><i class="fas fa-file-invoice"></i> Invoices</button>
 								<% end -%>
 							</center>
 						<% end -%>
@@ -54,7 +54,7 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>Proposals to 
+				<h2>Invoices to 
 					<% if @customer %>
 						<%= @customer.name %>
 					<% else %>
@@ -62,14 +62,14 @@
 					<% end -%>
 				</h2>
 				<%= link_to new_proposal_path do %>
-					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Proposal</button>
+					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Invoice</button>
 				<% end -%>
 			</div>
 			<div class="lead-contact-content">
 				<table class="lead-proposal-table">
 					<thead>
 						<tr>
-							<th scope="col">Proposal Details</th>
+							<th scope="col">Invoice Details</th>
 						</tr>
 					</thead>
 					<tbody>

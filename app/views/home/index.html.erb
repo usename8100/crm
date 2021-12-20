@@ -14,7 +14,7 @@
 					<ul class="dashboard-general-list">
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">3</span>
+								<span class="dashboard-general-item-quan">3<%= @total_product %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -23,7 +23,7 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">4</span>
+								<span class="dashboard-general-item-quan"><%= @total_lead %></span>
 								<span style="font-weight: 500;font-size: 20px">Total Leads</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -32,7 +32,7 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">4</span>
+								<span class="dashboard-general-item-quan"><%= @total_customer %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Customers</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -41,8 +41,8 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">7</span>
-								<span style="font-weight: 500;font-size: 20px;">Total Estimates</span>
+								<span class="dashboard-general-item-quan">8<%= @total_proposal %></span>
+								<span style="font-weight: 500;font-size: 20px;">Total Proposals</span>
 							</div>
 							<div class="dashboard-general-item-icon">
 								<img src="https://icon-library.com/images/get-a-quote-icon/get-a-quote-icon-15.jpg">
@@ -50,7 +50,7 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">7</span>
+								<span class="dashboard-general-item-quan">7<%= @total_invoice %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Invoices</span>
 							</div>
 							<div class="dashboard-general-item-icon">

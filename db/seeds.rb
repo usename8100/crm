@@ -9,9 +9,29 @@ Account.create!(name: Faker::Name.unique.name, email: 'qwe@qwe.qwe', password: '
 CustomerRole.create!(name: 'lead')
 CustomerRole.create!(name: 'customer')
 Staff.create!(user_id: 1, designation: 'Manager')
-Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
-Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
-Customer.create!(name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco ', 
+						name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco ', 
+						name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco ', 
+						name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, 
+						staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco ', 
+						name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, 
+						staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
+Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
+						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
+						quis nostrud exercitation ullamco ', 
+						name: Faker::Name.unique.name, phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, 
+						staff_id: 1, customer_role_id: 1, detail_address: 'Huynh Cung', city: 'Ha Noi')
 Contact.create!(customer_id: 1, name: 'Hannah', phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, designation: 'Secretary', notes: 'secondary contact for work')
 Contact.create!(customer_id: 1, name: 'Tom', phone: Faker::PhoneNumber.cell_phone, email: Faker::Internet.email, designation: 'Secretary', notes: 'contact for entertainment')
 Call.create!(customer_id: 1, staff_id: 1, date: Time.zone.now, description: 'Talk about newest product')

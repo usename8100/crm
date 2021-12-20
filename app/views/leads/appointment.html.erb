@@ -15,7 +15,7 @@
 
 					<div class="d-grid gap-1">
 						<center>
-							<%= link_to lead_path(@lead.id) do %>
+							<%= link_to customer_path(@lead.id) do %>
 								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
 							<% end -%>
 						<center>
@@ -38,11 +38,16 @@
 								<button class="btn btn-secondary" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
 							<% end -%>
 						</center>
-						<center>
-							<%= link_to proposal_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
-							<% end -%>
-						</center>
+						<% if @lead.customer_role_id == 2 %>
+							<center>
+								<%= link_to proposal_lead_path(@lead.id) do %>
+									<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
+								<% end -%>
+								<%= link_to invoice_lead_path(@lead.id) do %>
+									<button class="btn btn-secondary" type="button"><i class="fas fa-file-invoice"></i> Invoices</button>
+								<% end -%>
+							</center>
+						<% end -%>
 					</div>
 
 				</div>
@@ -50,7 +55,13 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>Appointment</h2>
+				<h2>Appointments to 
+					<% if @customer %>
+						<%= @customer.name %>
+					<% else %>
+						<%= @lead.name %>
+					<% end -%>
+				</h2>
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_app"><i class="fas fa-plus"></i>Add New Appointment</button>
 			</div>
 			<div class="lead-contact-content">
@@ -74,6 +85,7 @@
 									proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 									<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
 									<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
 								</td>
 							</tr>
 						<% end -%>

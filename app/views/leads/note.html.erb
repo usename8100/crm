@@ -14,7 +14,7 @@
 
 					<div class="d-grid gap-1">
 						<center>
-							<%= link_to lead_path(@lead.id) do %>
+							<%= link_to customer_path(@lead.id) do %>
 								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
 							<% end -%>
 						<center>
@@ -37,11 +37,16 @@
 								<button class="btn btn-secondary active" type="button"><i class="fas fa-sticky-note"></i> Notes</button>
 							<% end -%>
 						</center>
-						<center>
-							<%= link_to proposal_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
-							<% end -%>
-						</center>
+						<% if @lead.customer_role_id == 2 %>
+							<center>
+								<%= link_to proposal_lead_path(@lead.id) do %>
+									<button class="btn btn-secondary" type="button"><i class="fas fa-file-signature"></i> Proposals</button>
+								<% end -%>
+								<%= link_to invoice_lead_path(@lead.id) do %>
+									<button class="btn btn-secondary" type="button"><i class="fas fa-file-invoice"></i> Invoices</button>
+								<% end -%>
+							</center>
+						<% end -%>
 					</div>
 
 				</div>
@@ -49,8 +54,14 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>Notes</h2>
-				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Note</button>
+				<h2>
+					<% if @customer %>
+						<%= @customer.name %>'s Notes
+					<% else %>
+						<%= @lead.name %>'s Notes
+					<% end -%>
+				</h2>
+				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_note"><i class="fas fa-plus"></i>Add New Note</button>
 			</div>
 			<div class="lead-contact-content">
 				<table class="lead-proposal-table">
@@ -72,6 +83,27 @@
 						<% end -%>
 					</tbody>
 				</table>
+			</div>
+		</div>
+	</div>
+</div>
+<div id="form_new_note" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Note</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_with(model: @call, url: new_lead_contact_path(@lead.id)) do |form| %>
+		      <%= form.hidden_field :customer_id, value: @lead.id %>
+			    <div class="mb-3 form-group">
+			    	<%= form.label :content, "Content" %>
+			      <%= form.text_area :content, rows: 5,class:"form-control"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.submit "Save", class: "btn btn-success" %>
+			    </div>
+				<% end -%>
 			</div>
 		</div>
 	</div>
