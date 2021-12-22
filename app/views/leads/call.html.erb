@@ -80,7 +80,7 @@
 									<%= link_to edit_lead_call_path(@lead.id, call.id) do %>
 										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
 									<% end -%>
-									<%= link_to destroy_call_path(@lead.id, call.id), method: :delete do %>
+									<%= link_to destroy_call_path(@lead.id, call.id), method: :delete, data:{confirm:'Delete this call?'} do %>
 										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 									<% end -%>
 								</li>

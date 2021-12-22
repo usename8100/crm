@@ -32,6 +32,23 @@ Rails.application.routes.draw do
   patch '/lead/:lead_id/call/:id', to: 'calls#update', as: 'update_lead_call'
   delete '/lead/:lead_id/calls/:id', to: 'calls#destroy', as: 'destroy_call'
 
+  #appointment
+  post '/lead/:lead_id/appointment/', to: 'appointments#create', as: 'new_lead_appointment'
+  get '/lead/:lead_id/appointment/:id', to: 'leads#edit_appointment', as: 'edit_lead_appointment'
+  patch '/lead/:lead_id/appointment/:id', to: 'appointments#update', as: 'update_lead_appointment'
+  delete '/lead/:lead_id/appointment/:id', to: 'appointments#destroy', as: 'destroy_appointment'
+  get '/lead/:lead_id/appointment/:id/send_appointment', to: 'appointments#send_appointment', as: 'send_appointment'
+
+  #note
+  post '/lead/:lead_id/note/', to: 'notes#create', as: 'new_lead_note'
+  delete '/lead/:lead_id/note/:id', to: 'notes#destroy', as: 'destroy_note'
+  get '/lead/:lead_id/note/:id', to: 'leads#edit_note', as: 'edit_lead_note'
+  patch '/lead/:lead_id/note/:id', to: 'notes#update', as: 'update_lead_note'
+
+  #proposal
+  get '/lead/:customer_id/proposal/new', to: 'proposals#new', as: 'new_lead_proposal'
+  post '/lead/:customer_id/proposal/new', to: 'proposals#create'
+
   resources :customers
   resources :products
   resources :taxes
@@ -42,7 +59,12 @@ Rails.application.routes.draw do
   resources :staffs
   resources :contacts
   resources :calls
-
+  resources :notes
+  resources :appointments do
+    collection do
+      post :send_appointment
+    end
+  end
   devise_for :accounts
   root to: 'home#index'
 end
