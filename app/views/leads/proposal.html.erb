@@ -61,7 +61,7 @@
 						<%= @lead.name %>
 					<% end -%>
 				</h2>
-				<%= link_to new_proposal_path do %>
+				<%= link_to new_lead_proposal_path(@lead.id) do %>
 					<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Proposal</button>
 				<% end -%>
 			</div>

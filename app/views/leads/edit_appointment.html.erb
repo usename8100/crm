@@ -1,12 +1,11 @@
 <%= content_for(:sidebar) do %>
-<%= render :partial => "layouts/sidebar" %>
+	<%= render :partial => "layouts/sidebar" %>
 <% end -%>
 <div class="col-md-10 main">
 	<div class="lead-p-main">
 		<div class="lead-p-left">
 			<div class="lead-bo">
 				<div class="lead-p-center">
-
 					<h3><b><%= @lead.name %></b></h3>
 					<center><img src="https://infofinance.vn/wp-content/uploads/2020/09/bieu-tuong-y-nghia-lo-go-cua-ngan-hang-quan-doi-MB-Bank...jpg" class="img-thumbnail" ></center>
 					<p><i class="fas fa-phone-alt"></i> Phone: <b><%= @lead.phone %></b></p>
@@ -15,7 +14,7 @@
 
 					<div class="d-grid gap-1">
 						<center>
-							<%= link_to customer_path(@lead.id) do %>
+							<%= link_to lead_path(@lead.id) do %>
 								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
 							<% end -%>
 						<center>
@@ -25,7 +24,7 @@
 						</center>
 						<center>
 							<%= link_to call_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
+								<button class="btn btn-secondary " type="button"><i class="fas fa-phone-alt"></i> Calls</button>
 							<% end -%>
 						</center>
 						<center>
@@ -55,83 +54,45 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>Appointments to 
-					<% if @customer %>
-						<%= @customer.name %>
-					<% else %>
-						<%= @lead.name %>
-					<% end -%>
-				</h2>
-				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_app"><i class="fas fa-plus"></i>Add New Appointment</button>
-			</div>
+				<h2>Edit <%= @lead.name %>'s Appointment</h2>
+			</div><br>
 			<div class="lead-contact-content">
-				<table class="lead-proposal-table">
-					<thead>
-						<tr>
-							<th scope="col">Appointments Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @appointments.each do |appointment| %>
-							<tr>
-								<td>
-									<span>Appointment With <b><%= @lead.get_staff_name %></b> on <b><%= appointment.date.strftime('%a, %d %B %Y %H:%M %p')%></b></span>
-									<p><%= appointment.content %></p>
-									<%= link_to edit_lead_appointment_path(@lead.id, appointment.id) do %>
-										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
-									<% end -%>
-									<%= link_to destroy_appointment_path(@lead.id, appointment.id), method: :delete, data:{confirm:'Delete this appointment?'} do %>
-										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-									<% end -%>
-									<%= link_to send_appointment_path(@lead.id, appointment.id) do %>
-										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
-									<% end -%>
-								</td>
-							</tr>
-						<% end -%>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="form_new_app" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add Appointment</h4>
-			</div>
-			<div class="modal-body">
-				<%= form_with(model: @appointment, url: new_lead_appointment_path(@lead.id)) do |form| %>
+				<div class="col-md-10 col-md-offset-1">
+					<%= form_with(model: @appointment, url: edit_lead_appointment_path(@lead.id, @appointment.id)) do |form| %>
 		      <%= form.hidden_field :customer_id, value: @lead.id %>
 		      <%= form.hidden_field :lead_name, value: @lead.name %>
 		      <%= form.hidden_field :staff_name, value: @lead.get_staff_name %>
 		      <%= form.hidden_field :staff_phone, value: @lead.get_staff_phone %>
 					<div class="mb-3 form-group">
 			      <%= form.label :datetime, "Appointment Date & Time" %>
-			      <%= form.datetime_field :datetime, class:"form-control"%>
+			      <%= form.datetime_field :datetime, class:"form-control", 
+			      	value: @appointment.date.strftime("%FT%R") %>
 			    </div>
 			    <div class="mb-3 form-group">
 			    	<%= form.label :contact_id, "Appointment With Contact" %>
 			      <select class="form-select form-control" aria-label="Default select example" id="f_contact">
-						  <option selected disabled="">Select a contact</option>
 						  <% @contacts.each do |contact| %>
-						  	<option value="<%= contact.id %>"><%= contact.name %></option>
+						  	<% if contact.id == @appointment.contact_id %>
+						  		<option selected value="<%= contact.id %>"><%= contact.name %></option>
+					  		<% else %>
+							  	<option value="<%= contact.id %>"><%= contact.name %></option>
+						  	<% end -%>
 						  <% end -%>
 						</select>
 						<%= form.hidden_field :contact_id, id:"f_contact_id" %>
 			    </div>
 			    <div class="mb-3 form-group">
 			      <%= form.label :subject, "Subject" %>
-			      <%= form.text_field :subject, class:"form-control", Value: "Reminder - Your appointment on "%>
+			      <%= form.text_field :subject, class:"form-control", Value: @appointment.subject%>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.text_area :notes, rows: 10,class:"form-control", value: "Dear ..., \nWe wanted to remind you that you have an appointment with ... on [date]. As always, please let us know if there is anything more we can do for you. You may call us at [company-phone] with any question or special requests.\n\n Warm regards,\n[company-name]" %>
+			      <%= form.text_area :notes, rows: 10,class:"form-control", value: @appointment.content %>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.submit "Add", class: "btn btn-success" %>
+			      <%= form.submit "Update", class: "btn btn-success" %>
 			    </div>
 				<% end -%>
+				</div>
 			</div>
 		</div>
 	</div>
@@ -143,29 +104,29 @@
 	var staff_phone = '';
 	var content = "";
 
-	$('#datetime').change(function(){
+	$('#appointment_datetime').change(function(){
 		var date = new Date(this.value);
 		dates = date.getDate() + '/' + (date.getMonth()+1) + '/' + date.getFullYear();
 		time = date.getHours() + ':' + date.getMinutes();
-		content = "Dear " + $('#lead_name').val()
-			+", \nWe wanted to remind you that you have an appointment with " + $('#staff_name').val()
+		content = "Dear "+ $('#appointment_lead_name').val()
+			+", \nWe wanted to remind you that you have an appointment with " + $('#appointment_staff_name').val()
 			+" on "+ dates +" at " + time
 			+". As always, please let us know if there is anything more we can do for you. You may call us at "
-			+ $('#staff_phone').val() + " with any question or special requests.\n\n Warm regards,\n[company-name]";
-		$('#notes').val(content);
-		subject = $('#subject').val() + dates +" at " + time;
-		$('#subject').val(subject);
+			+ $('#appointment_staff_phone').val() + " with any question or special requests.\n\n Warm regards,\n[company-name]";
+		$('#appointment_notes').val(content);
+		subject = 'Reminder - Your appointment on ' + dates +" at " + time;
+		$('#appointment_subject').val(subject);
 	});
 
 	$('#f_contact').change(function(){
 		lead_contact = $('#f_contact').find(":selected").text();
 		contact_id = $('#f_contact').find(":selected").val();
 		$('#f_contact_id').val(contact_id);
-		content = "Dear " + $('#lead_name').val()
-			+", \nWe wanted to remind you that you have an appointment with " + $('#staff_name').val()
+		content = "Dear "+ $('#appointment_lead_name').val()
+			+", \nWe wanted to remind you that you have an appointment with " + $('#appointment_staff_name').val()
 			+" on "+ dates +" at " + time
 			+". As always, please let us know if there is anything more we can do for you. You may call us at "
-			+ $('#staff_phone').val() + " with any question or special requests.\n\n Warm regards,\n[company-name]";
-		$('#notes').val(content);
+			+ $('#appointment_staff_phone').val() + " with any question or special requests.\n\n Warm regards,\n[company-name]";
+		$('#appointment_notes').val(content);
 	});
 </script>
