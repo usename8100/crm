@@ -26,6 +26,22 @@ class ProductsController < ApplicationController
     end
   end 
   
+  def create_from_proposal
+    @categories = Category.all
+    @item = Item.new
+    @item.name = params[:name]
+    @item.category_id = params[:category_id].to_i
+    @item.price = params[:price]
+    @item.tax_id = params[:tax_id].to_i
+    @item.status = params[:status]
+    customer_id = params[:customer_id].to_i
+    if @item.save
+      redirect_to new_lead_proposal_path(customer_id)
+    else
+      redirect_to root_path
+    end
+  end 
+
   def edit
     @categories = Category.all
   end

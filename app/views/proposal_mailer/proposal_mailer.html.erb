@@ -1,0 +1,202 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<title>detail proposal</title>
+	<!-- Latest compiled and minified CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+	<!-- jQuery library -->
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+	<!-- Popper JS -->
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.1/css/all.min.css" />
+	<!-- Latest compiled JavaScript -->
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+	<style type="text/css">
+		.proposal-upper {
+			width: 100%;
+		}
+		.proposal-upper-left, .proposal-upper-right {
+			min-width: 45%;
+			border: 1px solid #ccc;
+			display: inline-block;
+			min-height: 470px;
+			margin: 20px;
+		}
+		.proposal-lower {
+			min-width: 90%;
+			border: 1px solid #ccc;
+			min-height: 200px;
+			margin: 20px;
+			padding: 10px;
+		}
+		.proposal-title h2{
+			font-size: 20px;
+		}
+
+		.proposal-title {
+			padding: 10px;
+			padding-bottom: 0;
+			border-bottom: 1px solid #222;
+			width: 90%;
+			margin-left: 5%;
+		}
+		.proposal-upper-left form {
+			width: 90%;
+			margin-left: 5%;
+		}
+		.proposal-upper-right span {
+			display: block;
+		}
+		.proposal-upper-right-content {
+			width: 90%;
+			margin-left: 5%;
+			margin-top: 20px;
+		}
+		.proposal-upper-right-content span {
+			margin-bottom: 30px;
+			font-size: 20px;
+		}
+		.proposal-middle h3 {
+			font-size: 15px;
+			display: inline-block;
+		}
+		.proposal-middle {
+			margin: 20px 0 0 90px;
+		}
+		.item-select {
+			width: 300px;
+			display: inline-block ;
+		}
+		.proposal-middle .btn-plus {
+			display: inline-block;
+			height: 40px;
+			width: 40px;
+			margin-bottom: 5px;
+		}
+		.proposal-lower-title {
+			padding: 10px;
+			padding-bottom: 0;
+			border-bottom: 1px solid #222;
+			width: 95%;
+			margin-left: 2%;
+		}
+		.proposal_detail-title {
+			border-bottom: 2px solid black;
+			padding: 10px;
+			margin: 0 1%;
+		}
+		.overall-box {
+			border: 1px solid #ccc;
+			margin: 10px;
+		}
+		.table-total {
+			height: 220px;
+		}
+		.table-total table {
+			width: 30%;
+			float: right;
+		}
+		.proposal_detail-infor {
+			min-height: 300px;
+		}
+		.proposal_detail-infor span{
+			display: block;
+		}
+		.proposal_detail-infor div {
+			margin: 0 40px;
+			display: inline-block;
+			font-size: 20px;
+			font-weight: 600;
+		}
+		.proposal_detail-customer {
+			float: right;
+			text-align: right;
+		}
+		.proposal_detail-status {
+			margin-left: 25px;
+			padding: 20px;
+		}
+		.btn-status {
+			padding-left: 20px;
+			padding-right: 20px;
+			font-weight: 600;
+			font-size: 23px;
+		}
+	</style>
+</head>
+<body>
+	<div class="overall-box">
+		<div class="proposal_detail-title">
+			<h2>Proposal's Detail</h2>
+		</div>
+		<div class="proposal_detail-infor">
+			<div class="proposal_detail-company">
+				<span>Date: <%= @proposal.created_at.strftime("%d-%m-%Y") %></span>
+				<span>From:</span>
+				<span style="font-size:32px;line-height: 50px;">ABC Company</span>
+				<span><%= @account.city %></span>
+				
+			</div>
+			<div class="proposal_detail-customer">
+				<span>To:</span>
+				<span style="font-size:32px;line-height: 40px;"><b><%= @lead.name %></b></span>
+				<span><%= @lead.detail_address %></span>
+				<span><%= @lead.city %></span>
+				
+				<br><span style="color: red;">Start date: <%= @proposal.start_date.strftime("%d-%m-%Y") %></span>
+				<span style="color: red;">Expiry date: <%= @proposal.end_date.strftime("%d-%m-%Y") %></span>
+			</div>
+		</div>
+		<div class="proposal-lower">
+			<div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Tax</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @table_items.each do |item| %>
+						
+						<tr>
+							<td><input type="text" class="form-control" value="<%= item.get_item_name %>" disabled></td>
+							<td><input type="text" class="form-control" value="<%= item.quantity %>" disabled></td>
+							<td><input type="text" class="form-control" value="<%= item.price %>" disabled></td>
+							<td style="width: 200px;"><input type="text" class="form-control" value="No tax" disabled></td>
+							<td><input type="text" class="form-control" value="<%= item.amount %>" disabled></td>
+						</tr>
+						<% end -%>
+					</tbody>
+				</table>
+				<div class="table-total">
+					<table class="table table-bordered table-striped">
+						<tr>
+							<td>Subtotal</td>
+							<td><%=  number_to_currency(@proposal.get_subtotal, :unit => "", :separator => ",", :delimiter => ".")  %></td>
+						</tr>
+						<tr>
+							<td>Discount(%)</td>
+							<td><%= @proposal.discount %> %</td>
+						</tr>
+						<tr>
+							<td>Total taxes</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td><b>Total</b></td>
+							<td><b><%=  number_to_currency(@proposal.total, :unit => "", :separator => ",", :delimiter => ".")  %></b></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>
+</body>
+</html>

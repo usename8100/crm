@@ -117,6 +117,15 @@ class LeadsController < ApplicationController
 	def proposal
 		@proposals = Proposal.where(customer_id: params[:id])
 		@lead = Customer.find(params[:id])
+		@contacts = Contact.where(customer_id: @lead.id)
+	end
+
+	def edit_proposal
+		@proposal = Proposal.find(params[:id])
+		@lead = Customer.find(params[:customer_id])
+		@items = Item.where(status: true)
+    @categories = Category.all
+    @table_items = ProposalItem.where(proposal_id: @proposal.id)
 	end
 
 	def invoice

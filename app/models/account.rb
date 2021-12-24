@@ -6,6 +6,10 @@ class Account < ApplicationRecord
 
   def get_designation
     staff = Staff.where(user_id: self.id).first
-    staff.designation
+    if !staff.nil?
+      staff.designation
+    else
+      'Not designation yet!'
+    end
   end
 end
