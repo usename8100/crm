@@ -2,104 +2,54 @@
 <%= render :partial => "layouts/sidebar" %>
 <% end -%>
 <div class="col-md-10 main">
-	<div class="add-lead-main">
-
-		<div class="add-lead-left">
-			<div class="lead-bo">
-				<h5 style="margin: 20px 20px 0px 25px;">Personal Details </h5>
-				<div class="border-x"></div>
-				<div class="add-lead-center"> 
-					<div class="input-group input-group-sm mb-3"><p>Name*</p> 
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-user"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" >
+	<h2>Add new Staff</h2>
+	<%= form_with(model: @account, url: new_staff_path) do |form| %>
+	
+		<div class="add-lead-main">
+			<div class="add-lead-left">
+				<div class="lead-bo">
+					<h5 style="margin: 20px 20px 0px 25px;">Personal Details </h5>
+					<div class="border-x"></div>
+					<div class="add-lead-center"> 
+						
+						<div class="form-group">
+							<%= form.label :staff_name, "Name" %>
+							<%= form.text_field :staff_name, class:"form-control", placeholder: "Name"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :staff_phone, "Phone" %>
+							<%= form.text_field :staff_phone, class:"form-control", placeholder: "Phone"%>
+						</div>
+						<div class="mb-3 form-group">
+							<%= form.label :staff_street, "Street" %>
+							<%= form.text_area :staff_street, class:"form-control", placeholder: "Street"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :staff_city, "City" %>
+							<%= form.text_field :staff_city, class:"form-control", placeholder: "City"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :staff_age, "Age" %>
+							<%= form.text_field :staff_age, class:"form-control", placeholder: "Age"%>
+						</div>
 					</div>
-					<div class="input-group input-group-sm mb-3"><p>Phone*</p> 
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-phone-alt"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Company Phone Number">
-					</div>
-					<div class="input-group input-group-sm mb-3">
-						<p>Street</p>
-						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Street"></textarea>
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>City</p> 
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-university"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="City">
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>State</p> 
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-building"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="State">
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>Zip Code</p>
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-qrcode"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" placeholder="Zip Code">
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>Logo/Photo</p>
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="far fa-image"></i></span>
-						<input class="form-control form-control-sm" id="formFileSm" type="file">
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>Country*</p>
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-flag"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm"  placeholder="Country">
-					</div>
-				</div>
-			</div>	
-			<br>
-
-			<div class="lead-bo">
-				<h5 style="margin: 20px 20px 0px 25px;">Account Login</h5>
-				<div class="border-x" ></div>
-				<div class="add-lead-center"> 
-
-					<div class="input-group input-group-sm mb-3"><p>Email*</p> 
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-envelope"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" >
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>PassWord*</p>
-						<span class="input-group-text" id="inputGroup-sizing-sm"><i class="fas fa-key"></i></span>
-						<input type="text" class="form-control" aria-label="Sizing example input" aria-describedby="inputGroup-sizing-sm" >
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>Status</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected>Active</option>
-							<option value="1">Inactive</option>
-						</select>
-					</div>
-				</div>
+				</div>	
+				<br>
 			</div>
-
-		</div>
 
 
 		<div class="add-lead-right"> 
 			<div class="lead-bo">
-				<h5 style="margin: 20px 20px 0px 25px;">Company Details </h5>
+				<h5 style="margin: 20px 20px 0px 25px;">SignUp</h5>
 				<div class="border-x" ></div>
 				<div class="add-lead-center">		
-					<div class="input-group input-group-sm mb-3"><p>Source</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected disabled>Select A Source</option>
-							<option value="1">Google</option>
-							<option value="2">Facebook</option>
-							<option value="3">Twitter</option>
-							<option value="4">Skype</option>
-						</select>
+					<div class="form-group">
+						<%= form.label :staff_email, "Email" %>
+						<%= form.text_field :staff_email, class:"form-control", placeholder: "Email"%>
 					</div>
-					<div class="input-group input-group-sm mb-3"><p>Assigned To*</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected disabled>Select A Staff Member</option>
-							<option value="1">Devil</option>
-							<option value="2">kkkk</option>
-						</select>
-					</div>
-					<div class="input-group input-group-sm mb-3">
-						<p>Comment</p>
-						<textarea class="form-control" id="exampleFormControlTextarea1" rows="3" placeholder="Comment"></textarea>
-					</div>
-					<div class="input-group input-group-sm mb-3"><p>Status</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected>New</option>
-							<option value="1">111</option>
-						</select>
+					<div class="form-group">
+						<%= form.label :staff_password, "Password" %>
+						<%= form.text_field :staff_password, class:"form-control", placeholder: "Password"%>
 					</div>
 				</div>
 			</div>
@@ -108,35 +58,29 @@
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Staff Role Acess </h5>
 				<div class="border-x" ></div>
-
 				<div class="add-lead-center">
-					<div style="border-left: 5px dotted  #006666;">
-
-						<div style="border-bottom: 1px solid  #006666;">
-							<div class="add-lead-center">		
-								<b>Super Administrator</b><br>
-								<p>abcdaadada</p><br>
-							</div>
-						</div>
-						
-						
-						<div style="border-buttom: 1px solid gray;">
-							<div class="add-lead-center">		
-								<b> Administrator</b><br>
-								<p>abcdaadada</p><br>
-							</div>
-						</div>
-
+					<div class="select-20">
+						<%= form.label :Designation, "Designation" %>
+						<select class="form-control"  id="designation_select" >
+							<% @staff_roles.each do |role| %>
+								<option value="<%= role.name %>"> <%= role.name %> </option>
+							<% end %>
+						</select>
+						<%= form.hidden_field :designation, id:"f_designation" %>
 					</div>
 				</div>
-				
-
-
-				
 			</div>
-
 			<div style="clear: left; margin-bottom: 50px;"></div>
-			<center><button type="button" class="btn btn-success">Save</button></center>
-
+			<center><%= form.submit "Save", class: "btn btn-success" %>
+				<%= link_to staffs_path do %>	
+						<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
+				<% end %>
+			</center>
 		</div>
-	</div>
+	<% end %>
+</div>
+<script type="text/javascript">
+	$('#designation_select').on('change', function() {
+	  $("#f_designation").val(this.value);
+	});
+</script>

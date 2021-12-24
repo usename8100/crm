@@ -32,7 +32,6 @@ Rails.application.routes.draw do
   patch '/lead/:lead_id/call/:id', to: 'calls#update', as: 'update_lead_call'
   delete '/lead/:lead_id/calls/:id', to: 'calls#destroy', as: 'destroy_call'
 
-
   #item
   post 'products/new', to: 'products#create'
   delete '/product/:id', to: 'products#destroy', as: 'delete_product'
@@ -40,6 +39,12 @@ Rails.application.routes.draw do
   get '/product/:id/edit', to: 'products#edit', as: 'edit_product'
   patch 'products/:id', to: 'products#convert_status', as: 'convert_status'
   #get '/product/:id', to: 'products#index'
+
+  #staff
+  post 'staffs/new', to: 'staffs#create'
+  delete 'staffs/:id', to: 'staffs#destroy', as: 'delete_staff'
+  get '/staff/:id/edit', to: 'staffs#edit', as: 'edit_staff'
+  patch 'staff/:user_id/accounts/:id', to: 'staffs#update', as: 'update_staff' 
 
   #appointment
   post '/lead/:lead_id/appointment/', to: 'appointments#create', as: 'new_lead_appointment'
@@ -57,7 +62,6 @@ Rails.application.routes.draw do
   #proposal
   get '/lead/:customer_id/proposal/new', to: 'proposals#new', as: 'new_lead_proposal'
   post '/lead/:customer_id/proposal/new', to: 'proposals#create'
-
 
   resources :customers
   resources :products 
