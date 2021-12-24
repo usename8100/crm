@@ -94,11 +94,24 @@ class LeadsController < ApplicationController
 	def appointment
 		@appointments = Appointment.where(customer_id: params[:id])
 		@lead = Customer.find(params[:id])
+		@contacts = Contact.where(customer_id: @lead.id)
+	end
+
+	def edit_appointment
+		@appointment = Appointment.find(params[:id])
+		contact = Contact.find(@appointment.customer_id)
+		@lead = Customer.find(contact.get_customer_id)
+		@contacts = Contact.where(customer_id: @lead.id)
 	end
 
 	def note
 		@notes = Note.where(customer_id: params[:id])
 		@lead = Customer.find(params[:id])
+	end
+
+	def edit_note
+		@note = Note.find(params[:id])
+		@lead = Customer.find(params[:lead_id])
 	end
 
 	def proposal

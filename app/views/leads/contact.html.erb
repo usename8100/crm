@@ -85,7 +85,7 @@
 									<%= link_to edit_lead_contact_path(@lead.id, contact.id) do %>
 										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
 									<% end -%>
-									<%= link_to destroy_contact_path(@lead.id, contact.id),method: :delete do %>
+									<%= link_to destroy_contact_path(@lead.id, contact.id),method: :delete, data:{confirm:'Delete this contact?'} do %>
 										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 									<% end -%>
 								</td>

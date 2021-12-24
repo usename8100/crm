@@ -3,6 +3,9 @@ class ProposalsController < ApplicationController
   end
 
   def new
+    @proposal = Proposal.new
+    @lead = Customer.find(params[:customer_id])
+    @items = Item.all
   end
 
   def edit
@@ -12,6 +15,10 @@ class ProposalsController < ApplicationController
   end
 
   def report
+    
+  end
+
+  def create
     
   end
 end
