@@ -14,7 +14,7 @@
 
 					<div class="d-grid gap-1">
 						<center>
-							<%= link_to customer_path(@lead.id) do %>
+							<%= link_to lead_path(@lead.id) do %>
 								<button class="btn btn-secondary" type="button"><i class="fas fa-user"></i> Profile</button></center>
 							<% end -%>
 						<center>
@@ -24,7 +24,7 @@
 						</center>
 						<center>
 							<%= link_to call_lead_path(@lead.id) do %>
-								<button class="btn btn-secondary" type="button"><i class="fas fa-phone-alt"></i> Calls</button>
+								<button class="btn btn-secondary " type="button"><i class="fas fa-phone-alt"></i> Calls</button>
 							<% end -%>
 						</center>
 						<center>
@@ -54,61 +54,21 @@
 		</div>
 		<div class="lead-p-right">
 			<div class="lead-top-title">
-				<h2>
-					<% if @customer %>
-						<%= @customer.name %>'s Notes
-					<% else %>
-						<%= @lead.name %>'s Notes
-					<% end -%>
-				</h2>
-				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_note"><i class="fas fa-plus"></i>Add New Note</button>
-			</div>
+				<h2>Edit <%= @lead.name %>'s Note</h2>
+			</div><br>
 			<div class="lead-contact-content">
-				<table class="lead-proposal-table">
-					<thead>
-						<tr>
-							<th scope="col">Note Details</th>
-						</tr>
-					</thead>
-					<tbody>
-						<% @notes.each do |note| %>
-							<tr>
-								<td>
-									<p><%= note.content %></p>
-									<span>Created bt <b><%= @lead.get_staff_name %></b> on <b><%= note.created_at.strftime('%a, %d %B %Y %H:%M %p')%></b></span>
-									<%= link_to edit_lead_note_path(@lead.id, note.id) do %>
-										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-									<% end -%>
-									<%= link_to destroy_note_path(@lead.id, note.id), method: :delete, data:{confirm:'Delete this note?'} do %>
-										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-									<% end -%>
-								</td>
-							</tr>
-						<% end -%>
-					</tbody>
-				</table>
-			</div>
-		</div>
-	</div>
-</div>
-<div id="form_new_note" class="modal fade">
-	<div class="modal-dialog">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h4 class="modal-title">Add Note</h4>
-			</div>
-			<div class="modal-body">
-				<%= form_with(model: @call, url: new_lead_note_path(@lead.id)) do |form| %>
+				<div class="col-md-10 col-md-offset-1">
+				<%= form_with(model: @note, url: update_lead_note_path(@lead.id, params[:id])) do |form| %>
 		      <%= form.hidden_field :customer_id, value: @lead.id %>
 			    <div class="mb-3 form-group">
 			    	<%= form.label :content, "Content" %>
-			      <%= form.text_area :content, rows: 5,class:"form-control"%>
+			      <%= form.text_area :content, rows: 5,class:"form-control" %>
 			    </div>
 			    <div class="mb-3 form-group">
-			      <%= form.submit "Save", class: "btn btn-success" %>
+			      <%= form.submit "Update", class: "btn btn-success" %>
 			    </div>
 				<% end -%>
-			</div>
+			</div></div>
 		</div>
 	</div>
 </div>

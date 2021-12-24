@@ -41,12 +41,12 @@
 					    				<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
 						    		<% end -%>
 						    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-						    		<%= link_to to_customer_path(lead.id), method: :patch do %>
+						    		<%= link_to to_customer_path(lead.id), method: :patch, data:{confirm:'Convert this lead to customer?'} do %>
 							    		<button type="button" class="btn btn-success btn-sm">
 							    			<i class="fas fa-exchange-alt"></i> Convert to Customer
 							    		</button>
 						    		<% end -%>
-						    		<%= link_to delete_lead_path(lead.id), method: :delete do %>
+						    		<%= link_to delete_lead_path(lead.id), method: :delete, data:{confirm:'Delete this lead?'} do %>
 							    		<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 						    		<% end -%>
 					    		</div>	

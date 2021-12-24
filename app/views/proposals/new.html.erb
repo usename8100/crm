@@ -2,48 +2,41 @@
 	<%= render :partial => "layouts/sidebar" %>
 <% end -%>
 <div class="col-md-10 main">
-	<h2>Add Proposal</h2>
+	<h2>Add Proposal to <b><%= @lead.name %></b></h2>
 	<div class="proposal-upper">
 		<div class="proposal-upper-left" style="float: left;">
 			<div class="proposal-title">
 				<h2>Proposal Details</h2>
 			</div>
 			<div style="margin-top: 20px;">
-				<form>
-					<div class="form-group">
-						<div class="form-group">
-							<label><b>Subject</b></label>
-							<input type="text" class="form-control">
-						</div>
-						<div class="form-group">
-							<label><b>Related</b></label>
-							<select class="form-control" >
-								<option>Lead</option>
-								<option>Customer</option>
-							</select>
-						</div>
-						<div class="form-group">
-							<label><b>Lead</b></label>
-							<select class="form-control" >
-								<option>IBM</option>
-								<option>Samsung</option>
-							</select>
-						</div>
-						<div>
-							<span style="margin-right: 20px ;">From </span>
-							<input type="date" id="" name="">
-							<span style="margin-left: 20px; margin-right: 20px ;">To </span>
-							<input type="date" id="" name="">
-						</div><br>
-						<div class="form-group">
-							<label><b>Status</b></label>
-							<select class="form-control" >
-								<option>Draft</option>
-								<option>New</option>
-							</select>
-						</div>
+				<%= form_with(model: @proposal, url: new_lead_proposal_path(@lead.id)) do |form| %>
+					<div class="mb-3 form-group">
+			      <%= form.label :subject, "Subject" %>
+			      <%= form.text_field :subject, class:"form-control"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :datestart, "Proposal date start at" %>
+			      <%= form.date_field :datestart, class:"form-control"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :dateend, "Proposal date end at" %>
+			      <%= form.date_field :dateend, class:"form-control"%>
+			    </div>
+			    <div class="mb-3 form-group">
+			    	<%= form.label :status, "Status" %>
+						<select class="form-control" aria-label=".form-select-sm example" id="status_select">
+							<option value="New">New</option>
+							<option selected value="Draft">Draft</option>
+						</select>
+						<%= form.hidden_field :status, id:"f_status" %>
+						<%= form.hidden_field :list_item_ids, id:"f_list_item_ids" %>
+						<%= form.hidden_field :list_item_quans, id:"f_list_item_quans" %>
+						<%= form.hidden_field :discount, id:"f_discount" %>
 					</div>
-				</form>
+					<div class="mb-3 form-group">
+			      <%= form.submit "Save", class: "btn btn-success btn_add_proposal" %>
+			    </div>
+				<% end %>
 			</div>
 		</div>
 
@@ -52,11 +45,12 @@
 				<h2>Customer Details</h2>
 			</div>
 			<div class="proposal-upper-right-content">
-				<span><b>Address:</b> 12th floor, Khali Building, 123 Kesh Street</span>
-				<span><b>City:</b> New York</span>
-				<span><b>Country:</b> United States</span>
-				<span><b>Email:</b> famousemail@mail.com</span>
-				<span><b>Phone:</b> 09127722889</span>
+				<span><b>Name:</b> <%= @lead.name%></span>
+				<span><b>Address:</b> <%= @lead.detail_address%></span>
+				<span><b>City:</b> <%= @lead.city%></span>
+				<span><b>Email:</b> <%= @lead.email%></span>
+				<span><b>Phone:</b> <%= @lead.phone%></span>
+				<span id="item_list_json" data-items="<%= @items.to_json %>"></span>
 			</div>
 		</div>
 	</div>
@@ -67,9 +61,12 @@
 		<div class="proposal-middle">
 			<h3>Add Item</h3>
 			<div class="item-select">
-				<select class="form-control">
-					<option>Select an item</option>
-					<option>New</option>
+				<select class="form-control" id="select_input_item">
+					<option selected disabled value="0">Select an item</option>
+					<% @items.each do |item| %>
+						<option value="<%= item.id %>"><%= item.name %></option>
+					<% end -%>
+					
 				</select>
 			</div>
 			<button type="button" class="btn btn-success btn-sm btn-plus"><i class="fas fa-plus"></i></button>
@@ -86,22 +83,127 @@
 						<th>Amount</th>
 					</tr>
 				</thead>
-				<tr>
-					<td><input type="text" class="form-control" placeholder="Item"></td>
-					<td><input type="text" class="form-control" placeholder="1"></td>
-					<td><input type="text" class="form-control" placeholder="Price"></td>
-					<td>
-						<select class="form-control">
-							<option>No Tax</option>
-							<option>New</option>
-						</select>
-					</td>
-					<td><input type="text" class="form-control" placeholder="Amount"></td>
-				</tr>
+				<tbody id="tbody_list_item">
+
+				</tbody>
 			</table>
 			<center>
-				<button class="btn btn-success">Calculate</button>
+				<button class="btn btn-success btn_calculate">Calculate</button>
 			</center>
 		</div>
+		<div class="table-total">
+			<table class="table table-bordered table-striped">
+				<tr>
+					<td>Subtotal</td>
+					<td><span id="subtotal_price">0</span></td>
+				</tr>
+				<tr>
+					<td>Discount(%)</td>
+					<td><input type="number" name="discount" value="0" min="0" max="100" class="form-control"></td>
+				</tr>
+				<tr>
+					<td>Total taxes</td>
+					<td><span id="subtotal_tax">0</span></td>
+				</tr>
+				<tr>
+					<td><b>Total</b></td>
+					<td><b><span id="total_afterall">0</span></b></td>
+				</tr>
+			</table>
+
+		</div>
+		
 	</div>
 </div>
+
+<script type="text/javascript">
+	var jsonStr = $("#item_list_json").attr("data-items");
+	var	items = JSON.parse(jsonStr);
+	var list_item_ids = [];
+
+	$('.btn-plus').click(function(){
+		item_id = $('#select_input_item').find(":selected").val();
+		
+		list_item_ids = [];
+		$('.tr_item').each(function() {
+			list_item_ids.push($(this).data("itemid"));
+		});
+		let duplicate_id = list_item_ids.includes(parseInt(item_id));
+		console.log(list_item_ids);
+		//console.log(duplicate_id);
+		items.forEach(function(item) {
+		  if(item.id == item_id && !duplicate_id){
+		  	//$('#select_input_item').find(":selected").attr("disabled","true");
+		  	html = 	'<tr class="tr_item" data-itemid="'+item.id+'">'+
+									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
+									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
+									'<td><input type="number" class="form-control table_quantity" min=1></td>'+
+									'<td><input type="text" class="form-control table_price" value="'+ item.price +'"></td>'+
+									'<td>'+
+										'<select class="form-control">'+
+											'<% @items.each do |item| %>'+
+												'<option><%= item.name %></option>'+
+											'<% end -%>'+
+										'</select>'+
+									'</td>'+
+									'<td><input type="text" class="form-control table_amount" placeholder="Amount"></td>'+
+								'</tr>';
+		  	$("#tbody_list_item").append(html);
+		  	$('.icon_del_item').click(function(){
+					$(this).closest(".tr_item").remove();
+				});
+		  }
+		})
+		$('.table_quantity').on('input', function() {
+	    var item_id = $(this).closest(".tr_item").data("itemid");
+			var quan = parseInt($(this).val());
+			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(quan*price);
+	  });
+	});
+
+	$('.btn_calculate').click(function(){
+		var total_amount = 0;
+		$('.tr_item .table_amount').each(function() {
+			total_amount += parseInt($(this).val());
+		});
+	  //console.log(total_amount);
+	  $('#subtotal_price').html(total_amount);
+	  //console.log(parseInt($('#subtotal_price').html()));
+	  $('input[name="discount"]').val(0);
+	  $('#total_afterall').html(formatToCurrency(total_amount));
+  });
+
+	const formatToCurrency = amount => {
+	  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + ' VND';
+	};
+
+  $('input[name="discount"]').on('input', function() {
+  	if ($(this).val()>100) {
+  		$(this).val(0);
+  	}
+  	var subtotal = parseInt($('#subtotal_price').html());
+  	if ($(this).val()==0 || $(this).val() == '') {
+  		$('#total_afterall').html(formatToCurrency(subtotal));
+  	} else {
+  		var discount = parseInt($(this).val())/100;
+			var total = subtotal - subtotal * discount;
+			$('#total_afterall').html(formatToCurrency(total));
+  	}
+	});
+
+  var list_item_ids_save = [];
+  var list_item_quans = [];
+
+	$('input[name="commit"]').click(function(){
+		$('.tr_item').each(function() {
+			list_item_ids_save.push($(this).data("itemid"));
+			//list_item_quans.push($(this).closest('td > input.table_quantity').val());
+		});
+		$('.table_quantity').each(function() {
+			list_item_quans.push($(this).val());
+		});
+		alert(list_item_ids_save+'\n'+list_item_quans);
+  });
+
+</script>

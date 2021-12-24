@@ -1,11 +1,11 @@
 <div class="col-sm-3 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
-		<li><%= link_to "Dashboard", root_path %></li>
+		<li><%= link_to "Dashboard", root_path, class:"sidebar_button" %></li>
 		<li>
 			<a class="leads_btn">Leads <span class="fas fa-caret-down"></span></a>
 			<ul class="leads_item">
 			    <li>
-			        <%= link_to 'Manage Leads', leads_path %>
+			        <%= link_to 'Manage Leads', leads_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
 			        <a href="#">Recycle Bin</a>
@@ -16,7 +16,7 @@
 			<a class="customer_btn">Customers <span class="fas fa-caret-down"></span></a>
 			<ul class="customer_item">
 			    <li>
-			    	<%= link_to 'Manage Customers', customers_path %>
+			    	<%= link_to 'Manage Customers', customers_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
 			        <a href="#">Recycle Bin</a>
@@ -27,10 +27,10 @@
 			<a class="catalog_btn">Catalogs <span class="fas fa-caret-down"></span></a>
 			<ul class="catalog_item">
 			    <li>
-		    		<%= link_to 'Products', products_path %>
+		    		<%= link_to 'Products', products_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
-			    	<%= link_to 'Category', categories_path %>
+			    	<%= link_to 'Category', categories_path, class:"sidebar_button" %>
 			    </li>
 			</ul>
 	  </li>
@@ -38,13 +38,13 @@
 			<a class="sale_btn">Sales <span class="fas fa-caret-down"></span></a>
 			<ul class="sale_item">
 			    <li>
-			        <%= link_to 'Proposals', proposals_path %>
+			        <%= link_to 'Proposals', proposals_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
-			        <%= link_to 'Invoices', invoices_path %>
+			        <%= link_to 'Invoices', invoices_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
-			        <%= link_to 'Taxes', taxes_path %>
+			        <%= link_to 'Taxes', taxes_path, class:"sidebar_button" %>
 			    </li>
 			</ul>
 	  </li>
@@ -52,11 +52,11 @@
 			<a class="staff_btn">Staff <span class="fas fa-caret-down"></span></a>
 			<ul class="staff_item">
 			    <li>
-			    	<%= link_to 'Add Staff', new_staff_path %>
+			    	<%= link_to 'Add Staff', new_staff_path, class:"sidebar_button" %>
 
 			    </li>
 			    <li>
-			    	<%= link_to 'Manage Staff', staffs_path %>
+			    	<%= link_to 'Manage Staff', staffs_path, class:"sidebar_button" %>
 			    </li>
 			</ul>
 	  </li>
@@ -64,10 +64,10 @@
 			<a class="report_btn">Report <span class="fas fa-caret-down"></span></a>
 			<ul class="report_item">
 			    <li>
-			    	<%= link_to 'Proposals Report', reports_proposals_path %>
+			    	<%= link_to 'Proposals Report', reports_proposals_path, class:"sidebar_button" %>
 			    </li>
 			    <li>
-			        <%= link_to 'Invoices Report', reports_invoices_path %>
+			        <%= link_to 'Invoices Report', reports_invoices_path, class:"sidebar_button" %>
 			    </li>
 			</ul>
 	  </li>
