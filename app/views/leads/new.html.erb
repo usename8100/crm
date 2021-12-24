@@ -3,7 +3,7 @@
 <% end -%>
 <div class="col-md-10 main">
 	<div class="add-lead-main">
-		<%= form_with(model: @customer, url: new_lead_path) do |form| %>
+		<%= form_with(model: @customer, url: new_lead_2_path(params[:role])) do |form| %>
 		<div class="add-lead-left">
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Company Details </h5>
@@ -68,8 +68,9 @@
 				<h5 style="margin: 20px 20px 0px 25px;">Lead Details </h5>
 				<div class="border-x" ></div>
 				<div class="add-lead-center">
-					<div class="input-group input-group-sm mb-3"><p>Source</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="source_select">
+					<div class="mb-3 form-group">
+						<%= form.label :source, "Source" %>
+						<select class="form-control" aria-label=".form-select-sm example" id="source_select">
 							<option selected disabled>Select A Source</option>
 							<option value="Google">Google</option>
 							<option value="Facebook">Facebook</option>
@@ -78,8 +79,9 @@
 						</select>
 						<%= form.hidden_field :source, id:"f_source" %>
 					</div>
-					<div class="input-group input-group-sm mb-3"><p>Assigned To*</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="staff_select">
+					<div class="mb-3 form-group">
+						<%= form.label :staff_id, "Assigned To" %>
+						<select class="form-control" aria-label=".form-select-sm example" id="staff_select">
 							<option selected disabled>Select A Staff Member</option>
 							<% @staffs.each do |staff| %>
 								<option value="<%= staff.id %>"><%= staff.get_name %></option>
@@ -91,8 +93,9 @@
 						<%= form.label :notes, "Note" %>
 						<%= form.text_area :notes, class:"form-control", placeholder: "Note"%>
 					</div>
-					<div class="input-group input-group-sm mb-3"><p>Status</p> 
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example" id="status_select">
+					<div class="mb-3 form-group">
+						<%= form.label :status, "Status" %>
+						<select class="form-control"  id="status_select" >
 							<option selected value="New">New</option>
 							<option value="Familar">Familar</option>
 						</select>
@@ -103,7 +106,12 @@
 		</div>
 		<div style="clear: left; margin-bottom: 50px;"></div>
 		<div class="mb-3 form-group">
-			<center><%= form.submit "Save", class: "btn btn-success" %></center>
+			<center>
+				<%= form.submit "Save", class: "btn btn-success" %>
+				<%= link_to leads_path do %>	
+					<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
+				<% end %>	
+			</center>
 		</div>
 		<% end -%>
 	</div>

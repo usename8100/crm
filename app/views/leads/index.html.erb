@@ -7,7 +7,7 @@
 			
 			<br><h3 style="margin-left: 30px;display: inline;">Manage Leads </h3>
 			
-			<%= link_to new_lead_path do %>
+			<%= link_to new_lead_2_path(1) do %>
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Lead</button>
 			<% end -%>
 			<div class="border-x"></div>
@@ -40,7 +40,9 @@
 					    			<%= link_to lead_path(lead.id) do %>
 					    				<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-eye"></i> View Details</button>
 						    		<% end -%>
-						    		<button type="button" class="btn btn-secondary btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+						    		<%= link_to edit_lead_path(lead.id) do %>
+					    				<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+						    		<% end -%>
 						    		<%= link_to to_customer_path(lead.id), method: :patch, data:{confirm:'Convert this lead to customer?'} do %>
 							    		<button type="button" class="btn btn-success btn-sm">
 							    			<i class="fas fa-exchange-alt"></i> Convert to Customer

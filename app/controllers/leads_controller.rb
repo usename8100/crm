@@ -33,7 +33,7 @@ class LeadsController < ApplicationController
 
 		@lead = Customer.new
 		@lead.staff_id = staff_id.to_i
-		@lead.customer_role_id = 1
+		@lead.customer_role_id = params[:role].to_i
 		@lead.name = lead_name
 		@lead.detail_address = detail_address
 		@lead.city = city
@@ -53,10 +53,39 @@ class LeadsController < ApplicationController
 			@contact.designation = designation
 			@contact.notes = contact_note
 			if @contact.save
-				redirect_to leads_path
+				if params[:role].to_i == 1
+					redirect_to leads_path
+				else
+					redirect_to customers_path
+				end
 			end
 		else
 			redirect_to new_lead_path
+		end
+	end
+
+	def edit
+    @lead = Customer.find(params[:id])
+		@staffs = Staff.all
+	end
+
+	def update
+    @lead = Customer.find(params[:id])
+		lead_name = params[:customer][:name]
+		phone = params[:customer][:phone]
+		email = params[:customer][:email]
+		website = params[:customer][:website]
+		staff_id = params[:customer][:staff_id]
+		notes = params[:customer][:note]
+		status = params[:customer][:status]
+		source = params[:customer][:source]
+		city = params[:customer][:city]
+		detail_address = params[:customer][:detail_address]
+
+		if @lead.update(name: lead_name, phone: phone, email: email, website: website, note: notes, status: status, source: source, city: city, detail_address: detail_address)
+			redirect_to leads_path
+		else
+			render 'edit'
 		end
 	end
 

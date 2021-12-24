@@ -5,7 +5,7 @@
 	<div class="list-lead-main">
 		<div class="lead-bo">
 			<br><h3 style="margin-left: 30px;display: inline;">Manage Customers </h3>
-			<%= link_to new_customer_path do %>
+			<%= link_to new_lead_2_path(2) do %>
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm">
 					<i class="fas fa-plus"></i> Add New Customer
 				</button>
@@ -40,7 +40,9 @@
 						    			<%= link_to customer_path(customer.id) do %>
 						    				<button type="button" class="btn btn-secondary btn-sm btn-success"><i class="fas fa-eye"></i> View Details</button>
 							    		<% end -%>
-							    		<button type="button" class="btn btn-secondary btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</button>
+							    		<%= link_to edit_customer_path(customer) do %>
+						    				<button type="button" class="btn btn-secondary btn-sm btn-warning"><i class="fas fa-pencil-alt"></i> Edit</button>
+							    		<% end -%>
 							    		<%= link_to delete_customer_path(customer.id), method: :delete, data:{confirm:'Delete this customer?'} do %>
 							    			<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 						    			<% end -%>

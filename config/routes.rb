@@ -24,8 +24,11 @@ Rails.application.routes.draw do
   patch 'lead/:id', to: 'leads#convert_l2c', as: 'to_customer'
   delete 'customers/:id', to: 'customers#destroy', as: 'delete_customer'
   delete 'leads/:id', to: 'leads#destroy', as: 'delete_lead'
-  post 'leads/new', to: 'leads#create'
-  
+  get '/leads/new/:role', to: 'leads#new', as: 'new_lead_2'
+  post 'leads/new/:role', to: 'leads#create'
+  patch 'leads/:id', to: 'leads#update', as: 'update_lead'
+  patch 'customers/:id', to: 'customers#update', as: 'update_customer'
+
   #call
   post '/lead/:lead_id/call/', to: 'calls#create', as: 'new_lead_call'
   get '/lead/:lead_id/call/:id', to: 'leads#edit_call', as: 'edit_lead_call'
