@@ -63,6 +63,11 @@ Rails.application.routes.draw do
   get '/lead/:customer_id/proposal/new', to: 'proposals#new', as: 'new_lead_proposal'
   post '/lead/:customer_id/proposal/new', to: 'proposals#create'
 
+  #tax
+  post 'taxes/new', to: 'taxes#create' 
+  patch 'taxes/:id', to: 'taxes#update'
+  delete 'taxes/:id', to: 'taxes#destroy', as: 'delete_tax'
+
   resources :customers
   resources :products 
   resources :taxes

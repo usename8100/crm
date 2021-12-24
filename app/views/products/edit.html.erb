@@ -33,14 +33,20 @@
 						</div>
 						<div class="form-group">
 							<%= form.label :price, "Price*" %>
-							<%= form.text_field :price, class:"form-control", placeholder: "Price"%>
+							<%= form.number_field :price, min: 1000, class:"form-control", placeholder: "Price"%>
 						</div>
 
 						
 						<div class="form-group">
-							<%= form.label :price, "Tax" %>
-							<%= form.select :tax_id, options_for_select(["No Tax","GTGT"])%>
+							<%= form.label :tax, "Tax" %>
+							<select class="form-select" style="height: 30px;" id="tax_select">
+								<% @taxes.each do |tax| %>
+									<option value="<%= tax.id %>"><%= tax.name %></option>
+								<% end -%>
+							</select>
+							<%= form.hidden_field :tax_id, id:"f_tax_id" %>
 						</div>
+
 
 						<div class="select-20">
 							<%= form.label :status, "Status" %>
@@ -66,6 +72,9 @@
 	$("#f_category_id").val(c);
 	$('#category_select').on('change', function() {
 	  $("#f_category_id").val(this.value);
+	});
+	$('#tax_select').on('change', function() {
+	  $("#f_tax_id").val(this.value);
 	});
 	$('#btnSave').click(function(){
     if($("#item_name").val() == '' || $("#item_price").val() == ''){
