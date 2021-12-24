@@ -40,6 +40,12 @@ Rails.application.routes.draw do
   patch 'products/:id', to: 'products#convert_status', as: 'convert_status'
   #get '/product/:id', to: 'products#index'
 
+  #staff
+  post 'staffs/new', to: 'staffs#create'
+  delete 'staffs/:id', to: 'staffs#destroy', as: 'delete_staff'
+  get '/staff/:id/edit', to: 'staffs#edit', as: 'edit_staff'
+  patch 'staff/:user_id/accounts/:id', to: 'staffs#update', as: 'update_staff' 
+
   resources :customers
   resources :products 
   resources :taxes

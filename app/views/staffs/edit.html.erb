@@ -1,2 +1,89 @@
-<h1>Staffs#edit</h1>
-<p>Find me in app/views/staffs/edit.html.erb</p>
+<%= content_for(:sidebar) do %>
+<%= render :partial => "layouts/sidebar" %>
+<% end -%>
+<div class="col-md-10 main">
+	<h2>Update Staff</h2>
+	<%= form_with(model: @account, url: update_staff_path(@account.id)) do |form| %>
+	
+		<div class="add-lead-main">
+			<div class="add-lead-left">
+				<div class="lead-bo">
+					<h5 style="margin: 20px 20px 0px 25px;">Personal Details </h5>
+					<div class="border-x"></div>
+					<div class="add-lead-center"> 
+						
+						<div class="form-group">
+							<%= form.label :name, "Name" %>
+							<%= form.text_field :name, class:"form-control", placeholder: "Name"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :phone, "Phone" %>
+							<%= form.text_field :phone, class:"form-control", placeholder: "Phone"%>
+						</div>
+						<div class="mb-3 form-group">
+							<%= form.label :street, "Street" %>
+							<%= form.text_area :street, class:"form-control", placeholder: "Street"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :city, "City" %>
+							<%= form.text_field :city, class:"form-control", placeholder: "City"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :age, "Age" %>
+							<%= form.text_field :age, class:"form-control", placeholder: "Age"%>
+						</div>
+					</div>
+				</div>	
+				<br>
+			</div>
+
+
+		<div class="add-lead-right"> 
+			<div class="lead-bo">
+				<h5 style="margin: 20px 20px 0px 25px;">Account</h5>
+				<div class="border-x" ></div>
+				<div class="add-lead-center">		
+					<div class="form-group">
+						<%= form.label :email, "Email" %>
+						<%= form.text_field :email, class:"form-control", placeholder: "Email"%>
+					</div>
+					<div class="form-group">
+						<%= form.label :password, "Password" %>
+						<%= form.text_field :password, class:"form-control", placeholder: "Password"%>
+					</div>
+				</div>
+			</div>
+			<br>
+
+			<div class="lead-bo">
+				<h5 style="margin: 20px 20px 0px 25px;">Staff Role Acess </h5>
+				<div class="border-x" ></div>
+				<div class="add-lead-center">
+					<div class="select-20">
+						<%= form.label :Designation, "Designation" %>
+						<select class="form-control"  id="designation_select" >
+							<option selected disabled><%= @account.get_designation %></option>
+							<% @staff_roles.each do |role| %>
+								<option value="<%= role.name %>"> <%= role.name %> </option>
+							<% end %>
+						</select>
+						<%= form.hidden_field :designation, id:"f_designation" %>
+					</div>
+				</div>
+			</div>
+			<div style="clear: left; margin-bottom: 50px;"></div>
+			<center><%= form.submit "Save", class: "btn btn-success" %>
+				<%= link_to staffs_path do %>	
+						<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
+				<% end %>
+			</center>
+		</div>
+	<% end %>
+</div>
+<script type="text/javascript">
+	var d = $('#designation_select').find(":selected").val();
+	$("#f_designation").val(d);
+	$('#designation_select').on('change', function() {
+	  $("#f_designation").val(this.value);
+	});
+</script>
