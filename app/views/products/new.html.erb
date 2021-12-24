@@ -5,67 +5,71 @@
 	<div class="cata-main">
 		<div class="cata-bo">
 			<h4 style="margin-left: 30px;margin-top: 20px;">Add Product</h4>
-			<div class="cata-border-add-x"></div>
-			<center >
-				<div class="width-add-p ">
-					<div class="input-group mb-3">
+			<div class="cata-border-add-x"></div>			
+		
+				<%= form_with(model: @item, url: new_product_path )  do |form| %>
+					<div class="width-add-p ">
+
+						<%= form.label :category, "Category*" %>
+						<select class="form-select" style="height: 30px;" id="category_select">
+							<% @categories.each do |category| %>
+								<option value="<%= category.id %>"><%= category.name %></option>
+							<% end -%>
+						</select>
+						<%= form.hidden_field :category_id, id:"f_category_id" %><br><br>
+
+						<div class="form-group">
+							<%= form.label :name, "Name*" %>
+							<%= form.text_field :name, class:"form-control", placeholder: "Name"%>
+						</div>
+					
+						<div class="form-group">
+							<%= form.label :designation, "Description" %>
+							<%= form.text_field :designation, class:"form-control", placeholder: "Description"%>
+						</div>
+						<div class="form-group">
+							<%= form.label :price, "Price*" %>
+							<%= form.text_field :price, class:"form-control", placeholder: "Price"%>
+						</div>
+
 						
-						<p class="input-group">Category*</p>
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected disabled>Select A Category</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
+						<div class="form-group">
+							<%= form.label :tax, "Tax" %>
+							<%= form.select :tax_id, options_for_select(["No Tax","GTGT"])%>
+						</div>
+
+						<div class="select-20">
+							<%= form.label :status, "Status" %>
+							<%= form.select :status, options_for_select([['Active', true], ['Inactive', false]])%>
+						</div>
+
 					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Name*</p>
-						<input type="text" class="form-control" >
-					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Description</p>
-						<textarea ></textarea>
-					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Price*</p>
-						<input type="text" class="form-control" >
-					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Currency*</p>
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option selected disabled>Select A Currency</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
-					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Tax</p>
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option>No Tax</option>
-							<option value="1">1</option>
-							<option value="2">2</option>
-							<option value="3">3</option>
-							<option value="4">4</option>
-						</select>
-					</div>
-					<div class="input-group mb-3">
-						<p class="input-group">Status</p>
-						<select class="form-select form-select-sm" aria-label=".form-select-sm example">
-							<option value="1">Active</option>
-							<option value="2">Inactive</option>
-						</select>
-					</div>
-				</div>
-			</center>
-			<div style="padding-top: 8px;"></div>
-			<div class="cata-border-add-x"></div>
-			<div style="padding-left: 5%; padding-bottom: 20px;">
-				<button type="button" class="btn btn-success btn-sm"> Save</button>
-				<button type="button" class="btn btn-secondary btn-sm"> Close</button>				
+					<div style="padding-top: 8px;"></div>
+					<div class="cata-border-add-x"></div>
+					<div style="padding-left: 5%; padding-bottom: 20px;">
+					<%= form.submit "Save", class: "btn btn-success btn-sm", style:"width: 50px" , id:"btnSave"%>
+				<% end -%>
+
+				<%= link_to products_path do %>	
+					<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
+				<% end %>			
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+	var c = $('#category_select').find(":selected").val();
+	$("#f_category_id").val(c);
+	$('#category_select').on('change', function() {
+	  $("#f_category_id").val(this.value);
+	});
+	$('#btnSave').click(function(){
+    if ($("#item_name").val() != '' && $("#item_price").val() == ''){
+    		alert('please fill up the price greater than 0!');
+    }
+    else if($("#item_name").val() == '' && $("#item_price").val() == '') {
+    		alert('Please fill up the form!');
+    }
+    
+	});
+</script>
