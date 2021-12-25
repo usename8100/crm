@@ -14,7 +14,7 @@
 					<ul class="dashboard-general-list">
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">3<%= @total_product %></span>
+								<span class="dashboard-general-item-quan"><%= @total_product %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Products</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -41,7 +41,7 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">8<%= @total_proposal %></span>
+								<span class="dashboard-general-item-quan"><%= @total_proposal %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Proposals</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -50,7 +50,7 @@
 						</li>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
-								<span class="dashboard-general-item-quan">7<%= @total_invoice %></span>
+								<span class="dashboard-general-item-quan"><%= @total_invoice %></span>
 								<span style="font-weight: 500;font-size: 20px;">Total Invoices</span>
 							</div>
 							<div class="dashboard-general-item-icon">
@@ -64,223 +64,128 @@
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
 								<span style="font-size: 22px;font-weight: 400;">Leads</span>
-								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
-								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 3</span>
 							</div>
 							<div>
 								<ul style="padding: 0;">
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Lead 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Lead 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Lead 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
+									<% @leads.each do |lead| %>
+										<%= link_to lead_path(lead.id) do %>
+										<li class="dashboard-general-column-item">
+											<div class="dashboard-general-column-item-date">
+												<span style="font-weight:600; font-size: 27px;"><%= lead.created_at.strftime("%d") %></span>
+												<span><%= lead.created_at.strftime("%a") %></span>
+											</div>
+											<div class="dashboard-general-item-content">
+												<span style="font-weight: 700"><%= lead.name %></span>
+												<span>Phone: <%= lead.phone %></span>
+												<span><%= lead.email %></span>
+											</div>
+										</li>
+										<% end -%>
+									<% end -%>
 								</ul>
 							</div>
 						</li>
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
 								<span style="font-size: 22px;font-weight: 400;">Customers</span>
-								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
-								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 3</span>
 							</div>
 							<div>
 								<ul style="padding: 0;">
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Customer 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Customer 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Customer 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
+									<% @customers.each do |lead| %>
+										<%= link_to customer_path(lead.id) do %>
+										<li class="dashboard-general-column-item">
+											<div class="dashboard-general-column-item-date">
+												<span style="font-weight:600; font-size: 27px;"><%= lead.created_at.strftime("%d") %></span>
+												<span><%= lead.created_at.strftime("%a") %></span>
+											</div>
+											<div class="dashboard-general-item-content">
+												<span style="font-weight: 700"><%= lead.name %></span>
+												<span>Phone: <%= lead.phone %></span>
+												<span><%= lead.email %></span>
+											</div>
+										</li>
+										<% end -%>
+									<% end -%>
 								</ul>
 							</div>
 						</li>
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
 								<span style="font-size: 22px;font-weight: 400;">Calls</span>
-								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
-								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 3</span>
 							</div>
 							<div>
 								<ul style="padding: 0;">
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Call 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Call 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Call 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
+									<% @calls.each do |call| %>
+										<%= link_to edit_lead_call_path(call.customer_id, call.id) do %>
+										<li class="dashboard-general-column-item">
+											<div class="dashboard-general-column-item-date">
+												<span style="font-weight:600; font-size: 27px;"><%= call.created_at.strftime("%d") %></span>
+												<span><%= call.created_at.strftime("%a") %></span>
+											</div>
+											<div class="dashboard-general-item-content">
+												<span style="font-weight: 700">Call to: <%= call.get_customer_name %></span>
+												<span>Assigned to: <%= call.get_staff_name %></span>
+												<span><%= call.description %></span>
+											</div>
+										</li>
+										<% end -%>
+									<% end -%>
 								</ul>
 							</div>
 						</li>
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
-								<span style="font-size: 22px;font-weight: 400;">Estimates</span>
-								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
-								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
+								<span style="font-size: 22px;font-weight: 400;">Proposals</span>
+								<span style="font-size:11px;margin-left: 5px">Lastest 3</span>
 							</div>
 							<div>
 								<ul style="padding: 0;">
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Estimate 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Estimate 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Estimate 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
+									<% @proposals.each do |proposal| %>
+										<%= link_to show_lead_proposal_path(proposal.customer_id, proposal.id) do %>
+										<li class="dashboard-general-column-item">
+											<div class="dashboard-general-column-item-date">
+												<span style="font-weight:600; font-size: 27px;"><%= proposal.created_at.strftime("%d") %></span>
+												<span><%= proposal.created_at.strftime("%a") %></span>
+											</div>
+											<div class="dashboard-general-item-content">
+												<span style="font-weight: 700"><%= proposal.subject %></span>
+												<span>Proposal from: <%= proposal.start_date.strftime("%d-%m-%Y") %></span>
+												<span>Expiry date: <%= proposal.end_date.strftime("%d-%m-%Y") %></span>
+											</div>
+										</li>
+										<% end -%>
+									<% end -%>
 								</ul>
 							</div>
 						</li>
-						<li class="dashboard-general-column-sec">
-							<div class="dashboard-general-column-title">
-								<span style="font-size: 22px;font-weight: 400;">Invoices</span>
-								<span style="font-size:11px;margin-left: 5px">Lastest 5</span>
-								<span style="float: right;margin-right: 40px;font-weight: 700;">^</span>
-							</div>
-							<div>
-								<ul style="padding: 0;">
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Invoice 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Invoice 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-									<li class="dashboard-general-column-item">
-										<div class="dashboard-general-column-item-date">
-											<span style="font-weight:600; font-size: 27px;">15</span>
-											<span>Mon</span>
-										</div>
-										<div class="dashboard-general-item-content">
-											<span style="font-weight: 700">Sample Invoice 8</span>
-											<span>Phone: 012783712</span>
-											<span>Email: sample8@gmail.com</span>
-										</div>
-									</li>
-								</ul>
-							</div>
-						</li>
+						<% if @invoices.any? %>
+							<li class="dashboard-general-column-sec">
+								<div class="dashboard-general-column-title">
+									<span style="font-size: 22px;font-weight: 400;">Invoices</span>
+									<span style="font-size:11px;margin-left: 5px">Lastest 3</span>
+								</div>
+								<div>
+									<ul style="padding: 0;">
+										<% @invoices.each do |invoice| %>
+											<li class="dashboard-general-column-item">
+												<div class="dashboard-general-column-item-date">
+													<span style="font-weight:600; font-size: 27px;"><%= invoice.created_at.strftime("%d") %></span>
+													<span><%= invoice.created_at.strftime("%a") %></span>
+												</div>
+												<div class="dashboard-general-item-content">
+													<span style="font-weight: 700"><%= invoice.subject %></span>
+													<span>Inoice created at: <%= invoice.created_at.strftime("%d-%m-%Y") %></span>
+													<span>Total amount: <%= number_to_currency(invoice.total, :unit => "", :separator => ",", :delimiter => ".") %></span>
+												</div>
+											</li>
+										<% end -%>
+									</ul>
+								</div>
+							</li>
+						<% end -%>
 					</ul>
 				</div>
 			</div>

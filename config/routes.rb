@@ -62,13 +62,25 @@ Rails.application.routes.draw do
   #proposal
   get '/lead/:customer_id/proposal/new', to: 'proposals#new', as: 'new_lead_proposal'
   post '/lead/:customer_id/proposal/new', to: 'proposals#create'
+  delete '/lead/:customer_id/proposal/:id', to: 'proposals#destroy', as: 'destroy_proposal'
+  get '/lead/:customer_id/proposal/:id/edit', to: 'leads#edit_proposal', as: 'edit_lead_proposal'
+  patch '/lead/:customer_id/proposal/:id', to: 'proposals#update', as: 'update_lead_proposal'
+  get '/lead/:customer_id/proposal/:id', to: 'proposals#show', as: 'show_lead_proposal'
 
   resources :customers
-  resources :products 
+  resources :products do
+    collection do 
+      post :create_from_proposal
+    end
+  end
   resources :taxes
   resources :invoices
   resources :estimates
-  resources :proposals
+  resources :proposals do
+    collection do
+      post :send_proposal
+    end
+  end
   resources :categories
   resources :staffs
   resources :contacts

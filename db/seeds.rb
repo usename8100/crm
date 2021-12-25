@@ -9,6 +9,9 @@ Account.create!(name: Faker::Name.unique.name, email: 'qwe@qwe.qwe', password: '
 CustomerRole.create!(name: 'lead')
 CustomerRole.create!(name: 'customer')
 Staff.create!(user_id: 1, designation: 'Manager')
+UserRole.create(name: "Manager")
+UserRole.create(name: "Seller")
+UserRole.create(name: "Customer Officer")
 Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 						quis nostrud exercitation ullamco ', 

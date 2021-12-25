@@ -1,0 +1,15 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  proposal_id: 1
+  item_id: 1
+  quantity: 1
+  price: MyString
+  amount: MyString
+
+two:
+  proposal_id: 1
+  item_id: 1
+  quantity: 1
+  price: MyString
+  amount: MyString
