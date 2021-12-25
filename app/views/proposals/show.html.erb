@@ -1,2 +1,79 @@
-<h1>Proposals#show</h1>
-<p>Find me in app/views/proposals/show.html.erb</p>
+<div class="overall-box">
+		<div class="proposal_detail-title">
+			<h2>Proposal's Detail</h2>
+			<%= link_to edit_lead_proposal_path(@lead.id, @proposal.id) do %>
+				<button style="padding: 10px;position: absolute;right: 80px; top:90px" type="button" class="btn btn-success">
+					<i class="fas fa-wrench"></i> Edit
+				</button>
+			<% end -%>
+		</div>
+		<div class="proposal_detail-status">
+			<button type="button" class="btn btn-warning btn-status"><%= @proposal.status %></button>
+		</div>
+		<div class="proposal_detail-infor">
+			<div class="proposal_detail-company">
+				<span style="font-size:25px"><%= @proposal.subject %></span><br>
+				<span>Date: <%= @proposal.created_at.strftime("%d-%m-%Y") %></span>
+				<span>From:</span>
+				<span style="font-size:30px;line-height: 50px;">ABC Company</span>
+				<span><%= current_account.city %></span>
+				
+			</div>
+			<div class="proposal_detail-customer">
+				<span>To:</span>
+				<span style="font-size:32px;line-height: 40px;"><b><%= @lead.name %></b></span>
+				<span><%= @lead.detail_address %></span>
+				<span><%= @lead.city %></span>
+				
+				<br><span style="color: red;">Start date: <%= @proposal.start_date.strftime("%d-%m-%Y") %></span>
+				<span style="color: red;">Expiry date: <%= @proposal.end_date.strftime("%d-%m-%Y") %></span>
+			</div>
+		</div>
+		<div class="proposal-lower">
+			<div>
+				<table class="table table-bordered">
+					<thead>
+						<tr>
+							<th>Item</th>
+							<th>Quantity</th>
+							<th>Price</th>
+							<th>Tax</th>
+							<th>Amount</th>
+						</tr>
+					</thead>
+					<tbody>
+						<% @table_items.each do |item| %>
+							
+							<tr>
+								<td><input type="text" class="form-control" value="<%= item.get_item_name %>" disabled></td>
+								<td><input type="text" class="form-control" value="<%= item.quantity %>" disabled></td>
+								<td><input type="text" class="form-control" value="<%= item.price %>" disabled></td>
+								<td style="width: 200px;"><input type="text" class="form-control" value="No tax" disabled></td>
+								<td><input type="text" class="form-control" value="<%= item.amount %>" disabled></td>
+							</tr>
+							<% end -%>
+						</tbody>
+				</table>
+				<div class="table-total">
+					<table class="table table-bordered table-striped">
+						<tr>
+							<td>Subtotal</td>
+							<td><%=  number_to_currency(@proposal.get_subtotal, :unit => "", :separator => ",", :delimiter => ".")  %></td>
+						</tr>
+						<tr>
+							<td>Discount(%)</td>
+							<td><%= @proposal.discount %> %</td>
+						</tr>
+						<tr>
+							<td>Total taxes</td>
+							<td>0</td>
+						</tr>
+						<tr>
+							<td><b>Total</b></td>
+							<td><b><%=  number_to_currency(@proposal.total, :unit => "", :separator => ",", :delimiter => ".")  %></b></td>
+						</tr>
+					</table>
+				</div>
+			</div>
+		</div>
+	</div>

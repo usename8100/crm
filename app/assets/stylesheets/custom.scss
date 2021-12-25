@@ -66,9 +66,14 @@ body {
 	padding-top: 60px;
 }
 
+.sidebar{
+	margin-left: 0;
+	padding-left: 0;
+}
 .nav-sidebar {
-	background-color: rgb(250, 250, 255);
+	//background-color: rgb(250, 250, 255);
 	min-height: 820px;
+	font-weight: 600;
 }
 .nav ul {
 	position: static;

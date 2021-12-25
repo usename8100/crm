@@ -9,24 +9,29 @@
 				<h2>Proposal Details</h2>
 			</div>
 			<div style="margin-top: 20px;">
-				<%= form_with(model: @proposal, url: new_lead_proposal_path(@lead.id), id:"newProposalForm")  do |form| %>
+				<%= form_with(model: @proposal, url: update_lead_proposal_path(@lead.id, @proposal), id:"editProposalForm") do |form| %>
 					<div class="mb-3 form-group">
 			      <%= form.label :subject, "Subject" %>
-			      <%= form.text_field :subject, class:"form-control",:required => true%>
+			      <%= form.text_field :subject, class:"form-control", value: @proposal.subject %>
 			    </div>
 			    <div class="mb-3 form-group">
 			      <%= form.label :datestart, "Proposal date start at" %>
-			      <%= form.date_field :datestart, class:"form-control", value:Time.zone.now.strftime("%F") %>
+			      <%= form.date_field :datestart, class:"form-control", value:@proposal.start_date.strftime("%F") %>
 			    </div>
 			    <div class="mb-3 form-group">
 			      <%= form.label :dateend, "Proposal date end at" %>
-			      <%= form.date_field :dateend, class:"form-control", value:Time.zone.now.strftime("%F") %>
+			      <%= form.date_field :dateend, class:"form-control", value:@proposal.end_date.strftime("%F") %>
 			    </div>
 			    <div class="mb-3 form-group">
 			    	<%= form.label :status, "Status" %>
 						<select class="form-control" aria-label=".form-select-sm example" id="status_select">
-							<option value="New">New</option>
-							<option selected value="Draft">Draft</option>
+							<% if @proposal.status == 'New' %>
+								<option value="New" selected>New</option>
+								<option value="Draft">Draft</option>
+							<% else %>
+								<option value="New">New</option>
+								<option selected value="Draft">Draft</option>
+							<% end -%>
 						</select>
 						<%= form.hidden_field :status, id:"f_status" %>
 						<%= form.hidden_field :list_item_ids, id:"f_list_item_ids" %>
@@ -83,7 +88,22 @@
 					</tr>
 				</thead>
 				<tbody id="tbody_list_item">
-
+					<% @table_items.each do |item| %>
+					<tr class="tr_item" data-itemid=<%= item.item_id %>>
+						<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
+							<input type="text" class="form-control" disabled value="<%= item.get_item_name %>"></td>
+							<td><input type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
+							<td><input type="text" class="form-control table_price" value="<%= item.price %>"></td>
+							<td>
+								<select class="form-control">
+									<% @items.each do |item| %>
+									<option><%= item.name %></option>
+									<% end -%>
+								</select>
+							</td>
+							<td><input type="text" class="form-control table_amount" placeholder="Amount" value="<%= item.amount %>"></td>
+						</tr>
+					<% end -%>
 				</tbody>
 			</table>
 			<center>
@@ -91,14 +111,14 @@
 			</center>
 		</div>
 		<div class="table-total">
-			<table class="table table-bordered table-striped table_result">
+			<table class="table table-bordered table-striped">
 				<tr>
 					<td>Subtotal</td>
-					<td><span id="subtotal_price">0</span></td>
+					<td><span id="subtotal_price"><%= @proposal.get_subtotal %></span></td>
 				</tr>
 				<tr>
 					<td>Discount(%)</td>
-					<td><input type="number" name="discount" value="0" min="0" max="100" class="form-control"></td>
+					<td><input type="number" name="discount" value="<%= @proposal.discount %>" min="0" max="100" class="form-control"></td>
 				</tr>
 				<tr>
 					<td>Total taxes</td>
@@ -106,14 +126,13 @@
 				</tr>
 				<tr>
 					<td><b>Total</b></td>
-					<td><b><span id="total_afterall">0</span></b></td>
+					<td><b><span id="total_afterall"><%= @proposal.total %></span></b></td>
 				</tr>
 			</table>
 			<div>
-				<button type="button" id="btnSubmitNewProposalForm" class="btn btn-success">Save</button>
+				<button type="button" id="btnSubmitEditProposalForm" class="btn btn-success">Save</button>
 			</div>
 		</div>
-		
 	</div>
 </div>
 <div id="form_new_item" class="modal fade">
@@ -184,7 +203,7 @@
 		  	html = 	'<tr class="tr_item" data-itemid="'+item.id+'">'+
 									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
 									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
-									'<td><input type="number" class="form-control table_quantity" min=1></td>'+
+									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
 									'<td><input type="text" class="form-control table_price" value="'+ item.price +'"></td>'+
 									'<td>'+
 										'<select class="form-control">'+
@@ -193,7 +212,7 @@
 											'<% end -%>'+
 										'</select>'+
 									'</td>'+
-									'<td><input type="text" class="form-control table_amount" placeholder="Amount"></td>'+
+									'<td><input type="text" class="form-control table_amount" placeholder="Amount" value="'+ item.price +'"></td>'+
 								'</tr>';
 		  	$("#tbody_list_item").append(html);
 		  	$('.icon_del_item').click(function(){
@@ -207,6 +226,17 @@
 			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
 	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(quan*price);
 	  });
+	});
+
+	$('.table_quantity').on('input', function() {
+    var item_id = $(this).closest(".tr_item").data("itemid");
+		var quan = parseInt($(this).val());
+		var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(quan*price);
+  });
+
+  $('.icon_del_item').click(function(){
+		$(this).closest(".tr_item").remove();
 	});
 
 	$('.btn_calculate').click(function(){
@@ -266,7 +296,7 @@
 		$('#f_customer_item').val(customer_id);
   });
 
-  $("#btnSubmitNewProposalForm").click(function(){
+  $("#btnSubmitEditProposalForm").click(function(){
 	  $('.tr_item').each(function() {
 			list_item_ids_save.push($(this).data("itemid"));
 			//list_item_quans.push($(this).closest('td > input.table_quantity').val());
@@ -278,7 +308,6 @@
 		$('#f_list_item_quans').val(list_item_quans);
 		$('#f_status').val($('#status_select').find(":selected").val());
 		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());   
-    $("#newProposalForm").submit();
+    $("#editProposalForm").submit();
   });
-
 </script>

@@ -73,45 +73,71 @@
 						</tr>
 					</thead>
 					<tbody>
-						<tr>
-							<td>
-								<span>Subject: <b>Washing machine</b></span>
-								<span>Date <b>02-03-2021</b></span>
-								<span>Total <b>19.900.000</b></span>
-								<span>Status <b>Sent</b></span>
-								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span>Subject: <b>TV box xieome</b></span>
-								<span>Date <b>02-03-2021</b></span>
-								<span>Total <b>1.290.000</b></span>
-								<span>Status <b>Sent</b></span>
-								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
-							</td>
-						</tr>
-						<tr>
-							<td>
-								<span>Subject: <b>Penesonic Frigde</b></span>
-								<span>Date <b>02-03-2021</b></span>
-								<span>Total <b>37.220.000</b></span>
-								<span>Status <b>Sent</b></span>
-								<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-								<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
-								<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
-							</td>
-						</tr>
+						<% @proposals.each do |proposal| %>
+							<tr>
+								<td>
+									<span>Subject: <b><%= proposal.subject %></b></span>
+									<span>Date Start: <b><%= proposal.start_date.strftime("%d-%m-%Y") %></b></span>
+									<span>Date End: <b><%= proposal.end_date.strftime("%d-%m-%Y") %></b></span>
+									<span>Discount: <b><%= proposal.discount %>%</b></span>
+									<span>Total: <b><%=  number_to_currency(proposal.total, :unit => "", :separator => ",", :delimiter => ".")  %></b></span>
+									<span>Status: <b><%= proposal.status %></b></span>
+
+									<%= link_to show_lead_proposal_path(@lead.id, proposal.id) do %>
+										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+									<% end -%>
+									<%= link_to edit_lead_proposal_path(@lead.id, proposal.id) do %>
+										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+									<% end -%>
+									<%= link_to destroy_proposal_path(@lead.id, proposal.id), method: :delete, data:{confirm:'Delete this proposal?'} do %>
+										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+									<% end -%>
+									<button type="button" class="btn btn-warning btn-sm btn_sendpro" data-toggle="modal" data-target="#form_new_app<%= proposal.id %>">
+										<i class="fas fa-envelope-square"></i>
+										 Send Email</button>
+								</td>
+							</tr>
+							<div class="modal fade " id="form_new_app<%= proposal.id %>">>
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title">Send proposal to email</h4>
+										</div>
+										<div class="modal-body">
+											<%= form_with(model: @proposal, url: send_proposal_proposals_path) do |form| %>
+												<%= form.hidden_field :proposal_id, value: proposal.id %>
+												<div class="mb-3 form-group">
+													<%= form.label :contact_id, "Appointment With Contact" %>
+													<select class="form-select form-control f_contact" aria-label="Default select example" data-proid="<%= proposal.id %>">
+														<option selected disabled="">Select a contact</option>
+														<% @contacts.each do |contact| %>
+														<option value="<%= contact.id %>"><%= contact.name %></option>
+														<% end -%>
+													</select>
+													<%= form.hidden_field :contact_id, class:"f_contact_id", "data-proid" => proposal.id %>
+												</div>
+												<div class="mb-3 form-group">
+													<%= form.submit "Send email", class: "btn btn-success" %>
+												</div>
+											<% end -%>
+										</div>
+									</div>
+								</div>
+							</div>
+						<% end -%>
 					</tbody>
 				</table>
 			</div>
 		</div>
 	</div>
 </div>
+<script type="text/javascript">
+  $('.f_contact').change(function(){
+		var proid_select = parseInt($(this).data("proid"));
+
+		var contact_id = $(".f_contact[data-proid="+proid_select+"]").find(":selected").val();
+		$(".f_contact_id[data-proid="+proid_select+"]").val(contact_id);
+		//$('.f_contact_id[name="'+proid_select+'"]').val(1);
+	});
+	
+</script>
