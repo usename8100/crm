@@ -6,6 +6,7 @@ class CreateProposalItems < ActiveRecord::Migration[6.1]
       t.integer :quantity
       t.string :price
       t.string :amount
+      t.integer :tax_id
 
       t.timestamps
     end

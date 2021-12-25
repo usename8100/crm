@@ -7,6 +7,7 @@ class ProposalsController < ApplicationController
     @lead = Customer.find(params[:customer_id])
     @items = Item.where(status: true)
     @categories = Category.all
+    @taxes = Tax.all
   end
 
   def edit
@@ -26,6 +27,7 @@ class ProposalsController < ApplicationController
   def create
     list_item_ids = params[:proposal][:list_item_ids]
     list_item_quans = params[:proposal][:list_item_quans]
+    list_item_tax_ids = params[:proposal][:list_item_tax_ids]
     subject = params[:proposal][:subject]
     date_start = params[:proposal][:datestart]
     date_end = params[:proposal][:dateend]
@@ -45,11 +47,13 @@ class ProposalsController < ApplicationController
 
     list_item_ids_arr = list_item_ids.split(",")
     list_item_quans_arr = list_item_quans.split(",")
+    list_item_tax_ids_arr = list_item_tax_ids.split(",")
 
     if @proposal.save
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
         amount = item.price.to_i * list_item_quans_arr[index].to_i
+        tax_id = list_item_tax_ids_arr[index].to_i
 
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
@@ -57,6 +61,9 @@ class ProposalsController < ApplicationController
         @proposal_item.quantity = list_item_quans_arr[index].to_i
         @proposal_item.price = item.price.to_i
         @proposal_item.amount = amount
+        if tax_id!=0
+          @proposal_item.tax_id = tax_id
+        end
         @proposal_item.save
         
       end
@@ -78,6 +85,7 @@ class ProposalsController < ApplicationController
   def update
     list_item_ids = params[:proposal][:list_item_ids]
     list_item_quans = params[:proposal][:list_item_quans]
+    list_item_tax_ids = params[:proposal][:list_item_tax_ids]
     subject = params[:proposal][:subject]
     date_start = params[:proposal][:datestart]
     date_end = params[:proposal][:dateend]
@@ -91,6 +99,7 @@ class ProposalsController < ApplicationController
 
     list_item_ids_arr = list_item_ids.split(",")
     list_item_quans_arr = list_item_quans.split(",")
+    list_item_tax_ids_arr = list_item_tax_ids.split(",")
 
     if @proposal.update(subject: subject, start_date: date_start, end_date: date_end, status: status, discount: discount, total: total)
       ProposalItem.where(proposal_id: params[:id].to_i).destroy_all
@@ -98,6 +107,7 @@ class ProposalsController < ApplicationController
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
         amount = item.price.to_i * list_item_quans_arr[index].to_i
+        tax_id = list_item_tax_ids_arr[index].to_i
 
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
@@ -105,6 +115,9 @@ class ProposalsController < ApplicationController
         @proposal_item.quantity = list_item_quans_arr[index].to_i
         @proposal_item.price = item.price.to_i
         @proposal_item.amount = amount
+        if tax_id!=0
+          @proposal_item.tax_id = tax_id
+        end
         @proposal_item.save
         
       end

@@ -45,14 +45,23 @@ class LeadsController < ApplicationController
 		@lead.website = website
 
 		if @lead.save
-			@contact = Contact.new
-			@contact.customer_id = @lead.id
-			@contact.name = contact_name
-			@contact.phone = contact_phone
-			@contact.email = contact_email
-			@contact.designation = designation
-			@contact.notes = contact_note
-			if @contact.save
+			if !contact_email.nil?
+				@contact = Contact.new
+				@contact.customer_id = @lead.id
+				@contact.name = contact_name
+				@contact.phone = contact_phone
+				@contact.email = contact_email
+				@contact.designation = designation
+				@contact.notes = contact_note
+			end
+			@contact2 = Contact.new
+			@contact2.customer_id = @lead.id
+			@contact2.name = lead_name
+			@contact2.phone = phone
+			@contact2.email = email
+			@contact2.designation = "Owner"
+			@contact2.save
+			if @contact2.save
 				if params[:role].to_i == 1
 					redirect_to leads_path
 				else
@@ -155,6 +164,7 @@ class LeadsController < ApplicationController
 		@items = Item.where(status: true)
     @categories = Category.all
     @table_items = ProposalItem.where(proposal_id: @proposal.id)
+    @taxes = Tax.all
 	end
 
 	def invoice

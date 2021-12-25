@@ -161,6 +161,7 @@ ActiveRecord::Schema.define(version: 2021_12_24_094016) do
     t.integer "quantity"
     t.string "price"
     t.string "amount"
+    t.integer "tax_id"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
   end
