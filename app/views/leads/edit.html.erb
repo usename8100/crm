@@ -3,7 +3,7 @@
 <% end -%>
 <div class="col-md-10 main">
 	<div class="add-lead-main">
-		<%= form_with(model: @customer, url: update_customer_path(params[:id])) do |form| %>
+		<%= form_with(model: @lead, url: update_lead_path(params[:id])) do |form| %>
 		<div class="add-lead-left">
 			<div class="lead-bo">
 				<h5 style="margin: 20px 20px 0px 25px;">Company Details </h5>
@@ -74,7 +74,7 @@
 		<div style="clear: left; margin-bottom: 50px;"></div>
 		<div class="mb-3 form-group">
 			<center><%= form.submit "Save", class: "btn btn-success" %>
-			<%= link_to leads_path do %>	
+			<%= link_to customers_path do %>	
 					<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
 			<% end %>	
 			</center>

@@ -61,3 +61,6 @@ Item.create(name: "tv 14inch", category_id: 1, tax_id: 1, quantity: 22, price: "
 Item.create(name: "may giat 200l", category_id: 1, tax_id: 1, quantity: 22, price: "1200000", status: true)
 Item.create(name: "tu lanh 140l", category_id: 1, tax_id: 1, quantity: 22, price: "1200000", status: true)
 Item.create(name: "xe may xuduka", category_id: 1, tax_id: 1, quantity: 22, price: "1200000", status: true)
+UserRole.create(name: 'Manager')
+UserRole.create(name: 'Customer Officer')
+UserRole.create(name: 'Seller')

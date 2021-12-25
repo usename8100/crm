@@ -29,13 +29,18 @@
 						</div>
 						<div class="form-group">
 							<%= form.label :price, "Price*" %>
-							<%= form.text_field :price, class:"form-control", placeholder: "Price"%>
+							<%= form.number_field :price, min: 1000, class:"form-control", placeholder: "Price"%>
 						</div>
 
 						
 						<div class="form-group">
 							<%= form.label :tax, "Tax" %>
-							<%= form.select :tax_id, options_for_select(["No Tax","GTGT"])%>
+							<select class="form-select" style="height: 30px;" id="tax_select">
+								<% @taxes.each do |tax| %>
+									<option value="<%= tax.id %>"><%= tax.name %></option>
+								<% end -%>
+							</select>
+							<%= form.hidden_field :tax_id, id:"f_tax_id" %>
 						</div>
 
 						<div class="select-20">
@@ -63,6 +68,9 @@
 	$('#category_select').on('change', function() {
 	  $("#f_category_id").val(this.value);
 	});
+	$('#tax_select').on('change', function() {
+	  $("#f_tax_id").val(this.value);
+	});
 	$('#btnSave').click(function(){
     if ($("#item_name").val() != '' && $("#item_price").val() == ''){
     		alert('please fill up the price greater than 0!');
@@ -70,6 +78,5 @@
     else if($("#item_name").val() == '' && $("#item_price").val() == '') {
     		alert('Please fill up the form!');
     }
-    
 	});
 </script>

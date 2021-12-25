@@ -184,6 +184,13 @@ ActiveRecord::Schema.define(version: 2021_12_24_094016) do
     t.datetime "updated_at", precision: 6, null: false
   end
 
+  create_table "taxes", force: :cascade do |t|
+    t.string "name"
+    t.integer "tax_percent"
+    t.datetime "created_at", precision: 6, null: false
+    t.datetime "updated_at", precision: 6, null: false
+  end
+
   create_table "user_roles", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", precision: 6, null: false

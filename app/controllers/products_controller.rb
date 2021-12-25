@@ -8,6 +8,7 @@ class ProductsController < ApplicationController
   def new
     @item = Item.new
     @categories = Category.all
+    @taxes = Tax.all
   end
 
   def destroy
@@ -44,6 +45,7 @@ class ProductsController < ApplicationController
 
   def edit
     @categories = Category.all
+    @taxes = Tax.all
   end
 
   def update
