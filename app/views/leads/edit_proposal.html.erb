@@ -36,6 +36,7 @@
 						<%= form.hidden_field :status, id:"f_status" %>
 						<%= form.hidden_field :list_item_ids, id:"f_list_item_ids" %>
 						<%= form.hidden_field :list_item_quans, id:"f_list_item_quans" %>
+						<%= form.hidden_field :list_item_tax_ids, id:"f_list_item_tax_ids" %>
 						<%= form.hidden_field :discount, id:"f_discount" %>
 						<%= form.hidden_field :customer_id, value: @lead.id %>
 						<%= form.hidden_field :total, id:"f_total_proposal"  %>
@@ -95,9 +96,18 @@
 							<td><input type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
 							<td><input type="text" class="form-control table_price" value="<%= item.price %>"></td>
 							<td>
-								<select class="form-control">
-									<% @items.each do |item| %>
-									<option><%= item.name %></option>
+								<select class="form-control tax_select">
+									<% if item.tax_id.nil? %>
+										<option value=0 data-taxp=0 selected>No tax</option>
+									<% else %>
+										<option value=0 data-taxp=0>No tax</option>
+									<% end -%>
+									<% @taxes.each do |tax| %>
+										<% if tax.id == item.tax_id %>
+											<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>
+										<% else %>
+											<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>
+										<% end -%>
 									<% end -%>
 								</select>
 							</td>
@@ -114,7 +124,7 @@
 			<table class="table table-bordered table-striped">
 				<tr>
 					<td>Subtotal</td>
-					<td><span id="subtotal_price"><%= @proposal.get_subtotal %></span></td>
+					<td><span id="subtotal_price"></span></td>
 				</tr>
 				<tr>
 					<td>Discount(%)</td>
@@ -122,7 +132,7 @@
 				</tr>
 				<tr>
 					<td>Total taxes</td>
-					<td><span id="subtotal_tax">0</span></td>
+					<td><span id="tax_price_result">0</span></td>
 				</tr>
 				<tr>
 					<td><b>Total</b></td>
@@ -206,9 +216,10 @@
 									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
 									'<td><input type="text" class="form-control table_price" value="'+ item.price +'"></td>'+
 									'<td>'+
-										'<select class="form-control">'+
-											'<% @items.each do |item| %>'+
-												'<option><%= item.name %></option>'+
+										'<select class="form-control tax_select">'+
+											'<option value=0 data-taxp=0>No tax</option>'+
+											'<% @taxes.each do |tax| %>'+
+												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>'+
 											'<% end -%>'+
 										'</select>'+
 									'</td>'+
@@ -217,6 +228,15 @@
 		  	$("#tbody_list_item").append(html);
 		  	$('.icon_del_item').click(function(){
 					$(this).closest(".tr_item").remove();
+				});
+				$('.tax_select').on('input', function() {
+				  var item_id = $(this).closest(".tr_item").data("itemid");
+					var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+					var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+					var tax_percent = parseInt($(this).find(":selected").data("taxp"))/100;
+				  var amount = quan*price;
+					var last_amount = amount+(amount*tax_percent);
+					$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
 				});
 		  }
 		})
@@ -241,9 +261,20 @@
 
 	$('.btn_calculate').click(function(){
 		var total_amount = 0;
+		var subtotal_tax = 0;
+		
+		$('.tr_item').each(function() {
+			// total_amount += parseInt($(this).val());
+			var item_id = $(this).data("itemid");
+			var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+			subtotal_tax += quan*price;
+		});
 		$('.tr_item .table_amount').each(function() {
 			total_amount += parseInt($(this).val());
 		});
+		$('#tax_price_result').html(total_amount-subtotal_tax);
+		$(".table-total").css("display", "block");
 	  //console.log(total_amount);
 	  $('#subtotal_price').html(total_amount);
 	  //console.log(parseInt($('#subtotal_price').html()));
@@ -274,20 +305,7 @@
 
   var list_item_ids_save = [];
   var list_item_quans = [];
-
-	$('.btn_add_proposal').click(function(){
-		$('.tr_item').each(function() {
-			list_item_ids_save.push($(this).data("itemid"));
-			//list_item_quans.push($(this).closest('td > input.table_quantity').val());
-		});
-		$('.table_quantity').each(function() {
-			list_item_quans.push($(this).val());
-		});
-		$('#f_list_item_ids').val(list_item_ids_save);
-		$('#f_list_item_quans').val(list_item_quans);
-		$('#f_status').val($('#status_select').find(":selected").val());
-		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());
-  });
+  var list_item_tax_ids = [];
 
   $('.btn_item_inpro').click(function(){
 		var cate_id = $('#f_cate_select').find(":selected").val();
@@ -299,15 +317,53 @@
   $("#btnSubmitEditProposalForm").click(function(){
 	  $('.tr_item').each(function() {
 			list_item_ids_save.push($(this).data("itemid"));
-			//list_item_quans.push($(this).closest('td > input.table_quantity').val());
 		});
+		$('.tax_select').each(function() {
+			list_item_tax_ids.push($(this).find(":selected").val());
+		});
+		alert(list_item_tax_ids);
 		$('.table_quantity').each(function() {
 			list_item_quans.push($(this).val());
 		});
 		$('#f_list_item_ids').val(list_item_ids_save);
 		$('#f_list_item_quans').val(list_item_quans);
+		$('#f_list_item_tax_ids').val(list_item_tax_ids);
 		$('#f_status').val($('#status_select').find(":selected").val());
 		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());   
     $("#editProposalForm").submit();
   });
+
+//Tax input change
+	$('.tax_select').on('input', function() {
+	  var item_id = $(this).closest(".tr_item").data("itemid");
+		var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+		var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+		var tax_percent = parseInt($(this).find(":selected").data("taxp"))/100;
+	  var amount = quan*price;
+		var last_amount = amount+(amount*tax_percent);
+		$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+	});
+
+//load tax_total when doc ready
+$( document ).ready(function() {
+	var total_amount = 0;
+	var subtotal_tax = 0;
+
+	$('.tr_item').each(function() {
+		var item_id = $(this).data("itemid");
+		var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+		var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+		var tax_percent = parseInt($(".tr_item[data-itemid='"+item_id+"'] .tax_select").find(":selected").data("taxp"))/100;
+		subtotal_tax += quan*price;
+		var amount = quan*price;
+		var last_amount = amount+(amount*tax_percent);
+		$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+	});
+	$('.tr_item .table_amount').each(function() {
+		total_amount += parseInt($(this).val());
+	});
+	$('#subtotal_price').html(total_amount);
+	$('#tax_price_result').html(total_amount-subtotal_tax);
+
+});
 </script>
