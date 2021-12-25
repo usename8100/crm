@@ -11,6 +11,7 @@ gem 'bootstrap-sass', '3.4.1'
 gem 'faker'
 gem 'figaro'
 gem 'dotenv-rails'
+gem "ransack"
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'

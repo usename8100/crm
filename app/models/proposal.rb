@@ -4,4 +4,8 @@ class Proposal < ApplicationRecord
 		total = self.total.to_i
 		(total/(1 - discount)).round(0)
 	end
+
+	def get_customer
+		Customer.find(self.customer_id).name	
+	end
 end
