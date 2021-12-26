@@ -1,28 +1,33 @@
 <div class="col-sm-3 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
-		<li><%= link_to "Dashboard", root_path, class:"sidebar_button" %></li>
-		<li>
-			<a class="leads_btn">Leads <span class="fas fa-caret-down"></span></a>
-			<ul class="leads_item">
-			    <li>
-			        <%= link_to 'Manage Leads', leads_path, class:"sidebar_button" %>
-			    </li>
-			    <li>
-			        <a href="#">Recycle Bin</a>
-			    </li>
-			</ul>
-	  </li>
-	  <li>
-			<a class="customer_btn">Customers <span class="fas fa-caret-down"></span></a>
-			<ul class="customer_item">
-			    <li>
-			    	<%= link_to 'Manage Customers', customers_path, class:"sidebar_button" %>
-			    </li>
-			    <li>
-			        <a href="#">Recycle Bin</a>
-			    </li>
-			</ul>
-	  </li>
+		<% if account.get_designation == 'Manager'%>
+			<li><%= link_to "Dashboard", root_path, class:"sidebar_button" %></li>
+		<% end -%>
+		<% if account.get_designation == 'Manager' || account.get_designation == 'Customer Officer' %>
+			<li>
+				<a class="leads_btn">Leads <span class="fas fa-caret-down"></span></a>
+				<ul class="leads_item">
+				    <li>
+				        <%= link_to 'Manage Leads', leads_path, class:"sidebar_button" %>
+				    </li>
+				    <li>
+				        <a href="#">Recycle Bin</a>
+				    </li>
+				</ul>
+		  </li>
+		  <li>
+				<a class="customer_btn">Customers <span class="fas fa-caret-down"></span></a>
+				<ul class="customer_item">
+				    <li>
+				    	<%= link_to 'Manage Customers', customers_path, class:"sidebar_button" %>
+				    </li>
+				    <li>
+				        <a href="#">Recycle Bin</a>
+				    </li>
+				</ul>
+		  </li>
+	  <% end -%>
+	  <% if account.get_designation == 'Manager' || account.get_designation == 'Seller' %>
 	  <li>
 			<a class="catalog_btn">Catalogs <span class="fas fa-caret-down"></span></a>
 			<ul class="catalog_item">
@@ -48,6 +53,8 @@
 			    </li>
 			</ul>
 	  </li>
+	  <% end -%>
+	  <% if account.get_designation == 'Manager'%>
 	  <li>
 			<a class="staff_btn">Staff <span class="fas fa-caret-down"></span></a>
 			<ul class="staff_item">
@@ -60,6 +67,8 @@
 			    </li>
 			</ul>
 	  </li>
+	  <% end -%>
+	  <% if account.get_designation == 'Manager' || account.get_designation == 'Seller' %>
 	  <li>
 			<a class="report_btn">Report <span class="fas fa-caret-down"></span></a>
 			<ul class="report_item">
@@ -71,6 +80,7 @@
 			    </li>
 			</ul>
 	  </li>
+	  <% end -%>
 	</ul>
 </div>
 <script>

@@ -14,5 +14,8 @@ class HomeController < ApplicationController
     @proposals = Proposal.all.last(3)
     @invoices = Invoice.all.last(3)
     @calls = Call.all.last(3)
+
+    
+        
   end
 end

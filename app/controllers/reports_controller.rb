@@ -1,7 +1,7 @@
 class ReportsController < ApplicationController
   def proposals
-    @search = Proposal.search(params[:q])
-    @proposals = @search.result
+    @q = Schedule.ransack(params[:q])
+    @q.sorts = ['starts_at asc', 'ends_at asc'] if @q.sorts.empty?
   end
 
   def invoices
