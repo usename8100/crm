@@ -25,10 +25,12 @@
 							<th>Phone</th>
 							<th>Designation</th>
 							<th style="width:350px;"><span style="float:right;margin-right: 30px;width: 310px;">
-								<div class="input-group">
-									<input  type="text" class="form-control" id="" placeholder="search">
-									<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
-								</div>
+								<div class="form-inline my-2 my-lg-0">
+					    		  <%= search_form_for @q, url: staffs_path do |f| %>
+								    <%= f.search_field :name_cont, placeholder: "Staff Name ...", class:"search-field form-control"%>
+								    <%= f.submit "Search", class: "btn btn-search" %>
+								  <% end -%>
+					    		</div>
 							</span></th>
 						</tr>
 						<% @accounts.each do |staff| %>

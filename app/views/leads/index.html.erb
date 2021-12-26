@@ -5,8 +5,7 @@
 	<div class="list-lead-main">
 		<div class="lead-bo">
 			
-			<br><h3 style="margin-left: 30px;display: inline;">Manage Leads </h3>
-			
+			<br><h3 style="margin-left: 30px;display: inline;">Manage Leads </h3>			
 			<%= link_to new_lead_2_path(1) do %>
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Lead</button>
 			<% end -%>
@@ -22,7 +21,7 @@
 				  <tr>
 				    <th>Leads
 				    	<span style="float:right;margin-right: 30px;">
-				    		<div class="input-group">
+				    		<div class="form-inline my-2 my-lg-0">
 					    		  <%= search_form_for @q, url: leads_path do |f| %>
 								    <%= f.search_field :name_cont, placeholder: "Lead Name ...", class:"search-field form-control"%>
 								    <%= f.submit "Search", class: "btn btn-search" %>

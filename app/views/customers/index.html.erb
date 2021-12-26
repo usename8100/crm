@@ -22,11 +22,13 @@
 					  <tr>
 					    <th>Customers
 					    	<span style="float:right;margin-right: 30px;">
-					    		<div class="input-group">
-						    		<input  type="text" id="" placeholder="search">
-						    		<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
+					    		<div class="form-inline my-2 my-lg-0">
+						    		  <%= search_form_for @q, url: customers_path do |f| %>
+									    <%= f.search_field :name_cont, placeholder: "Customer Name ...", class:"search-field form-control"%>
+									    <%= f.submit "Search", class: "btn btn-search" %>
+									  <% end -%>
 						    	</div>
-					    	</span>
+				    		</span>
 					    </th>
 					  </tr>
 					  <% @customers.each do |customer|%>

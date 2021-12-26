@@ -1,8 +1,8 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy] 
   def index
-    @items= Item.all
-    #@categories = Category.where(id: @products.category_id)
+    @q = Item.ransack(params[:q])
+    @items = @q.result(distinct: true)
   end
 
   def new

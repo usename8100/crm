@@ -2,7 +2,8 @@ class StaffsController < ApplicationController
   before_action :set_staff, only: %i[show edit update destroy] 
   def index
     @staffs = Staff.all
-    @accounts = Account.all
+    @q = Account.ransack(params[:q])
+    @accounts = @q.result(distinct: true)
   end
 
   def new
