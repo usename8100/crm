@@ -5,5 +5,6 @@ class ReportsController < ApplicationController
   end
 
   def invoices
+    @invoices = Invoice.all
   end
 end
