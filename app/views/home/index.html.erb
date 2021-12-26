@@ -1,5 +1,5 @@
 <%= content_for(:sidebar) do %>
-<%= render :partial => "layouts/sidebar" %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
 <% end -%>
 <div class="col-md-10 main">
 
@@ -12,6 +12,7 @@
 				<h3>Welcome to Admin Panel</h3>
 				<div>
 					<ul class="dashboard-general-list">
+						<% if current_account.get_designation == 'Manager' || current_account.get_designation == 'Seller' %>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
 								<span class="dashboard-general-item-quan"><%= @total_product %></span>
@@ -21,6 +22,8 @@
 								<img src="https://cdn2.iconfinder.com/data/icons/e-commerce-line-4-1/1024/open_box4-512.png">
 							</div>
 						</li>
+						<% end -%>
+						<% if current_account.get_designation == 'Manager' || current_account.get_designation == 'Customer Officer' %>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
 								<span class="dashboard-general-item-quan"><%= @total_lead %></span>
@@ -30,6 +33,7 @@
 								<img src="https://static.thenounproject.com/png/3632598-200.png">
 							</div>
 						</li>
+
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
 								<span class="dashboard-general-item-quan"><%= @total_customer %></span>
@@ -39,6 +43,8 @@
 								<img src="https://cdn0.iconfinder.com/data/icons/set-ui-app-android/32/8-512.png">
 							</div>
 						</li>
+						<% end -%>
+						<% if current_account.get_designation == 'Manager' || current_account.get_designation == 'Seller' %>
 						<li class="dashboard-general-item">
 							<div style="display: inline-block;">
 								<span class="dashboard-general-item-quan"><%= @total_proposal %></span>
@@ -57,10 +63,12 @@
 								<img src="https://cdn.iconscout.com/icon/premium/png-256-thumb/invoice-2074512-1748283.png">
 							</div>
 						</li>
+						<% end -%>
 					</ul>
 				</div>
 				<div>
 					<ul class="dashboard-general-column">
+						<% if current_account.get_designation == 'Manager' || current_account.get_designation == 'Customer Officer' %>
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
 								<span style="font-size: 22px;font-weight: 400;">Leads</span>
@@ -136,6 +144,8 @@
 								</ul>
 							</div>
 						</li>
+						<% end -%>
+						<% if current_account.get_designation == 'Manager' || current_account.get_designation == 'Seller' %>
 						<li class="dashboard-general-column-sec">
 							<div class="dashboard-general-column-title">
 								<span style="font-size: 22px;font-weight: 400;">Proposals</span>
@@ -185,6 +195,7 @@
 									</ul>
 								</div>
 							</li>
+						<% end -%>
 						<% end -%>
 					</ul>
 				</div>

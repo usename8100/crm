@@ -1,5 +1,5 @@
 <%= content_for(:sidebar) do %>
-<%= render :partial => "layouts/sidebar" %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
 <% end -%>
 <div class="col-md-10 main">
 	<h2>Add new Staff</h2>
@@ -49,7 +49,7 @@
 					</div>
 					<div class="form-group">
 						<%= form.label :staff_password, "Password" %>
-						<%= form.text_field :staff_password, class:"form-control", placeholder: "Password"%>
+						<%= form.password_field :staff_password, class:"form-control", placeholder: "Password"%>
 					</div>
 				</div>
 			</div>

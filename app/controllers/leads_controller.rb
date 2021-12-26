@@ -1,6 +1,9 @@
 class LeadsController < ApplicationController
 	def index
-		@leads = Customer.where(customer_role_id: 1)
+		#@leads = Customer.where(customer_role_id: 1)
+		@q = Customer.where(customer_role_id: 1).ransack(params[:q])
+@leads = @q.result(distinct: true)
+    
 	end
 
 	def show
