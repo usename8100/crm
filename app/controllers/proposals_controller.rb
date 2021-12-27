@@ -1,5 +1,7 @@
 class ProposalsController < ApplicationController
   def index
+    @q = Proposal.ransack(params[:q])
+    @proposals = @q.result(distinct: true)
   end
 
   def new
@@ -12,7 +14,7 @@ class ProposalsController < ApplicationController
 
   def edit
   end
-
+  
   def show
     @proposal = Proposal.find(params[:id])
     @lead = Customer.find(params[:customer_id])

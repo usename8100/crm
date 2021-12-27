@@ -89,6 +89,11 @@ Rails.application.routes.draw do
       post :send_proposal
     end
   end
+  resources :reports do
+    collection do
+      match 'search' => 'reports#search', via: [:get, :post], as: :search
+    end
+  end
   resources :categories
   resources :staffs
   resources :contacts

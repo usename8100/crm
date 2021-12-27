@@ -50,9 +50,12 @@
 						<div class="mb-3 form-group">
 						<%= form.label :staff_id, "Assigned To" %>
 							<select class="form-control" aria-label=".form-select-sm example" id="staff_select">
-								<option selected disabled>Select A Staff Member</option>
 								<% @staffs.each do |staff| %>
-									<option value="<%= staff.id %>"><%= staff.get_name %></option>
+									<% if staff.id == @lead.staff_id %>
+										<option selected value="<%= staff.id %>"><%= staff.get_name %></option>
+									<% else %>
+										<option value="<%= staff.id %>"><%= staff.get_name %></option>
+									<% end %>
 								<% end -%>
 							</select>
 							<%= form.hidden_field :staff_id, id:"f_staff_id" %>

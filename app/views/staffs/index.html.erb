@@ -10,25 +10,27 @@
 			<% end -%>
 			<div class="cata-border-x"></div>
 			<div style="float:right;margin-right:5%"> 
-				<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example">
-					<option selected disabled="">Sort By</option>
-					<option value="1">Name</option>
-					<option value="2">2</option>
-				</select>
+				<div class="form-inline my-2 my-lg-0">
+	    		  <%= search_form_for @q, url: staffs_path do |f| %>
+				    <%= f.search_field :name_cont, placeholder: "Staff Name ...", class:"search-field form-control"%>
+				    <%= f.submit "Search", class: "btn btn-search" %>
+				  <% end -%>
+	    		</div>
 			</div>
 			<div>
 				<center>
 					<div class="table-c-bo"><table>
 						<tr>
-							<th>Name</th>
+							<th>
+								<%= sort_link(@q, :name) do %>
+					  			<strong style="color:white;"> Name</strong>
+								<% end %>
+							</th>
 							<th>Email</th>
 							<th>Phone</th>
 							<th>Designation</th>
 							<th style="width:350px;"><span style="float:right;margin-right: 30px;width: 310px;">
-								<div class="input-group">
-									<input  type="text" class="form-control" id="" placeholder="search">
-									<button class="btn btn-success btn-sm" type="button"><i class="fa fa-search"></i></button>
-								</div>
+								Action
 							</span></th>
 						</tr>
 						<% @accounts.each do |staff| %>
