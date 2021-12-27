@@ -11,10 +11,11 @@
 			<% end -%>
 			<div class="cata-border-x"></div>
 			<span style="float:left;margin-left: 30px; padding-top: 5px ;" >show</span>
-			<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example">
-				<option selected disabled="">Null</option>
-				<option value="1">10</option>
-				<option value="2">20</option>
+			
+			<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example" id="selectBox" onchange="changeFunc();">
+				<option selected disabled>Null</option>
+				<%= sort_link(@q, :name) do %><option value="1">Name</option><% end -%>
+				<%= sort_link(@q, :id) do %><option value="2">ID</option><% end %>						
 			</select>
 			<span style="float:left;margin-left: 5px; padding-top: 5px ;" >Enteries</span>
 			<span style="float:right;margin-right: 30px;">
@@ -25,19 +26,28 @@
 					  <% end -%>
 		    	</div>
 			</span>
-
 			<div>
 				<center>
 					<div class="table-c-bo"><table>
 						<tr>
-							<th style="width: 60px;">ID</th>
-							<th>Name</th>
+							<th style="width: 60px;">
+								<%= sort_link(@q, :id) do %>
+  								<strong style="color:white;"> ID</strong>
+								<% end %>
+							</th>
+							<th>
+								<%= sort_link(@q, :name) do %>
+					  			<strong style="color:white;"> Name</strong>
+								<% end %>
+							</th>
+							<th style="width:250px">Created at</th>
 							<th style="width: 200px;">Action</th>
 						</tr>
 						<% @categories.each do |category| %>
 						<tr>
 							<td><%= category.id %> </td>
 							<td><%= category.name %></td>
+							<td><%= category.created_at.strftime("%d-%m-%Y") %></td>
 							<td>
 								<span>
 									<div class="btn-mini">

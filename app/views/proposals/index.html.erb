@@ -9,16 +9,19 @@
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i>Add New Proposal</button>
 			<% end -%>
 			<div class="border-x"></div>
-			<select style="float:right;margin-right: 30px; width: auto;" class="form-select" aria-label="Default select example">
-				<option selected disabled="">Sort by</option>
-				<option value="1">1</option>
-				<option value="2">2</option>
-			</select>
+			<div style="float:right;margin-right: 30px; width: auto;border: 1px solid black;">
+	  			<%= sort_link(@q, :subject) do %>
+			  		<strong style="color:black;margin: 10px; ">Sort by subject</strong>
+				<% end %>
+			</div>
 			<div>
 				<center>
 					<table>
 						<tr>
-							<th>Proposals
+							<th>
+								<%= sort_link(@q, :created_at) do %>
+					  				<strong style="color:white;"> Proposals</strong>
+								<% end %>
 								<span style="float:right;margin-right: 30px;">
 									<div class="form-inline my-2 my-lg-0">
 						    		  <%= search_form_for @q, url: proposals_path do |f| %>
@@ -35,10 +38,10 @@
 									<%= proposal.subject %><br>
 									Proposal ID: <%= proposal.id %><br>
 									Customer: <%= proposal.get_customer %><br>
-									Date From: <%= proposal.start_date %> - Open Till: <%= proposal.end_date %>br>
+									Date From: <%= proposal.start_date.strftime('%d-%m-%Y') %> - Till: <%= proposal.end_date.strftime('%d-%m-%Y') %><br>
 									Total: <%= proposal.total %>$<br>
 									Status: <%= proposal.status %><br>
-									Create: <%= proposal.created_at %><br>
+									Created at: <%= proposal.created_at.strftime('%d-%m-%Y') %><br>
 								<span>
 									<div class="btn-mini">
 										<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>

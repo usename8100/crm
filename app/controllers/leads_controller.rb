@@ -86,7 +86,7 @@ class LeadsController < ApplicationController
 		phone = params[:customer][:phone]
 		email = params[:customer][:email]
 		website = params[:customer][:website]
-		staff_id = params[:customer][:staff_id]
+		staff_id = params[:customer][:staff_id].to_i
 		notes = params[:customer][:note]
 		status = params[:customer][:status]
 		source = params[:customer][:source]

@@ -2,7 +2,7 @@ class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy] 
   def index
     @q = Item.ransack(params[:q])
-    @items = @q.result(distinct: true)
+    @items = @q.result.includes(:tax)
   end
 
   def new
@@ -16,14 +16,12 @@ class ProductsController < ApplicationController
    redirect_to products_path
   end
 
-  def create
-    @categories = Category.all
+  def create   
     @item = Item.new(item_params)
     if @item.save
-      #flash[:info] = "ok"
       redirect_to products_path
     else
-      render 'new'  
+      redirect_to new_product_path
     end
   end 
   

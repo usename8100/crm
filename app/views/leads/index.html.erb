@@ -10,16 +10,19 @@
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Lead</button>
 			<% end -%>
 			<div class="border-x"></div>
-			<select style="float:right;margin-right: 30px; width: auto;" class="form-select" aria-label="Default select example">
-			  <option selected disabled="">Oldest Company</option>
-			  <option value="1">Company1</option>
-			  <option value="2">Company2</option>
-			</select>
+			<div style="float:right;margin-right: 30px; width: auto;border: 1px solid black;">
+	  			<%= sort_link(@q, :name) do %>
+			  		<strong style="color:black;margin: 10px; ">Sort by name</strong>
+				<% end %>
+			</div>
 			<div>
 				<center>
 					<table>
-				  <tr>
-				    <th>Leads
+				  <tr> 
+				    <th>
+				    	<%= sort_link(@q, :city) do %>
+					  				<strong style="color:white;"> Leads</strong>
+							<% end %>
 				    	<span style="float:right;margin-right: 30px;">
 				    		<div class="form-inline my-2 my-lg-0">
 					    		  <%= search_form_for @q, url: leads_path do |f| %>

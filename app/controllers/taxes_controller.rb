@@ -2,7 +2,7 @@ class TaxesController < ApplicationController
   before_action :set_tax, only: %i[edit update destroy]
   def index
     @q = Tax.ransack(params[:q])
-    @taxes = @q.result(distinct: true)
+    @taxes = @q.result
   end
 
   def new
