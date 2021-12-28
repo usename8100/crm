@@ -9,6 +9,7 @@ class ProposalMailer < ApplicationMailer
     @contact = contact
     staff = Staff.find(@lead.staff_id)
     @account = Account.find(staff.user_id)
+    @taxes = Tax.all
 
 		mail to: @contact.email, subject: @proposal.subject
 	end

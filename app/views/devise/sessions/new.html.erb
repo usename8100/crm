@@ -37,14 +37,3 @@
     }
   }
 </style>
-<script type="text/javascript">
-  $(".btn").click(function () {
-    if ($("input[type=text]").filter(function () {
-        return this.value.match(/^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])([a-zA-Z0-9]{8})$/);
-    })) {
-        $(".note").text("pass");
-    } else {
-        $(".note").text("fail");
-    }
-});
-</script>

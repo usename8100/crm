@@ -11,14 +11,14 @@
 				<br>
 				<center> 				
 					<b>
-						<%= search_form_for @search do |f| %>
+						<%= search_form_for @q do |f| %>
 					  <div class="input-daterange">
 					    <span>
 					      <%= f.label :Start_date, 'From', style:"margin-right: 20px ;" %>
-					      <%= f.date_field :created_at_gteq, value:Time.zone.now.strftime("%F"), id:'start_date' %>
+					      <%= f.date_field :start_date_gteq, value:Time.zone.now.strftime("%F"), id:'start_date' %>
 
 					      <%= f.label :end_date ,'To' ,  style:"margin-left: 200px;margin-right: 20px ;" %>
-					      <%= f.date_field :created_at_lteq, value:Time.zone.now.strftime("%F") , id:'end_date' %>
+					      <%= f.date_field :end_date_lteq, value:Time.zone.now.strftime("%F") , id:'end_date' %>
 
 					    <%= f.submit "Search" , class:'btn btn-success btn-sm', style:"margin-left: 40px ;" %> </span>
 					<% end %>
@@ -36,8 +36,8 @@
 									<%= proposal.subject %><br>
 									Proposal ID: <%= proposal.id %><br>
 									Customer: <%= proposal.get_customer %><br>
-									Date From: <%= proposal.start_date %> - Open Till: <%= proposal.end_date %>br>
-									Total: <%= proposal.total %>$<br>
+									Date From: <%= proposal.start_date.strftime("%d-%m-%Y") %> - Open Till: <%= proposal.end_date.strftime("%d-%m-%Y") %><br>
+									Total: <%= number_to_currency(proposal.total, :unit => "", :separator => ",", :delimiter => ".") %><br>
 									Status: <%= proposal.status %><br>
 									<span>
 										<div class="btn-mini">
@@ -46,11 +46,6 @@
 											<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 											<button type="button" class="btn btn-light btn-sm"><i class="fas fa-file-import"></i> Pdf</button>
 											<button type="button" class="btn btn-info btn-sm"><i class="fas fa-envelope"></i> Send to Customer</button>
-											<select style="background-color: green; color: white;border-radius: 4px;">
-												<option selected disabled="">Convert</option>
-												<option value="1">1</option>
-												<option value="2">2</option>
-											</select>
 										</div>	
 									</span>
 								</td>

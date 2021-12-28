@@ -1,64 +1,73 @@
 <div class="overall-box">
-		<div class="proposal_detail-title">
-			<h2>Proposal's Detail</h2>
-			<%= link_to edit_lead_proposal_path(@lead.id, @proposal.id) do %>
-				<button style="padding: 10px;position: absolute;right: 80px; top:90px" type="button" class="btn btn-success">
-					<i class="fas fa-wrench"></i> Edit
-				</button>
-			<% end -%>
+	<div class="proposal_detail-title">
+		<h2>Proposal's Detail</h2>
+		<button style="padding: 10px;position: absolute;right: 80px; top:90px" type="button" class="btn btn-warning btn-sm btn_sendpro" data-toggle="modal" 
+		data-target="#form_sendmail"><i class="fas fa-envelope-square"></i>
+		 Send Email</button>
+	</div>
+	<div class="proposal_detail-status">
+		<button type="button" class="btn btn-warning btn-status"><%= @proposal.status %></button>
+	</div>
+	<div class="proposal_detail-infor">
+		<div class="proposal_detail-company">
+			<span style="font-size:25px"><%= @proposal.subject %></span><br>
+			<span>Date: <%= @proposal.created_at.strftime("%d-%m-%Y") %></span>
+			<span>From:</span>
+			<span style="font-size:30px;line-height: 50px;">ABC Company</span>
+			<span><%= current_account.city %></span>
+
 		</div>
-		<div class="proposal_detail-status">
-			<button type="button" class="btn btn-warning btn-status"><%= @proposal.status %></button>
+		<div class="proposal_detail-customer">
+			<span>To:</span>
+			<span style="font-size:32px;line-height: 40px;"><b><%= @lead.name %></b></span>
+			<span><%= @lead.detail_address %></span>
+			<span><%= @lead.city %></span>
+
+			<br><span style="color: red;">Start date: <%= @proposal.start_date.strftime("%d-%m-%Y") %></span>
+			<span style="color: red;">Expiry date: <%= @proposal.end_date.strftime("%d-%m-%Y") %></span>
 		</div>
-		<div class="proposal_detail-infor">
-			<div class="proposal_detail-company">
-				<span style="font-size:25px"><%= @proposal.subject %></span><br>
-				<span>Date: <%= @proposal.created_at.strftime("%d-%m-%Y") %></span>
-				<span>From:</span>
-				<span style="font-size:30px;line-height: 50px;">ABC Company</span>
-				<span><%= current_account.city %></span>
-				
-			</div>
-			<div class="proposal_detail-customer">
-				<span>To:</span>
-				<span style="font-size:32px;line-height: 40px;"><b><%= @lead.name %></b></span>
-				<span><%= @lead.detail_address %></span>
-				<span><%= @lead.city %></span>
-				
-				<br><span style="color: red;">Start date: <%= @proposal.start_date.strftime("%d-%m-%Y") %></span>
-				<span style="color: red;">Expiry date: <%= @proposal.end_date.strftime("%d-%m-%Y") %></span>
-			</div>
-		</div>
-		<div class="proposal-lower">
-			<div>
-				<table class="table table-bordered">
-					<thead>
-						<tr>
-							<th>Item</th>
-							<th>Quantity</th>
-							<th>Price</th>
-							<th>Tax</th>
-							<th>Amount</th>
+	</div>
+	<div class="proposal-lower">
+		<div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Tax</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody id="tbody_list_item">
+					<% @table_items.each do |item| %>
+					<tr class="tr_item" data-itemid=<%= item.item_id %>>
+						<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
+							<input type="text" class="form-control" disabled value="<%= item.get_item_name %>"></td>
+							<td><input disabled type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
+							<td><input disabled type="text" class="form-control table_price" value="<%= item.price %>"></td>
+							<td>
+								<% if item.tax_id.nil? %>
+								<input disabled class="form-control tax_select" value="No Tax" tax data-taxp=0 selected></input>
+								<% end -%>
+								<% @taxes.each do |tax| %>
+								<% if tax.id == item.tax_id %>
+								<input disabled class="form-control tax_select" 
+								value="<%= tax.name  %> (<%= tax.tax_percent %>%)" 
+								data-taxp=<%= tax.tax_percent %> selected></input>
+								<% end -%>
+								<% end -%>
+							</td>
+							<td><input disabled type="text" class="form-control table_amount" placeholder="Amount" value="<%= item.amount %>"></td>
 						</tr>
-					</thead>
-					<tbody>
-						<% @table_items.each do |item| %>
-							
-							<tr>
-								<td><input type="text" class="form-control" value="<%= item.get_item_name %>" disabled></td>
-								<td><input type="text" class="form-control" value="<%= item.quantity %>" disabled></td>
-								<td><input type="text" class="form-control" value="<%= item.price %>" disabled></td>
-								<td style="width: 200px;"><input type="text" class="form-control" value="No tax" disabled></td>
-								<td><input type="text" class="form-control" value="<%= item.amount %>" disabled></td>
-							</tr>
-							<% end -%>
-						</tbody>
+						<% end -%>
+					</tbody>
 				</table>
 				<div class="table-total">
 					<table class="table table-bordered table-striped">
 						<tr>
 							<td>Subtotal</td>
-							<td><%=  number_to_currency(@proposal.get_subtotal, :unit => "", :separator => ",", :delimiter => ".")  %></td>
+							<td id="subtotal_notax"></td>
 						</tr>
 						<tr>
 							<td>Discount(%)</td>
@@ -66,7 +75,7 @@
 						</tr>
 						<tr>
 							<td>Total taxes</td>
-							<td>0</td>
+							<td id="tax_price_result"></td>
 						</tr>
 						<tr>
 							<td><b>Total</b></td>
@@ -77,3 +86,58 @@
 			</div>
 		</div>
 	</div>
+<div class="modal fade " id="form_sendmail">>
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Send proposal to email</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_with scope: :proposal, url: send_proposal_proposals_path do |form| %>
+					<%= form.hidden_field :proposal_id, value: @proposal.id %>
+					<div class="mb-3 form-group">
+						<%= form.label :contact_id, "Appointment With Contact" %>
+						<select class="form-select form-control f_contact" aria-label="Default select example">
+							<% @contacts.each do |contact| %>
+							<option value="<%= contact.id %>"><%= contact.name %></option>
+							<% end -%>
+						</select>
+						<%= form.hidden_field :contact_id, class:"f_contact_id" %>
+					</div>
+					<div class="mb-3 form-group">
+						<%= form.submit "Send email", class: "btn btn-success" %>
+					</div>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+<script type="text/javascript">
+//load tax_total when doc ready
+	$( document ).ready(function() {
+		var total_amount = 0;
+		var subtotal_tax = 0;
+
+		$('.tr_item').each(function() {
+			var item_id = $(this).data("itemid");
+			var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+			var tax_percent = parseInt($(".tr_item[data-itemid='"+item_id+"'] .tax_select").data("taxp"))/100;
+			subtotal_tax += quan*price;
+			var amount = quan*price;
+			var last_amount = amount+(amount*tax_percent);
+			$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+		});
+		$('.tr_item .table_amount').each(function() {
+			total_amount += parseInt($(this).val());
+		});
+		$('#subtotal_notax').html(total_amount);
+		$('#tax_price_result').html(total_amount-subtotal_tax);
+		var contact_id = $(".f_contact").find(":selected").val();
+		$(".f_contact_id").val(contact_id);
+	});
+	$('.f_contact').change(function(){
+		var contact_id = $(this).find(":selected").val();
+		$(".f_contact_id").val(contact_id);
+	});
+</script>

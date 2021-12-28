@@ -69,6 +69,7 @@ Rails.application.routes.draw do
   get '/lead/:customer_id/proposal/:id/edit', to: 'leads#edit_proposal', as: 'edit_lead_proposal'
   patch '/lead/:customer_id/proposal/:id', to: 'proposals#update', as: 'update_lead_proposal'
   get '/lead/:customer_id/proposal/:id', to: 'proposals#show', as: 'show_lead_proposal'
+  get '/proposal/:proposal_id/contact/:contact_id/send_proposal', to: 'proposals#send_proposal', as: 'send_proposal'
 
   #tax
   post 'taxes/new', to: 'taxes#create' 
@@ -85,6 +86,7 @@ Rails.application.routes.draw do
   resources :invoices
   resources :estimates
   resources :proposals do
+    resource :download, only: [:show]
     collection do
       post :send_proposal
     end
