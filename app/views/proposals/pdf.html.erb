@@ -1,0 +1,77 @@
+<div class="overall-box">
+    <div class="proposal_detail-title">
+      <h2>Proposal's Detail</h2>
+    </div>
+    <div class="proposal_detail-infor">
+      <div class="proposal_detail-company">
+        <span>Date: <%= proposal.created_at.strftime("%d-%m-%Y") %></span>
+        <span>From:</span>
+        <span style="font-size:32px;line-height: 50px;">ABC Company</span>
+        <span><%= account.city %></span>
+        
+      </div>
+      <div class="proposal_detail-customer">
+        <span>To:</span>
+        <span style="font-size:32px;line-height: 40px;"><b><%= lead.name %></b></span>
+        <span><%= lead.detail_address %></span>
+        <span><%= lead.city %></span>
+        
+        <br><span style="color: red;">Start date: <%= proposal.start_date.strftime("%d-%m-%Y") %></span>
+        <span style="color: red;">Expiry date: <%= proposal.end_date.strftime("%d-%m-%Y") %></span>
+      </div>
+    </div>
+    <div class="proposal-lower">
+      <div>
+        <table class="table table-bordered">
+          <thead>
+            <tr>
+              <th>Item</th>
+              <th>Quantity</th>
+              <th>Price</th>
+              <th>Tax</th>
+              <th>Amount</th>
+            </tr>
+          </thead>
+          <tbody id="tbody_list_item">
+          <% table_items.each do |item| %>
+          <tr class="tr_item" data-itemid=<%= item.item_id %>>
+            <td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
+              <input type="text" class="form-control" disabled value="<%= item.get_item_name %>"></td>
+              <td><input disabled type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
+              <td><input disabled type="text" class="form-control table_price" value="<%= item.price %>"></td>
+              <td>
+                <% if item.tax_id.nil? %>
+                <input disabled class="form-control tax_select" value="No Tax" tax data-taxp=0 selected></input>
+                <% end -%>
+                <% taxes.each do |tax| %>
+                <% if tax.id == item.tax_id %>
+                <input disabled class="form-control tax_select" 
+                value="<%= tax.name  %> (<%= tax.tax_percent %>%)" 
+                data-taxp=<%= tax.tax_percent %> selected></input>
+                <% end -%>
+                <% end -%>
+              </td>
+              <td><input disabled type="text" class="form-control table_amount" placeholder="Amount" value="<%= item.amount %>"></td>
+            </tr>
+            <% end -%>
+            <tr>
+              <td>Subtotal</td>
+              <td id="subtotal_notax"><%= proposal.get_subtotal %></td>
+            </tr>
+            <tr>
+              <td>Discount(%)</td>
+              <td><%= proposal.discount %> %</td>
+            </tr>
+            <tr>
+              <td>Total taxes</td>
+              <td id="tax_price_result"><%= proposal.get_total_tax %></td>
+            </tr>
+            <tr>
+              <td><b>Total</b></td>
+              <td><b><%=  number_to_currency(proposal.total, :unit => "", :separator => ",", :delimiter => ".")  %></b></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>

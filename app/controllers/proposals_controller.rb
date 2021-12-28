@@ -20,6 +20,8 @@ class ProposalsController < ApplicationController
     @lead = Customer.find(params[:customer_id])
     @table_items = ProposalItem.where(proposal_id: @proposal.id)
     @items = Item.all
+    @taxes = Tax.all
+    @contacts = Contact.where(customer_id: @lead.id)
   end
 
   def report
@@ -54,15 +56,21 @@ class ProposalsController < ApplicationController
     if @proposal.save
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
-        amount = item.price.to_i * list_item_quans_arr[index].to_i
         tax_id = list_item_tax_ids_arr[index].to_i
-
+        if tax_id!=0
+          tax_percent = Tax.find(tax_id).tax_percent
+        else
+          tax_percent = 0;
+        end
+        
+        amount = item.price.to_i * list_item_quans_arr[index].to_i
+        last_amount = amount +( amount * (tax_percent*0.01))
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
         @proposal_item.item_id = item.id
         @proposal_item.quantity = list_item_quans_arr[index].to_i
         @proposal_item.price = item.price.to_i
-        @proposal_item.amount = amount
+        @proposal_item.amount = last_amount
         if tax_id!=0
           @proposal_item.tax_id = tax_id
         end
@@ -108,15 +116,20 @@ class ProposalsController < ApplicationController
 
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
+        if tax_id!=0
+          tax_percent = Tax.find(tax_id).tax_percent
+        else
+          tax_percent = 0;
+        end
+        tax_percent = Tax.find(tax_id).tax_percent
         amount = item.price.to_i * list_item_quans_arr[index].to_i
-        tax_id = list_item_tax_ids_arr[index].to_i
-
+        last_amount = amount +( amount * (tax_percent*0.01))
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
         @proposal_item.item_id = item.id
         @proposal_item.quantity = list_item_quans_arr[index].to_i
         @proposal_item.price = item.price.to_i
-        @proposal_item.amount = amount
+        @proposal_item.amount = last_amount
         if tax_id!=0
           @proposal_item.tax_id = tax_id
         end
@@ -130,9 +143,15 @@ class ProposalsController < ApplicationController
   end
 
   def send_proposal
-    contact = Contact.find(params[:contact_id].to_i)
-    proposal = Proposal.find(params[:proposal_id].to_i)
+    if params[:contact_id].to_i == 0
+      contact = Contact.find(params[:proposal][:contact_id].to_i)
+      proposal = Proposal.find(params[:proposal][:proposal_id].to_i)
+    else
+      contact = Contact.find(params[:contact_id].to_i)
+      proposal = Proposal.find(params[:proposal_id].to_i)
+    end
     if ProposalMailer.proposal_mailer(proposal.id, contact).deliver_now
+      proposal.update(status: 'Sent')
       redirect_to proposal_lead_path(proposal.customer_id)
     else
       redirect_to root_path

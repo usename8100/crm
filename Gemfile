@@ -12,6 +12,11 @@ gem 'faker'
 gem 'figaro'
 gem 'dotenv-rails'
 gem 'ransack'
+gem 'rmagick'
+
+gem 'pdfkit'
+gem 'render_anywhere'
+gem 'wkhtmltopdf-binary'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'
