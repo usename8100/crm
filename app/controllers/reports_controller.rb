@@ -1,7 +1,13 @@
 class ReportsController < ApplicationController
+  
   def proposals
-    @q = Proposal.ransack(params[:q])
-    @proposals = @q.result
+    @search = Proposal.search(params[:q])
+    @proposals = @search.result
+  end
+
+  def search
+    proposals
+    render :proposals
   end
 
   def invoices

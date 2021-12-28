@@ -1,6 +1,8 @@
 class CustomersController < ApplicationController
   def index
-    @customers = Customer.where(customer_role_id: 2)
+    #@customers = Customer.where(customer_role_id: 2)
+    @q = Customer.where(customer_role_id: 2).ransack(params[:q])
+    @customers = @q.result(distinct: true)
   end
 
   def edit

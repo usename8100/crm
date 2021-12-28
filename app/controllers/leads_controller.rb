@@ -2,8 +2,7 @@ class LeadsController < ApplicationController
 	def index
 		#@leads = Customer.where(customer_role_id: 1)
 		@q = Customer.where(customer_role_id: 1).ransack(params[:q])
-		@leads = @q.result(distinct: true)
-    
+		@leads = @q.result(distinct: true) 
 	end
 
 	def show
@@ -87,7 +86,7 @@ class LeadsController < ApplicationController
 		phone = params[:customer][:phone]
 		email = params[:customer][:email]
 		website = params[:customer][:website]
-		staff_id = params[:customer][:staff_id]
+		staff_id = params[:customer][:staff_id].to_i
 		notes = params[:customer][:note]
 		status = params[:customer][:status]
 		source = params[:customer][:source]

@@ -37,8 +37,12 @@
 							<%= form.label :tax, "Tax" %>
 							<select class="form-select" style="height: 30px;" id="tax_select">
 								<% @taxes.each do |tax| %>
-									<option value="<%= tax.id %>"><%= tax.name %></option>
-								<% end -%>
+									<% if tax.id == 1%>
+										<option value="<%= tax.id %>" selected><%= tax.name %> (<%= tax.tax_percent %>%)</option>
+									<% else %>
+										<option value="<%= tax.id %>"><%= tax.name %> (<%= tax.tax_percent %>%)</option>
+									<% end -%>
+								<% end %>
 							</select>
 							<%= form.hidden_field :tax_id, id:"f_tax_id" %>
 						</div>
@@ -68,6 +72,8 @@
 	$('#category_select').on('change', function() {
 	  $("#f_category_id").val(this.value);
 	});
+	var t = $('#tax_select').find(":selected").val();
+	$("#f_tax_id").val(t);
 	$('#tax_select').on('change', function() {
 	  $("#f_tax_id").val(this.value);
 	});

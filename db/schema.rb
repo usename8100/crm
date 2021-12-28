@@ -142,7 +142,7 @@ ActiveRecord::Schema.define(version: 2021_12_24_094016) do
     t.integer "category_id"
     t.integer "tax_id"
     t.integer "quantity"
-    t.string "price"
+    t.integer "price"
     t.boolean "status"
     t.datetime "created_at", precision: 6, null: false
     t.datetime "updated_at", precision: 6, null: false
