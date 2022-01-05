@@ -13,8 +13,10 @@ class CategoriesController < ApplicationController
     @category = Category.new
     @category.name = params[:category][:name]
     if @category.save
+      flash[:success] = "Add new category <b>" + @category.name +  "</b> successfully!"
       redirect_to categories_path
     else
+      flash[:danger] = "Fill up name input!"
       render 'new'
     end
   end
@@ -27,15 +29,18 @@ class CategoriesController < ApplicationController
 
   def update
     if @category.update(category_params)
-      #flash[:success] = "Update successfully!"
+      flash[:success] = "Updated category <b>" + @category.name +  "</b>!"
       redirect_to categories_path
     else
+      flash[:danger] = "Fill up name input!"
       render 'edit'
     end
   end
 
   def destroy
+    category_name = @category.name
    @category.destroy
+   flash[:success] = "Deleted category <b>" + category_name +  "</b>!"
    redirect_to categories_path
   end
 

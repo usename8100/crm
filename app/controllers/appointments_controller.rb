@@ -10,6 +10,10 @@ class AppointmentsController < ApplicationController
     @appointment.subject = params[:subject]
     @appointment.content = params[:notes]
     if @appointment.save
+      flash[:success] = "Add new appointment <b>" + @appointment.subject +  "</b> successfully!"
+      redirect_to appointment_lead_path(params[:customer_id])
+    else
+      flash[:danger] = "Please fill up the form!"
       redirect_to appointment_lead_path(params[:customer_id])
     end
   end
@@ -22,13 +26,16 @@ class AppointmentsController < ApplicationController
     content = params[:appointment][:notes]
     contact_id = params[:appointment][:contact_id]
     if @appointment.update(date: date, subject: subject, content: content,contact_id: contact_id)
+      flash[:success] = "Updated <b>" + @appointment.subject +  "</b>!"
       redirect_to appointment_lead_path(customer_id) 
     end
   end
 
   def destroy
     appointment = Appointment.find(params[:id])
+    appointment_subject = appointment.subject
     if appointment.destroy
+      flash[:success] = "Deleted appointment <b>" +appointment_subject +"</b>!"
       redirect_to appointment_lead_path(params[:lead_id])
     end
   end
@@ -38,7 +45,10 @@ class AppointmentsController < ApplicationController
 
   def send_appointment
     lead = Customer.find(params[:lead_id])
-    if AppointmentMailer.appointment_mailer(lead, params[:id]).deliver_now
+    appointment= Appointment.find(params[:id])
+    contact = Contact.find(appointment.contact_id)
+    if AppointmentMailer.appointment_mailer(lead, appointment.id ).deliver_now
+      flash[:success] = "Sent appointment with subject: <b>" + appointment.subject +  "</b> to <b>" +contact.email+  "</b>!"
       redirect_to appointment_lead_path(params[:lead_id])
     else
       redirect_to root_path

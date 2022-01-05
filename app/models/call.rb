@@ -1,4 +1,5 @@
 class Call < ApplicationRecord
+	validates :date, :description, presence: true
 	def get_staff_name
 		staff = Staff.find(self.staff_id)
 		Account.find(staff.id).name

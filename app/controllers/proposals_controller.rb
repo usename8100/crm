@@ -54,6 +54,7 @@ class ProposalsController < ApplicationController
     list_item_tax_ids_arr = list_item_tax_ids.split(",")
 
     if @proposal.save
+      flash[:success] = "Add new proposal <b>" + @proposal.subject +  "</b> successfully!"
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
         tax_id = list_item_tax_ids_arr[index].to_i
@@ -85,7 +86,9 @@ class ProposalsController < ApplicationController
 
   def destroy
     proposal = Proposal.find(params[:id])
+    proposal_subject = proposal.subject
     if proposal.destroy
+      flash[:success] = "Deleted proposal <b>" +proposal_subject +"</b>!"
       redirect_to proposal_lead_path(params[:customer_id])
     else
       redirect_to root_path
@@ -112,6 +115,7 @@ class ProposalsController < ApplicationController
     list_item_tax_ids_arr = list_item_tax_ids.split(",")
 
     if @proposal.update(subject: subject, start_date: date_start, end_date: date_end, status: status, discount: discount, total: total)
+      flash[:success] = "Updated <b>" + subject +  "</b>!"
       ProposalItem.where(proposal_id: params[:id].to_i).destroy_all
 
       list_item_ids_arr.length.times do |index|
@@ -151,6 +155,7 @@ class ProposalsController < ApplicationController
       proposal = Proposal.find(params[:proposal_id].to_i)
     end
     if ProposalMailer.proposal_mailer(proposal.id, contact).deliver_now
+      flash[:success] = "Sent proposal with subject: <b>" + proposal.subject +  "</b> to <b>" +contact.email+  "</b>!"
       proposal.update(status: 'Sent')
       redirect_to proposal_lead_path(proposal.customer_id)
     else

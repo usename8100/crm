@@ -23,6 +23,7 @@ class CustomersController < ApplicationController
     detail_address = params[:customer][:detail_address]
 
     if @customer.update(name: customer_name, phone: phone, email: email, website: website, note: notes, status: status, source: source, city: city, detail_address: detail_address)
+      flash[:success] = "Updated customer <b>" + customer_name +  "</b>!"
       redirect_to customers_path
     else
       render 'edit'
@@ -37,7 +38,9 @@ class CustomersController < ApplicationController
 
   def destroy
     @customer = Customer.find(params[:id])
+    customer_name = @customer.name
     @customer.destroy
+    flash[:success] = "Deleted customer <b>" + customer_name +  "</b>!"
     redirect_to customers_path
   end
 end
