@@ -24,6 +24,26 @@ class ProposalsController < ApplicationController
     @contacts = Contact.where(customer_id: @lead.id)
   end
 
+  def pdf
+    @proposal = Proposal.find(params[:id])
+    @lead = Customer.find(@proposal.customer_id)
+    @table_items = ProposalItem.where(proposal_id: @proposal.id)
+    @items = Item.all
+    @taxes = Tax.all
+    @contacts = Contact.where(customer_id: @lead.id)
+
+    @account = Account.find(current_account.id)
+    respond_to do |format|
+      format.html
+      format.pdf do
+        render pdf: "Proposal #{@proposal.id}", 
+        template: "proposals/pdf2.html.erb",
+        orientation: 'Landscape',
+        page_size: 'A4'   # Excluding ".pdf" extension.
+      end
+    end
+  end
+
   def report
     
   end

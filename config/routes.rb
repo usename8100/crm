@@ -12,6 +12,9 @@ Rails.application.routes.draw do
       get :proposal
       get :invoice
     end
+    collection do
+      post :import_excel
+    end
   end
 
   #contact
@@ -76,7 +79,11 @@ Rails.application.routes.draw do
   patch 'taxes/:id', to: 'taxes#update'
   delete 'taxes/:id', to: 'taxes#destroy', as: 'delete_tax'
 
-  resources :customers
+  resources :customers do
+    collection do 
+      post :import_excel
+    end
+  end
   resources :products do
     collection do 
       post :create_from_proposal
@@ -86,9 +93,11 @@ Rails.application.routes.draw do
   resources :invoices
   resources :estimates
   resources :proposals do
-    resource :download, only: [:show]
     collection do
       post :send_proposal
+    end
+    member do
+      get :pdf
     end
   end
   resources :reports do

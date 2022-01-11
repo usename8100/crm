@@ -5,13 +5,17 @@
 #
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
 #   Character.create(name: 'Luke', movie: movies.first)
-Account.create!(name: Faker::Name.unique.name, email: 'qwe@qwe.qwe', password: '123123')
+Account.create!(name: Faker::Name.unique.name, email: 'qwe@qwe.qwe',phone:"0986625364", password: '123123')
+Account.create!(name: Faker::Name.unique.name, email: 'seller@gmail.com',phone:"0986605364", password: '123123')
+Account.create!(name: Faker::Name.unique.name, email: 'customerofficier@gmail.com',phone:"0986625362", password: '123123')
 CustomerRole.create!(name: 'lead')
 CustomerRole.create!(name: 'customer')
 Staff.create!(user_id: 1, designation: 'Manager')
-UserRole.create(name: "Manager")
-UserRole.create(name: "Seller")
-UserRole.create(name: "Customer Officer")
+Staff.create!(user_id: 2, designation: 'Seller')
+Staff.create!(user_id: 3, designation: 'Customer Officer')
+UserRole.create!(name: "Manager")
+UserRole.create!(name: "Seller")
+UserRole.create!(name: "Customer Officer")
 Customer.create!(website: Faker::Internet.domain_name, source: 'facebook.com', status: 'new',note: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 						quis nostrud exercitation ullamco ', 
@@ -46,21 +50,21 @@ Appointment.create!(customer_id: 1, date: Time.zone.now, subject: 'New product i
 						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', contact_id: 1)
 Appointment.create!(customer_id: 1, date: Time.now.tomorrow, subject: 'New product information', 
 							content: 'Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod
 						tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam,
 						quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
 						consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse
 						cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non
-						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.')
+						proident, sunt in culpa qui officia deserunt mollit anim id est laborum.', contact_id: 1)
 Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
 Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
 Note.create(customer_id: 1, content: Faker::Books::Lovecraft.paragraph)
 Category.create(name: "Do gia dung")
-Item.create(name: "tv 14inch", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
-Item.create(name: "may giat 200l", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
-Item.create(name: "tu lanh 140l", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
-Item.create(name: "xe may xuduka", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
-Tax.create(name: "No tax", tax_percent: 0)
+Tax.create!(name: "No tax", tax_percent: 0)
 Tax.create(name: "VAT", tax_percent: 5)
+Item.create!(name: "tv 14inch", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
+Item.create!(name: "may giat 200l", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
+Item.create!(name: "tu lanh 140l", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)
+Item.create!(name: "xe may xuduka", category_id: 1, tax_id: 1, quantity: 22, price: 1200000, status: true)

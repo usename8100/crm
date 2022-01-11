@@ -104,20 +104,22 @@
 											<h4 class="modal-title">Send proposal to email</h4>
 										</div>
 										<div class="modal-body">
-											<%= form_with(model: @proposal, url: send_proposal_proposals_path) do |form| %>
+											<%= form_with(model: @proposal, url: send_proposal_proposals_path, id:"sendEmailForm") do |form| %>
 												<%= form.hidden_field :proposal_id, value: proposal.id %>
 												<div class="mb-3 form-group">
-													<%= form.label :contact_id, "Appointment With Contact" %>
 													<select class="form-select form-control f_contact" aria-label="Default select example" data-proid="<%= proposal.id %>">
-														<option selected disabled="">Select a contact</option>
 														<% @contacts.each do |contact| %>
-														<option value="<%= contact.id %>"><%= contact.name %></option>
+															<% if @contacts.first.id == contact.id %>
+																<option value="<%= contact.id %>" selected><%= contact.name %></option>
+															<% else %>
+																<option value="<%= contact.id %>" ><%= contact.name %></option>
+															<% end -%>
 														<% end -%>
 													</select>
 													<%= form.hidden_field :contact_id, class:"f_contact_id", "data-proid" => proposal.id %>
 												</div>
 												<div class="mb-3 form-group">
-													<%= form.submit "Send email", class: "btn btn-success" %>
+													<button type="button" id="btnSubmitSendMailForm" class="btn btn-success">Send Email</button>
 												</div>
 											<% end -%>
 										</div>
@@ -132,12 +134,10 @@
 	</div>
 </div>
 <script type="text/javascript">
-  $('.f_contact').change(function(){
-		var proid_select = parseInt($(this).data("proid"));
-
+	$("#btnSubmitSendMailForm").click(function(){
+		var proid_select = parseInt($('.f_contact').data("proid"));
 		var contact_id = $(".f_contact[data-proid="+proid_select+"]").find(":selected").val();
 		$(".f_contact_id[data-proid="+proid_select+"]").val(contact_id);
-		//$('.f_contact_id[name="'+proid_select+'"]').val(1);
-	});
-	
+    $("#sendEmailForm").submit();
+  });
 </script>

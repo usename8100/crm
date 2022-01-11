@@ -15,7 +15,7 @@ body, button, input, select, table, textarea {
 	background-color: white;
 	width: 400px;
 	padding: 50px;
-	margin-top: 20%;
+	margin-top: 10%;
 	border-radius: 10px;
 	h2 {
 		font-weight: 600;
@@ -98,5 +98,14 @@ li{
 	color: white;
 	&:hover {
 		color: yellow;
+	}
+}
+
+.import_lead_box {
+	display: inline-block;
+	float: right;
+	margin-right: 20px;
+	input {
+		display: inline;
 	}
 }
