@@ -20,6 +20,7 @@ class TaxesController < ApplicationController
     @tax.name = params[:tax][:name]
     @tax.tax_percent = params[:tax][:tax_percent]
     if @tax.save
+      flash[:success] = "Add new tax <b>"  + @tax.name + "(" + @tax.tax_percent.to_s + "%)</b> successfully!"
       redirect_to taxes_path
     else
       render 'new'
@@ -30,6 +31,7 @@ class TaxesController < ApplicationController
     name = params[:tax][:name]
     tax_percent = params[:tax][:tax_percent]
     if @tax.update(name: name, tax_percent: tax_percent)
+      flash[:success] = "Updated tax <b>"  + @tax.name + "(" + @tax.tax_percent.to_s + "%)</b>!"
       redirect_to taxes_path
     else
       render 'update'
@@ -37,7 +39,9 @@ class TaxesController < ApplicationController
   end
 
   def destroy
+    tax_name = @tax.name
     @tax.destroy
+    flash[:success] = "Deleted tax <b>" +tax_name+ "</b>!"
     redirect_to taxes_path
   end
   

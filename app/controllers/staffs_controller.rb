@@ -20,7 +20,9 @@ class StaffsController < ApplicationController
   end
 
   def destroy
+    staff_name = @account.name
    @account.destroy
+   flash[:success] = "Deleted staff <b>" + staff_name+ "</b>!"
    redirect_to staffs_path
   end
 
@@ -40,6 +42,7 @@ class StaffsController < ApplicationController
     @account.age = staff_age.to_i
     @account.password = staff_password
     if @account.save
+      flash[:success] = "Add new staff <b>"  + staff_name +"</b> successfully!"      
       @staff = Staff.new
       @staff.designation = params[:account][:designation] 
       @staff.user_id = @account.id.to_i
@@ -60,11 +63,13 @@ class StaffsController < ApplicationController
     age = params[:account][:age]
     designation = params[:account][:designation]
     if @account.update(name: name, phone: phone, email: email, city: city, age: age)
+      flash[:success] = "Updated staff "  + name +"!"
       if !params[:account][:password].nil?
         @account.update(password: password)
       end
       @staff = Staff.find_by(user_id: @account.id)
       if @staff.update(designation: designation)
+        flash[:success] = "Updated staff <b>"  + name +"</b>!"  
         redirect_to staffs_path
       else
         render 'update'

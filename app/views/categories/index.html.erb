@@ -10,14 +10,6 @@
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add Category</button>
 			<% end -%>
 			<div class="cata-border-x"></div>
-			<span style="float:left;margin-left: 30px; padding-top: 5px ;" >show</span>
-			
-			<select style="float:left;margin-left: 5px; width: auto ;" class="form-select" aria-label="Default select example" id="selectBox" onchange="changeFunc();">
-				<option selected disabled>Null</option>
-				<%= sort_link(@q, :name) do %><option value="1">Name</option><% end -%>
-				<%= sort_link(@q, :id) do %><option value="2">ID</option><% end %>						
-			</select>
-			<span style="float:left;margin-left: 5px; padding-top: 5px ;" >Enteries</span>
 			<span style="float:right;margin-right: 30px;">
 	    		<div class="form-inline my-2 my-lg-0">
 		    		  <%= search_form_for @q, url: categories_path do |f| %>

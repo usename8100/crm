@@ -74,6 +74,7 @@
 					<tbody>
 						<% @appointments.each do |appointment| %>
 							<tr>
+								<% if !appointment.date.nil? %>
 								<td>
 									<span>Appointment With <b><%= @lead.get_staff_name %></b> on <b><%= appointment.date.strftime('%a, %d %B %Y %H:%M %p')%></b></span>
 									<p><%= appointment.content %></p>
@@ -87,6 +88,7 @@
 										<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-envelope-square"></i> Send Email</button>
 									<% end -%>
 								</td>
+								<% end %>
 							</tr>
 						<% end -%>
 					</tbody>

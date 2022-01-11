@@ -62,10 +62,13 @@
 					<div class="select-20">
 						<%= form.label :Designation, "Designation" %>
 						<select class="form-control"  id="designation_select" >
-							<option selected disabled><%= @account.get_designation %></option>
 							<% @staff_roles.each do |role| %>
-								<option value="<%= role.name %>"> <%= role.name %> </option>
-							<% end %>
+								<% if role.name == @account.get_designation %>
+									<option selected value="<%= role.name %>"> <%= role.name %> </option>
+								<% else %>
+									<option value="<%= role.name %>"> <%= role.name %> </option>
+								<% end %>
+							<% end -%>
 						</select>
 						<%= form.hidden_field :designation, id:"f_designation" %>
 					</div>

@@ -1,5 +1,4 @@
 class Staff < ApplicationRecord
-
 	def get_name
 		Account.find(self.user_id).name
 	end

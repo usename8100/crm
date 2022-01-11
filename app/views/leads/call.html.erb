@@ -66,6 +66,7 @@
 						<% @calls.each do |call| %>
 						<li>
 							<ul>
+								<% if !call.date.nil? %>
 								<li class="lead-call-date-label">
 									<span><%= call.date.strftime('%d, %a')%></span>
 								</li>
@@ -84,6 +85,7 @@
 										<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
 									<% end -%>
 								</li>
+								<% end %>
 							</ul>
 						</li>
 						<% end -%>

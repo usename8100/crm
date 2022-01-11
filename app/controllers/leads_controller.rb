@@ -65,8 +65,10 @@ class LeadsController < ApplicationController
 			@contact2.save
 			if @contact2.save
 				if params[:role].to_i == 1
+					flash[:success] = "Add new lead <b>" + lead_name +  "</b> successfully!"
 					redirect_to leads_path
 				else
+					flash[:success] = "Add new customer <b>" + lead_name +  "</b> successfully!"
 					redirect_to customers_path
 				end
 			end
@@ -94,6 +96,7 @@ class LeadsController < ApplicationController
 		detail_address = params[:customer][:detail_address]
 
 		if @lead.update(name: lead_name, phone: phone, email: email, website: website, note: notes, status: status, source: source, city: city, detail_address: detail_address)
+			flash[:success] = "Updated lead <b>" + lead_name +  "</b>!"
 			redirect_to leads_path
 		else
 			render 'edit'
@@ -102,7 +105,9 @@ class LeadsController < ApplicationController
 
   def destroy
     @lead = Customer.find(params[:id])
+    lead_name = @lead.name
     @lead.destroy
+    flash[:success] = "Deleted lead <b>" + lead_name +  "</b>!"
     redirect_to leads_path
   end
 
@@ -176,7 +181,9 @@ class LeadsController < ApplicationController
 
 	def convert_l2c
 		lead = Customer.find(params[:id])
+		lead_name = lead.name
 		if lead.update(customer_role_id: 2)
+			flash[:success] = "Convert <b>" + lead_name +  "</b> to Customer!"
 			redirect_to customers_path
 		else
 			redirect_to leads_path

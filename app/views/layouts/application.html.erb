@@ -22,11 +22,12 @@
       <%= render "layouts/header" %>
     <% end -%>
     <div class="container-fluid">
+      <% flash.each do |msg_type, msg| %>
+        <div class="alert alert-<%= msg_type %>"><%= msg.html_safe %></div>
+      <% end -%>
       <%= yield :sidebar %>
       <br>
-      <% flash.each do |msg_type, msg| %>
-        <div class="alert alert-<%= msg_type %>"><%= msg %></div>
-      <% end -%>
+      
       <%= yield %>
     </div>
   </body>

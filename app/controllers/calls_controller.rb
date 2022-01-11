@@ -15,6 +15,10 @@ class CallsController < ApplicationController
     @call.description = params[:description]
     @call.staff_id = staff_id.to_i
     if @call.save
+      flash[:success] = "Add new call successfully!"
+      redirect_to call_lead_path(params[:customer_id])
+    else
+      flash[:danger] = "Please fill up the form!"
       redirect_to call_lead_path(params[:customer_id])
     end 
   end
@@ -22,6 +26,7 @@ class CallsController < ApplicationController
   def destroy
     call = Call.find(params[:id])
     if call.destroy
+      flash[:success] = "Deleted call!"
       redirect_to call_lead_path(params[:lead_id])
     end
   end
@@ -32,6 +37,7 @@ class CallsController < ApplicationController
     date = params[:call][:date]
     description = params[:call][:description]
     if @call.update(date: date, description: description)
+      flash[:success] = "Updated call!"
       redirect_to call_lead_path(customer_id)
     end
   end

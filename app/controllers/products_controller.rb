@@ -12,7 +12,9 @@ class ProductsController < ApplicationController
   end
 
   def destroy
+   item_name = @item.name
    @item.destroy
+   flash[:success] = "Deleted product <b>" + item_name + "</b>!"
    redirect_to products_path
   end
 
@@ -35,6 +37,7 @@ class ProductsController < ApplicationController
     @item.status = params[:status]
     customer_id = params[:customer_id].to_i
     if @item.save
+      flash[:success] = "Add new product <b>"  + @item.name + "</b> successfully!"
       redirect_to new_lead_proposal_path(customer_id)
     else
       redirect_to root_path
@@ -49,7 +52,7 @@ class ProductsController < ApplicationController
   def update
     @categories = Category.all
     if @item.update(item_params)
-      #flash[:success] = "Update successfully!"
+      flash[:success] = "Updated product <b>" +@item.name+ "</b>!"
       redirect_to products_path
     else
       redirect_to edit_product_path(@item.id)
@@ -64,8 +67,12 @@ class ProductsController < ApplicationController
     s = true
     if item.status == true
       s = false
+      flash_string = "Product <b>" + item.name + "</b> is inactivating!"
+    else
+      flash_string = "Product <b>" + item.name + "</b> is activating!"
     end
     if item.update(status: s)
+      flash[:success] = flash_string
       redirect_to products_path
     else
       redirect_to root_path

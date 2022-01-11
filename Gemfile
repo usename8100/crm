@@ -12,7 +12,7 @@ gem 'faker'
 gem 'figaro'
 gem 'dotenv-rails'
 gem 'ransack'
-gem 'rmagick'
+
 
 gem 'pdfkit'
 gem 'render_anywhere'
