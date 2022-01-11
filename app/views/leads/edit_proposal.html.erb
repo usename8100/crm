@@ -2,14 +2,14 @@
 <%= render partial: "layouts/sidebar", locals: {account: current_account} %>
 <% end -%>
 <div class="col-md-10 main">
-	<h2>Add Proposal to <b><%= @lead.name %></b></h2>
+	<h2>Edit Proposal of <b><%= @lead.name %></b></h2>
 	<div class="proposal-upper">
 		<div class="proposal-upper-left" style="float: left;">
 			<div class="proposal-title">
 				<h2>Proposal Details</h2>
 			</div>
 			<div style="margin-top: 20px;">
-				<%= form_with(model: @proposal, url: update_lead_proposal_path(@lead.id, @proposal), id:"editProposalForm") do |form| %>
+				<%= form_with(model: @proposal, url: update_lead_proposal_path(@lead.id, @proposal.id), id:"editProposalForm") do |form| %>
 					<div class="mb-3 form-group">
 			      <%= form.label :subject, "Subject" %>
 			      <%= form.text_field :subject, class:"form-control", value: @proposal.subject %>
@@ -94,14 +94,9 @@
 						<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
 							<input type="text" class="form-control" disabled value="<%= item.get_item_name %>"></td>
 							<td><input type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
-							<td><input type="text" class="form-control table_price" value="<%= item.price %>"></td>
+							<td><input type="text" class="form-control table_price" disabled value="<%= item.price %>"></td>
 							<td>
 								<select class="form-control tax_select">
-									<% if item.tax_id.nil? %>
-										<option value=0 data-taxp=0 selected>No tax</option>
-									<% else %>
-										<option value=0 data-taxp=0>No tax</option>
-									<% end -%>
 									<% @taxes.each do |tax| %>
 										<% if tax.id == item.tax_id %>
 											<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>
@@ -111,7 +106,7 @@
 									<% end -%>
 								</select>
 							</td>
-							<td><input type="text" class="form-control table_amount" placeholder="Amount" value="<%= item.amount %>"></td>
+							<td><input type="text" class="form-control table_amount" placeholder="Amount" disabled value="<%= item.amount %>"></td>
 						</tr>
 					<% end -%>
 				</tbody>
@@ -140,7 +135,7 @@
 				</tr>
 			</table>
 			<div>
-				<button type="button" id="btnSubmitEditProposalForm" class="btn btn-success">Save</button>
+				<button type="button" id="btnSubmitEditProposalForm" class="btn btn-success" style="display:none;">Save</button>
 			</div>
 		</div>
 	</div>
@@ -154,13 +149,8 @@
 			<div class="modal-body">
 				<%= form_with(model: @item, url: create_from_proposal_products_path) do |form| %>
 				<div class="mb-3 form-group">
-					<%= form.label :category, "Category*" %>
-					<select class="form-select form-control" aria-label="Default select example" id="f_cate_select">
-						<% @categories.each do |category| %>
-							<option value="<%= category.id %>"><%= category.name %></option>
-						<% end -%>
-					</select>
-					<%= form.hidden_field :category_id, id:"f_cate" %>
+					<%= form.label :category_id, "Category*" %>
+					<%= form.select(:category_id, Category.all.collect {|cate| [ cate.name, cate.id ] }, {}, { :class => 'form-control' }) %>
 					<%= form.hidden_field :customer_id, id:"f_customer_item" %>
 				</div>
 				<div class="mb-3 form-group">
@@ -177,7 +167,7 @@
 				</div>
 				<div class="mb-3 form-group">
 					<%= form.label :tax_id, "Tax" %>
-					<%= form.select(:tax_id, ["No Tax","GTGT"], {}, { :class => 'form-control' }) %>
+					<%= form.select(:tax_id, Tax.all.collect {|tax| [ tax.name, tax.id ] }, {}, { :class => 'form-control' }) %>
 				</div>
 				<div class="mb-3 form-group">
 					<%= form.label :status, "Status" %>
@@ -185,6 +175,9 @@
 				</div>
 				<div class="mb-3 form-group">
 					<%= form.submit "Add", class: "btn btn-success btn_item_inpro" %>
+					<%= link_to 'Add & Close', edit_lead_proposal_path(@lead.id, @proposal.id), 
+					{ :class => 'btn btn-success', 'data-dismiss' => 'modal' } %>
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 				</div>
 				<% end -%>
 			</div>
@@ -198,6 +191,9 @@
 	var list_item_ids = [];
 
 	$('.btn-plus').click(function(){
+		//giau nut save
+		$('#btnSubmitEditProposalForm').css("display", "none");
+
 		item_id = $('#select_input_item').find(":selected").val();
 		
 		list_item_ids = [];
@@ -214,22 +210,31 @@
 									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
 									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
 									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
-									'<td><input type="text" class="form-control table_price" value="'+ item.price +'"></td>'+
+									'<td><input type="text" class="form-control table_price" disabled value="'+ item.price +'"></td>'+
 									'<td>'+
 										'<select class="form-control tax_select">'+
-											'<option value=0 data-taxp=0>No tax</option>'+
 											'<% @taxes.each do |tax| %>'+
+												'<% if tax.id == 1 %>'+
+												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>'+
+												'<% else -%>'+
 												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>'+
+												'<% end -%>'+
 											'<% end -%>'+
 										'</select>'+
 									'</td>'+
-									'<td><input type="text" class="form-control table_amount" placeholder="Amount" value="'+ item.price +'"></td>'+
+									'<td><input type="text" class="form-control table_amount" disabled placeholder="Amount" value="'+ item.price +'"></td>'+
 								'</tr>';
 		  	$("#tbody_list_item").append(html);
+		  	
 		  	$('.icon_del_item').click(function(){
 					$(this).closest(".tr_item").remove();
+					//giau nut save
+					$('#btnSubmitEditProposalForm').css("display", "none");
 				});
 				$('.tax_select').on('input', function() {
+					//giau nut save
+					$('#btnSubmitEditProposalForm').css("display", "none");
+
 				  var item_id = $(this).closest(".tr_item").data("itemid");
 					var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
 					var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
@@ -241,18 +246,55 @@
 		  }
 		})
 		$('.table_quantity').on('input', function() {
-	    var item_id = $(this).closest(".tr_item").data("itemid");
-			var quan = parseInt($(this).val());
+			//giau nut save
+			$('#btnSubmitEditProposalForm').css("display", "none");
+
+			//chong ky tu dac biet
+			this.value = this.value.replace(/[^0-9.]/g, '');
+			this.value = this.value.replace(/(\..*)\./g, '$1');
+
+			var item_id = $(this).closest(".tr_item").data("itemid");
 			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
-	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(quan*price);
+
+			//chong rong
+			if (this.value.length < 1) {
+				$(this).val(1);
+		    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(price);
+		  }
+
+			//tinh gia
+			var quan = parseInt($(this).val());
+			var tax_percent = parseInt($(".tr_item[data-itemid='"+item_id+"'] .tax_select").find(":selected").data("taxp"))/100;
+		  var amount = quan*price;
+			var last_amount = amount+(amount*tax_percent);
+	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
 	  });
+				
 	});
 
 	$('.table_quantity').on('input', function() {
-    var item_id = $(this).closest(".tr_item").data("itemid");
-		var quan = parseInt($(this).val());
+		//giau nut save
+		$('#btnSubmitEditProposalForm').css("display", "none");
+
+		//chong ky tu dac biet
+		this.value = this.value.replace(/[^0-9.]/g, '');
+		this.value = this.value.replace(/(\..*)\./g, '$1');
+
+		var item_id = $(this).closest(".tr_item").data("itemid");
 		var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
-    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(quan*price);
+
+		//chong rong
+		if (this.value.length < 1) {
+			$(this).val(1);
+	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(price);
+	  }
+
+		//tinh gia
+		var quan = parseInt($(this).val());
+		var tax_percent = parseInt($(".tr_item[data-itemid='"+item_id+"'] .tax_select").find(":selected").data("taxp"))/100;
+	  var amount = quan*price;
+		var last_amount = amount+(amount*tax_percent);
+    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
   });
 
   $('.icon_del_item').click(function(){
@@ -281,6 +323,9 @@
 	  $('input[name="discount"]').val(0);
 	  $('#total_afterall').html(formatToCurrency(total_amount));
 	  $('#f_total_proposal').val(total_amount);
+
+	  //hien nut Save
+	  $('#btnSubmitEditProposalForm').css("display", "block");
   });
 
 	const formatToCurrency = amount => {
@@ -308,8 +353,6 @@
   var list_item_tax_ids = [];
 
   $('.btn_item_inpro').click(function(){
-		var cate_id = $('#f_cate_select').find(":selected").val();
-		$('#f_cate').val(cate_id);
 		var customer_id = $('input[name="proposal[customer_id]"]').val();
 		$('#f_customer_item').val(customer_id);
   });
@@ -328,7 +371,8 @@
 		$('#f_list_item_quans').val(list_item_quans);
 		$('#f_list_item_tax_ids').val(list_item_tax_ids);
 		$('#f_status').val($('#status_select').find(":selected").val());
-		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());   
+		$('#f_discount').val(parseInt($(this).val()));
+		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());
     $("#editProposalForm").submit();
   });
 
@@ -363,6 +407,5 @@ $( document ).ready(function() {
 	});
 	$('#subtotal_price').html(total_amount);
 	$('#tax_price_result').html(total_amount-subtotal_tax);
-
 });
 </script>

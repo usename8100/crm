@@ -1,7 +1,7 @@
 <div class="overall-box">
 	<div class="proposal_detail-title">
 		<h2>Proposal's Detail</h2>
-		<button style="padding: 10px;position: absolute;right: 80px; top:90px" type="button" class="btn btn-warning btn-sm btn_sendpro" data-toggle="modal" 
+		<button style="padding: 10px;position: absolute;right: 80px; top:110px" type="button" class="btn btn-warning btn-sm btn_sendpro" data-toggle="modal" 
 		data-target="#form_sendmail"><i class="fas fa-envelope-square"></i>
 		 Send Email</button>
 	</div>
@@ -42,7 +42,7 @@
 				<tbody id="tbody_list_item">
 					<% @table_items.each do |item| %>
 					<tr class="tr_item" data-itemid=<%= item.item_id %>>
-						<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
+						<td>
 							<input type="text" class="form-control" disabled value="<%= item.get_item_name %>"></td>
 							<td><input disabled type="number" class="form-control table_quantity" min=1 value="<%= item.quantity %>"></td>
 							<td><input disabled type="text" class="form-control table_price" value="<%= item.price %>"></td>
