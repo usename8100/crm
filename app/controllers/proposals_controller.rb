@@ -58,14 +58,14 @@ class ProposalsController < ApplicationController
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
         tax_id = list_item_tax_ids_arr[index].to_i
-        if tax_id!=0
-          tax_percent = Tax.find(tax_id).tax_percent
-        else
-          tax_percent = 0;
-        end
-        
+        tax_percent = Tax.find(tax_id).tax_percent
         amount = item.price.to_i * list_item_quans_arr[index].to_i
-        last_amount = amount +( amount * (tax_percent*0.01))
+        if tax_percent != 0
+          last_amount = amount +( amount * (tax_percent*0.01))
+        else
+          last_amount = amount
+        end
+
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
         @proposal_item.item_id = item.id
@@ -120,14 +120,15 @@ class ProposalsController < ApplicationController
 
       list_item_ids_arr.length.times do |index|
         item = Item.find(list_item_ids_arr[index].to_i)
-        if tax_id!=0
-          tax_percent = Tax.find(tax_id).tax_percent
-        else
-          tax_percent = 0;
-        end
+        tax_id = list_item_tax_ids_arr[index].to_i
         tax_percent = Tax.find(tax_id).tax_percent
         amount = item.price.to_i * list_item_quans_arr[index].to_i
-        last_amount = amount +( amount * (tax_percent*0.01))
+        if tax_percent != 0
+          last_amount = amount +( amount * (tax_percent*0.01))
+        else
+          last_amount = amount
+        end
+        
         @proposal_item = ProposalItem.new
         @proposal_item.proposal_id = @proposal.id
         @proposal_item.item_id = item.id
