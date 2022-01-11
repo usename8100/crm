@@ -4,7 +4,6 @@
 <div class="col-md-10 main">
 	<div class="list-lead-main">
 		<div class="lead-bo">
-			
 			<br><h3 style="margin-left: 30px;display: inline;"> Proposals Report</h3>
 			<div class="border-x"></div>
 			<div>
@@ -44,15 +43,54 @@
 									Created at: <%= proposal.created_at.strftime('%d-%m-%Y') %><br>		
 									<span>
 										<div class="btn-mini">
-											<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
-											<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
-											<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+											<%= link_to show_lead_proposal_path(proposal.customer_id, proposal.id) do %>
+												<button type="button" class="btn btn-success btn-sm"><i class="fas fa-eye"></i> View Details</button>
+											<% end -%>
+											<%= link_to edit_lead_proposal_path(proposal.customer_id, proposal.id) do %>
+												<button type="button" class="btn btn-warning btn-sm"><i class="fas fa-pencil-alt"></i> Edit</button>
+											<% end -%>
+											<%= link_to destroy_proposal_path(proposal.customer_id, proposal.id), 
+														method: :delete, data:{confirm:'Delete this proposal?'} do %>
+												<button type="button" class="btn btn-danger btn-sm"><i class="fas fa-times"></i> Delete</button>
+											<% end -%>
+											<%= link_to pdf_proposal_path( proposal.id, format: :pdf) do %>
 											<button type="button" class="btn btn-light btn-sm"><i class="fas fa-file-import"></i> Pdf</button>
-											<button type="button" class="btn btn-info btn-sm"><i class="fas fa-envelope"></i> Send to Customer</button>
+											<% end -%>
+											<button type="button" class="btn btn-info btn-sm" data-toggle="modal" data-target="#form_new_app<%= proposal.id %>">
+												<i class="fas fa-envelope"></i> Send to Customer</button>
 										</div>	
 									</span>
 								</td>
 							</tr>
+							<div class="modal fade " id="form_new_app<%= proposal.id %>">>
+								<div class="modal-dialog">
+									<div class="modal-content">
+										<div class="modal-header">
+											<h4 class="modal-title">Send proposal to email</h4>
+										</div>
+										<div class="modal-body">
+											<%= form_with(model: @proposal, url: send_proposal_proposals_path, id:"sendEmailForm") do |form| %>
+												<%= form.hidden_field :proposal_id, value: proposal.id %>
+												<div class="mb-3 form-group">
+													<select class="form-select form-control f_contact" aria-label="Default select example" data-proid="<%= proposal.id %>">
+														<% proposal.get_contacts_by_customer_id(proposal.customer_id).each do |contact| %>
+															<% if proposal.get_contacts_by_customer_id(proposal.customer_id).first.id == contact.id %>
+																<option value="<%= contact.id %>" selected><%= contact.name %></option>
+															<% else %>
+																<option value="<%= contact.id %>" ><%= contact.name %></option>
+															<% end -%>
+														<% end -%>
+													</select>
+													<%= form.hidden_field :contact_id, class:"f_contact_id", "data-proid" => proposal.id %>
+												</div>
+												<div class="mb-3 form-group">
+													<button type="button" id="btnSubmitSendMailForm" class="btn btn-success">Send Email</button>
+												</div>
+											<% end -%>
+										</div>
+									</div>
+								</div>
+							</div>
 						<% end %>
 					</table>
 				</center>
@@ -71,4 +109,11 @@
 	  	$('#end_date').val($('#start_date').val())
 	  }
 	});
+
+	$("#btnSubmitSendMailForm").click(function(){
+		var proid_select = parseInt($('.f_contact').data("proid"));
+		var contact_id = $(".f_contact[data-proid="+proid_select+"]").find(":selected").val();
+		$(".f_contact_id[data-proid="+proid_select+"]").val(contact_id);
+    $("#sendEmailForm").submit();
+  });
 </script>

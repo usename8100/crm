@@ -36,4 +36,8 @@ class Proposal < ApplicationRecord
 		end
 		total_amount
 	end
+
+	def get_contacts_by_customer_id customer_id
+		Contact.where(customer_id: customer_id)
+	end
 end

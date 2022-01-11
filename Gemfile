@@ -13,10 +13,14 @@ gem 'figaro'
 gem 'dotenv-rails'
 gem 'ransack'
 
-
+#pdf download
 gem 'pdfkit'
 gem 'render_anywhere'
 gem 'wkhtmltopdf-binary'
+gem 'wicked_pdf'
+
+#import excel file 
+gem 'roo'
 
 # Use postgresql as the database for Active Record
 gem 'pg', '~> 1.1'

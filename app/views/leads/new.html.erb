@@ -84,9 +84,9 @@
 						<select class="form-control" aria-label=".form-select-sm example" id="staff_select">
 							<% @staffs.each do |staff| %>
 								<% if staff.id == 1 %>
-									<option selected value="<%= staff.id %>"><%= staff.get_name %></option>
+									<option selected value="<%= staff.id %>"><%= staff.get_name + ' (' + staff.designation + ')' %></option>
 								<% else %>
-									<option value="<%= staff.id %>"><%= staff.get_name %></option>
+									<option value="<%= staff.id %>"><%= staff.get_name + ' (' + staff.designation + ')'%></option>
 								<% end %>
 							<% end -%>
 						</select>

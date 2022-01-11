@@ -72,10 +72,10 @@
 								</li>
 								<li class="lead-call-list-right">
 									<span><%= call.date.strftime('%a, %d %B %Y %H:%M %p')%></span>
-									<span><%= call.description %></span>
+									<span style="line-height: 28px;"><b><%= call.description %></b></span>
 									<% @staffs.each do |staff| %>
 										<% if staff.id == call.staff_id %>
-											<span>Created By <%= staff.get_name %> (<%= staff.get_email %>) On <%= call.created_at.strftime('%a, %d %B %Y %H:%M %p') %></span>
+											<span>Created By <%= staff.get_name %> (<%= staff.designation %>) On <%= call.created_at.strftime('%a, %d %B %Y %H:%M %p') %></span>
 										<% end -%>
 									<% end -%>
 									<%= link_to edit_lead_call_path(@lead.id, call.id) do %>

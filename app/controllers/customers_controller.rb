@@ -2,7 +2,7 @@ class CustomersController < ApplicationController
   def index
     #@customers = Customer.where(customer_role_id: 2)
     @q = Customer.where(customer_role_id: 2).ransack(params[:q])
-    @customers = @q.result(distinct: true)
+    @customers = @q.result(distinct: true).order(created_at: :desc)
   end
 
   def edit
@@ -42,5 +42,16 @@ class CustomersController < ApplicationController
     @customer.destroy
     flash[:success] = "Deleted customer <b>" + customer_name +  "</b>!"
     redirect_to customers_path
+  end
+
+  def import_excel
+    if !params[:file].nil?
+      customers_num = Customer.import(params[:file], 2, current_account.id)
+      flash[:success] = "Imported " + customers_num.to_s + " customers"
+      redirect_to customers_path
+    else
+      flash[:warning] = "Please choose a file to import!"
+      redirect_to customers_path
+    end
   end
 end

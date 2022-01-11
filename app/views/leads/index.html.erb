@@ -9,6 +9,12 @@
 			<%= link_to new_lead_2_path(1) do %>
 				<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm"><i class="fas fa-plus"></i> Add New Lead</button>
 			<% end -%>
+			<div class="import_lead_box">
+				<%= form_tag import_excel_leads_path, multipart: true do %>
+			    <%= file_field_tag :file %>
+			    <%= submit_tag "Import Leads", class: "btn btn-success btn-sm" %>
+				<% end %>
+			</div>
 			<div class="border-x"></div>
 			<div style="float:right;margin-right: 30px; width: auto;border: 1px solid black;">
 	  			<%= sort_link(@q, :name) do %>

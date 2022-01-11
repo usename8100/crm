@@ -2,7 +2,7 @@ class LeadsController < ApplicationController
 	def index
 		#@leads = Customer.where(customer_role_id: 1)
 		@q = Customer.where(customer_role_id: 1).ransack(params[:q])
-		@leads = @q.result(distinct: true) 
+		@leads = @q.result(distinct: true).order(created_at: :desc)
 	end
 
 	def show
@@ -13,7 +13,7 @@ class LeadsController < ApplicationController
 
 	def new
 		@lead = Customer.new
-		@staffs = Staff.all
+		@staffs = Staff.where(designation: ["Manager","Customer Officer"])
 	end
 
 	def create
@@ -144,7 +144,7 @@ class LeadsController < ApplicationController
 
 	def edit_appointment
 		@appointment = Appointment.find(params[:id])
-		contact = Contact.find(@appointment.customer_id)
+		contact = Contact.find(@appointment.contact_id)
 		@lead = Customer.find(contact.get_customer_id)
 		@contacts = Contact.where(customer_id: @lead.id)
 	end
@@ -188,5 +188,16 @@ class LeadsController < ApplicationController
 		else
 			redirect_to leads_path
 		end
+	end
+
+	def import_excel
+    if !params[:file].nil?
+      customers_num = Customer.import(params[:file], 1, current_account.id)
+      flash[:success] = "Imported " + customers_num.to_s + " leads"
+      redirect_to leads_path
+    else
+      flash[:warning] = "Please choose a file to import!"
+      redirect_to leads_path
+    end
 	end
 end
