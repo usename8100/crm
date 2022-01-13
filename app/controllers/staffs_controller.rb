@@ -1,9 +1,10 @@
 class StaffsController < ApplicationController
   before_action :set_staff, only: %i[show edit update destroy] 
+  before_action :authenticate_account!
   def index
     @staffs = Staff.all
     @q = Account.ransack(params[:q])
-    @accounts = @q.result(distinct: true)
+    @pagy, @accounts = pagy(@q.result(distinct: true), items: 10)
   end
 
   def new

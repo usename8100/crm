@@ -1,8 +1,9 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: %i[show edit update destroy] 
+  before_action :authenticate_account!
   def index
     @q = Item.ransack(params[:q])
-    @items = @q.result.includes(:tax)
+    @pagy, @items = pagy(@q.result.includes(:tax), items: 20)
   end
 
   def new

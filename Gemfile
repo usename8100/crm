@@ -19,6 +19,9 @@ gem 'render_anywhere'
 gem 'wkhtmltopdf-binary'
 gem 'wicked_pdf'
 
+#paginate
+gem 'pagy'
+
 #import excel file 
 gem 'roo'
 

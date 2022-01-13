@@ -333,6 +333,9 @@
 	};
 
   $('input[name="discount"]').on('input', function() {
+  	//giau nut save
+		$('#btnSubmitEditProposalForm').css("display", "block");
+
   	if ($(this).val()>100) {
   		$(this).val(0);
   	}
@@ -371,7 +374,6 @@
 		$('#f_list_item_quans').val(list_item_quans);
 		$('#f_list_item_tax_ids').val(list_item_tax_ids);
 		$('#f_status').val($('#status_select').find(":selected").val());
-		$('#f_discount').val(parseInt($(this).val()));
 		//alert($('#f_list_item_ids').val()+'\n'+$('#f_list_item_quans').val() +"\ntong gia"+ $('#f_total_proposal').val());
     $("#editProposalForm").submit();
   });

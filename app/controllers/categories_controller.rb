@@ -1,8 +1,9 @@
 class CategoriesController < ApplicationController
   before_action :set_category, only: %i[ show edit update destroy ]
+  before_action :authenticate_account!
   def index
     @q = Category.ransack(params[:q])
-    @categories = @q.result(distinct: true)
+    @pagy, @categories = pagy(@q.result(distinct: true),items:20)
   end
 
   def new
