@@ -1,0 +1,358 @@
+<%= content_for(:sidebar) do %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
+<% end -%>
+<div class="col-md-10 main">
+	<h2>Add Proposal</b></h2>
+	<div class="proposal-upper">
+		<div class="proposal-upper-left" style="float: left;">
+			<div class="proposal-title">
+				<h2>Proposal Details</h2>
+			</div>
+			<div style="margin-top: 20px;">
+				<%= form_with(model: @proposal, url: new2_proposal_path, id:"newProposalForm")  do |form| %>
+					<div class="mb-3 form-group">
+			      <%= form.label :subject, "Subject" %>
+			      <%= form.text_field :subject, class:"form-control",:required => true%>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :datestart, "Proposal date start at" %>
+			      <%= form.date_field :datestart, class:"form-control", value:Time.zone.now.strftime("%F") %>
+			    </div>
+			    <div class="mb-3 form-group">
+			      <%= form.label :dateend, "Proposal date end at" %>
+			      <%= form.date_field :dateend, class:"form-control", value:Time.zone.now.strftime("%F") %>
+			    </div>
+			    <div class="mb-3 form-group">
+			    	<%= form.label :status, "Status" %>
+						<select class="form-control" aria-label=".form-select-sm example" id="status_select">
+							<option value="New">New</option>
+							<option selected value="Draft">Draft</option>
+						</select>
+						<%= form.hidden_field :status, id:"f_status" %>
+						<%= form.hidden_field :list_item_ids, id:"f_list_item_ids" %>
+						<%= form.hidden_field :list_item_quans, id:"f_list_item_quans" %>
+						<%= form.hidden_field :list_item_tax_ids, id:"f_list_item_tax_ids" %>
+						<%= form.hidden_field :discount, id:"f_discount" %>
+						<%= form.hidden_field :total, id:"f_total_proposal"  %>
+						<%= form.hidden_field :customer_id, id: "f_customer_id" %>
+					</div>
+					<div class="mb-3 form-group">
+			    	<%= form.label :customer_id, "Customer" %>
+						<select class="form-control" aria-label=".form-select-sm example" id="customer_in4_select">
+							<% @customers.each do |customer| %>
+									<option value=<%= customer.id %>><%= customer.name %></option>
+							<% end -%>
+						</select>
+					</div>
+				<% end %>
+			</div>
+		</div>
+
+		<div class="proposal-upper-right">
+			<div class="proposal-title">
+				<h2>Customer Details</h2>
+			</div>
+			<div class="proposal-upper-right-content">
+				<div class="customer_in4">
+					
+				</div>
+				<span id="item_list_json" data-items="<%= @items.to_json %>"></span>
+			</div>
+		</div>
+	</div>
+	<div class="proposal-lower">
+		<div class="proposal-lower-title">
+			<h2>Item Details</h2>
+		</div>
+		<div class="proposal-middle">
+			<h3>Add Item</h3>
+			<div class="item-select">
+				<select class="form-control" id="select_input_item">
+					<option selected disabled value="0">Select an item</option>
+					<% @items.each do |item| %>
+						<option value="<%= item.id %>"><%= item.name %></option>
+					<% end -%>
+					
+				</select>
+			</div>
+			<button type="button" class="btn btn-success btn-sm btn-plus"><i class="fas fa-plus"></i></button>
+			<button style="float:right;margin-right: 30px ;" type="button" class="btn btn-success btn-sm" data-toggle="modal" data-target="#form_new_item"><i class="fas fa-plus"></i> Add New Item</button>
+		</div>
+		<div>
+			<table class="table table-bordered">
+				<thead>
+					<tr>
+						<th>Item</th>
+						<th>Quantity</th>
+						<th>Price</th>
+						<th>Tax</th>
+						<th>Amount</th>
+					</tr>
+				</thead>
+				<tbody id="tbody_list_item">
+
+				</tbody>
+			</table>
+			<center>
+				<button class="btn btn-success btn_calculate">Calculate</button>
+			</center>
+		</div>
+		<div class="table-total" style="display: none;">
+			<table class="table table-bordered table-striped table_result">
+				<tr>
+					<td>Subtotal</td>
+					<td><span id="subtotal_price">0</span></td>
+				</tr>
+				<tr>
+					<td>Discount(%)</td>
+					<td><input type="number" name="discount" value="0" min="0" max="100" class="form-control"></td>
+				</tr>
+				<tr>
+					<td>Total taxes</td>
+					<td><span id="tax_price_result">0</span></td>
+				</tr>
+				<tr>
+					<td><b>Total</b></td>
+					<td><b><span id="total_afterall">0</span></b></td>
+				</tr>
+			</table>
+			<div>
+				<button type="button" id="btnSubmitNewProposalForm" class="btn btn-success">Save</button>
+			</div>
+		</div>
+		
+	</div>
+</div>
+<div id="form_new_item" class="modal fade">
+	<div class="modal-dialog">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h4 class="modal-title">Add Appointment</h4>
+			</div>
+			<div class="modal-body">
+				<%= form_with(model: @item, url: create_from_proposal_products_path) do |form| %>
+				<div class="mb-3 form-group">
+					<%= form.label :category_id, "Category*" %>
+					<%= form.select(:category_id, Category.all.collect {|cate| [ cate.name, cate.id ] }, {}, { :class => 'form-control' }) %>
+					<%= form.hidden_field :customer_id, id:"f_customer_item" %>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.label :name, "Name*" %>
+					<%= form.text_field :name, class:"form-control", placeholder: "Name"%>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.label :price, "Price*" %>
+					<%= form.text_field :price, class:"form-control", placeholder: "Price"%>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.label :description, "Description" %>
+					<%= form.text_area :description, class:"form-control", placeholder: "Description"%>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.label :tax_id, "Tax" %>
+					<%= form.select(:tax_id, Tax.all.collect {|tax| [ tax.name, tax.id ] }, {}, { :class => 'form-control' }) %>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.label :status, "Status" %>
+					<%= form.select(:status, [["Active", true],["Inactive", false]], {}, { :class => 'form-control' }) %>
+				</div>
+				<div class="mb-3 form-group">
+					<%= form.submit "Add", class: "btn btn-success btn_item_inpro" %>
+				</div>
+				<% end -%>
+			</div>
+		</div>
+	</div>
+</div>
+
+<script type="text/javascript">
+	var jsonStr = $("#item_list_json").attr("data-items");
+	var	items = JSON.parse(jsonStr);
+	var list_item_ids = [];
+
+	$('.btn-plus').click(function(){
+		//giau nut save
+		$('#btnSubmitNewProposalForm').css("display", "none");
+
+		item_id = $('#select_input_item').find(":selected").val();
+		
+		list_item_ids = [];
+		$('.tr_item').each(function() {
+			list_item_ids.push($(this).data("itemid"));
+		});
+		let duplicate_id = list_item_ids.includes(parseInt(item_id));
+		console.log(list_item_ids);
+		items.forEach(function(item) {
+		  if(item.id == item_id && !duplicate_id){
+		  	html = 	'<tr class="tr_item" data-itemid="'+item.id+'">'+
+									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
+									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
+									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
+									'<td><input type="text" class="form-control table_price" disabled value="'+ item.price +'"></td>'+
+									'<td>'+
+										'<select class="form-control tax_select">'+
+											'<% @taxes.each do |tax| %>'+
+												'<% if tax.id == 1 %>'+
+												'<option selected value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>'+
+												'<% else -%>'+
+												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>'+
+												'<% end -%>'+
+											'<% end -%>'+
+										'</select>'+
+									'</td>'+
+									'<td><input type="text" class="form-control table_amount" placeholder="Amount" disabled value="'+ item.price +'"></td>'+
+								'</tr>';
+		  	$("#tbody_list_item").append(html);
+		  	$('.icon_del_item').click(function(){
+		  		//giau nut save
+					$('#btnSubmitNewProposalForm').css("display", "none");
+					$(this).closest(".tr_item").remove();
+				});
+				$('.tax_select').on('input', function() {
+					//giau nut save
+					$('#btnSubmitNewProposalForm').css("display", "none");
+				  var item_id = $(this).closest(".tr_item").data("itemid");
+					var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+					var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+					var tax_percent = parseInt($(this).find(":selected").data("taxp"))/100;
+				  var amount = quan*price;
+					var last_amount = amount+(amount*tax_percent);
+					$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+				});
+		  }
+		})
+		$('.table_quantity').on('input', function() {
+			//giau nut save
+			$('#btnSubmitNewProposalForm').css("display", "none");
+
+			//chong ky tu dac biet
+			this.value = this.value.replace(/[^0-9.]/g, '');
+			this.value = this.value.replace(/(\..*)\./g, '$1');
+
+			var item_id = $(this).closest(".tr_item").data("itemid");
+			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+
+			//chong rong
+			if (this.value.length < 1) {
+				$(this).val(1);
+		    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(price);
+		  }
+
+			//tinh gia
+			var quan = parseInt($(this).val());
+			var tax_percent = parseInt($(".tr_item[data-itemid='"+item_id+"'] .tax_select").find(":selected").data("taxp"))/100;
+		  var amount = quan*price;
+			var last_amount = amount+(amount*tax_percent);
+	    $(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+	  });
+	});
+
+	$('.btn_calculate').click(function(){
+		var total_amount = 0;
+		var subtotal_tax = 0;
+		$('.tr_item .table_amount').each(function() {
+			total_amount += parseInt($(this).val());
+		});
+		$('.tr_item').each(function() {
+			// total_amount += parseInt($(this).val());
+			var item_id = $(this).data("itemid");
+			var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+			var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+			subtotal_tax += quan*price;
+		});
+		$('#tax_price_result').html(total_amount-subtotal_tax);
+		$(".table-total").css("display", "block");
+		$('#btnSubmitNewProposalForm').css("display", "block");
+	  //console.log(total_amount);
+	  $('#subtotal_price').html(total_amount);
+	  //console.log(parseInt($('#subtotal_price').html()));
+	  $('input[name="discount"]').val(0);
+	  $('#total_afterall').html(formatToCurrency(total_amount));
+	  $('#f_total_proposal').val(total_amount);
+  });
+
+	const formatToCurrency = amount => {
+	  return amount.toFixed(2).replace(/\d(?=(\d{3})+\.)/g, "$&,") + ' VND';
+	};
+
+  $('input[name="discount"]').on('input', function() {
+  	if ($(this).val()>100) {
+  		$(this).val(0);
+  	}
+  	var subtotal = parseInt($('#subtotal_price').html());
+  	if ($(this).val()==0 || $(this).val() == '') {
+  		$('#total_afterall').html(formatToCurrency(subtotal));
+  	} else {
+  		var discount = parseInt($(this).val())/100;
+			var total = subtotal - subtotal * discount;
+			$('#total_afterall').html(formatToCurrency(total));
+			$('#f_discount').val(parseInt($(this).val()));
+			$('#f_total_proposal').val(total);
+  	}
+	});
+
+  var list_item_ids_save = [];
+  var list_item_quans = [];
+  var list_item_tax_ids = [];
+
+  $('.btn_item_inpro').click(function(){
+		var customer_id = $('input[name="proposal[customer_id]"]').val();
+		$('#f_customer_item').val(customer_id);
+  });
+
+  $("#btnSubmitNewProposalForm").click(function(){
+	  $('.tr_item').each(function() {
+			list_item_ids_save.push($(this).data("itemid"));
+		});
+		$('.tax_select').each(function() {
+			list_item_tax_ids.push($(this).find(":selected").val());
+		});
+		$('.table_quantity').each(function() {
+			list_item_quans.push($(this).val());
+		});
+		$('#f_list_item_ids').val(list_item_ids_save);
+		$('#f_list_item_quans').val(list_item_quans);
+		$('#f_list_item_tax_ids').val(list_item_tax_ids);
+		$('#f_status').val($('#status_select').find(":selected").val());
+		var customer_id = parseInt($( "#customer_in4_select" ).val());
+    $('#f_customer_id').val(customer_id);
+    $("#newProposalForm").submit();
+  });
+
+  $( "#customer_in4_select" ).change(function() {
+  var customer_id = parseInt(this.value) ;
+  $.ajax({
+	  type:"GET",
+	  url:`/customers/${customer_id}`,
+	  dataType:"json",
+	  data: {
+	  	customer_id: customer_id
+	  },
+	  success:function(result){
+	    html = 	'<span><b>Name:</b> '+ result.name + '</span>' +
+							'<span><b>Address:</b> ' + result.detail_address + '</span>' +
+							'<span><b>City:</b> '+ result.city+ '</span>' +
+							'<span><b>Email:</b> '+ result.email+ '</span>' +
+							'<span><b>Phone:</b> '+ result.phone+ '</span>'
+	    $(".customer_in4").html(html);
+	  }
+	});
+});
+  var customer_id_onload = parseInt($( "#customer_in4_select" ).find(":selected").val()) ;
+  $.ajax({
+	  type:"GET",
+	  url:`/customers/${customer_id_onload}`,
+	  dataType:"json",
+	  data: {
+	  	customer_id: customer_id_onload
+	  },
+	  success:function(result){
+	    html = 	'<span><b>Name:</b> '+ result.name + '</span>' +
+							'<span><b>Address:</b> ' + result.detail_address + '</span>' +
+							'<span><b>City:</b> '+ result.city+ '</span>' +
+							'<span><b>Email:</b> '+ result.email+ '</span>' +
+							'<span><b>Phone:</b> '+ result.phone+ '</span>'
+	    $(".customer_in4").html(html);
+	  }
+	});
+</script>

@@ -67,6 +67,8 @@ Rails.application.routes.draw do
 
   #proposal
   get '/lead/:customer_id/proposal/new', to: 'proposals#new', as: 'new_lead_proposal'
+  get '/proposal/new2', to: 'proposals#new2', as: 'new2_proposal'
+  post '/proposal/new2', to: 'proposals#create'
   post '/lead/:customer_id/proposal/new', to: 'proposals#create'
   delete '/lead/:customer_id/proposal/:id', to: 'proposals#destroy', as: 'destroy_proposal'
   get '/lead/:customer_id/proposal/:id/edit', to: 'leads#edit_proposal', as: 'edit_lead_proposal'
