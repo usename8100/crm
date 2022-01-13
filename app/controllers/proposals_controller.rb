@@ -183,4 +183,12 @@ class ProposalsController < ApplicationController
       redirect_to root_path
     end   
   end
+
+  def new2
+    @proposal = Proposal.new
+    @items = Item.where(status: true)
+    @categories = Category.all
+    @taxes = Tax.all
+    @customers = Customer.where(customer_role_id: 2)
+  end
 end

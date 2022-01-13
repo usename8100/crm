@@ -34,6 +34,14 @@ class CustomersController < ApplicationController
     @customer = Customer.find(params[:id])
     staff = Staff.find(@customer.staff_id)
     @staff_acc = Account.find(staff.user_id)
+
+    if !params[:customer_id].nil?
+      @lead = Customer.find(params[:customer_id].to_i)
+    end
+    respond_to do |format|
+      format.html
+      format.json {render json: @lead}
+    end
   end
 
   def destroy
