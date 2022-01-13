@@ -1,7 +1,8 @@
 class ProposalsController < ApplicationController
+  before_action :authenticate_account!
   def index
     @q = Proposal.ransack(params[:q])
-    @proposals = @q.result(distinct: true)
+    @pagy, @proposals = pagy(@q.result(distinct: true), items: 10)
   end
 
   def new

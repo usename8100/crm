@@ -1,8 +1,9 @@
 class CustomersController < ApplicationController
+  before_action :authenticate_account!
   def index
     #@customers = Customer.where(customer_role_id: 2)
     @q = Customer.where(customer_role_id: 2).ransack(params[:q])
-    @customers = @q.result(distinct: true).order(created_at: :desc)
+    @pagy, @customers = pagy(@q.result(distinct: true).order(created_at: :desc))
   end
 
   def edit

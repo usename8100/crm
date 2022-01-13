@@ -1,8 +1,9 @@
 class TaxesController < ApplicationController
   before_action :set_tax, only: %i[edit update destroy]
+  before_action :authenticate_account!
   def index
     @q = Tax.ransack(params[:q])
-    @taxes = @q.result
+    @pagy, @taxes = pagy(@q.result, items: 20)
   end
 
   def new

@@ -1,8 +1,9 @@
 class LeadsController < ApplicationController
+	before_action :authenticate_account!
 	def index
 		#@leads = Customer.where(customer_role_id: 1)
 		@q = Customer.where(customer_role_id: 1).ransack(params[:q])
-		@leads = @q.result(distinct: true).order(created_at: :desc)
+		@pagy, @leads = pagy(@q.result(distinct: true).order(created_at: :desc), items: 15)
 	end
 
 	def show
@@ -116,7 +117,7 @@ class LeadsController < ApplicationController
 	end
 
 	def contact
-		@contacts = Contact.where(customer_id: params[:id])
+		@contacts = Contact.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 	end
 
@@ -126,7 +127,7 @@ class LeadsController < ApplicationController
 	end
 
 	def call
-		@calls = Call.where(customer_id: params[:id])
+		@calls = Call.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 		@staffs = Staff.all
 	end
@@ -137,7 +138,7 @@ class LeadsController < ApplicationController
 	end
 
 	def appointment
-		@appointments = Appointment.where(customer_id: params[:id])
+		@appointments = Appointment.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 		@contacts = Contact.where(customer_id: @lead.id)
 	end
@@ -150,7 +151,7 @@ class LeadsController < ApplicationController
 	end
 
 	def note
-		@notes = Note.where(customer_id: params[:id])
+		@notes = Note.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 	end
 
@@ -160,7 +161,7 @@ class LeadsController < ApplicationController
 	end
 
 	def proposal
-		@proposals = Proposal.where(customer_id: params[:id])
+		@proposals = Proposal.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 		@contacts = Contact.where(customer_id: @lead.id)
 	end
@@ -175,7 +176,7 @@ class LeadsController < ApplicationController
 	end
 
 	def invoice
-		@proposals = Proposal.where(customer_id: params[:id])
+		@proposals = Proposal.where(customer_id: params[:id]).order(created_at: :desc)
 		@lead = Customer.find(params[:id])
 	end
 

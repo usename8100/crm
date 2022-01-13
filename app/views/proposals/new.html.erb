@@ -270,6 +270,9 @@
 	};
 
   $('input[name="discount"]').on('input', function() {
+  	//giau nut save
+		$('#btnSubmitEditProposalForm').css("display", "none");
+		
   	if ($(this).val()>100) {
   		$(this).val(0);
   	}
