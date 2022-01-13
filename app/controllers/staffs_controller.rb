@@ -23,6 +23,7 @@ class StaffsController < ApplicationController
   def destroy
     staff_name = @account.name
    @account.destroy
+   Staff.find_by_user_id(@account.id).destroy
    flash[:success] = "Deleted staff <b>" + staff_name+ "</b>!"
    redirect_to staffs_path
   end
@@ -48,10 +49,11 @@ class StaffsController < ApplicationController
       @staff.designation = params[:account][:designation] 
       @staff.user_id = @account.id.to_i
       if @staff.save
-      redirect_to staffs_path
-      else 
-        render 'new'
+        redirect_to staffs_path
       end
+    else 
+      flash[:danger] = "Gmail has been taken!"      
+      redirect_to new_staff_path
     end
   end
   
@@ -64,17 +66,17 @@ class StaffsController < ApplicationController
     age = params[:account][:age]
     designation = params[:account][:designation]
     if @account.update(name: name, phone: phone, email: email, city: city, age: age)
-      flash[:success] = "Updated staff "  + name +"!"
+      flash[:success] = "Updated staff <b>"  + name +"</b>!"  
       if !params[:account][:password].nil?
-        @account.update(password: password)
+        @account.update(password: password) 
       end
       @staff = Staff.find_by(user_id: @account.id)
-      if @staff.update(designation: designation)
-        flash[:success] = "Updated staff <b>"  + name +"</b>!"  
+      if @staff.update(designation: designation)        
         redirect_to staffs_path
-      else
-        render 'update'
       end
+    else 
+      flash[:danger] = "Some things wrong!"      
+      redirect_to edit_staff_path(@account.id)
     end
   end
 

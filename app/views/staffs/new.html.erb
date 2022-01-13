@@ -3,7 +3,7 @@
 <% end -%>
 <div class="col-md-10 main">
 	<h2>Add new Staff</h2>
-	<%= form_with(model: @account, url: new_staff_path) do |form| %>
+	<%= form_with(model: @account, url: new_staff_path, id: "newStaff") do |form| %>
 	
 		<div class="add-lead-main">
 			<div class="add-lead-left">
@@ -61,17 +61,12 @@
 				<div class="add-lead-center">
 					<div class="select-20">
 						<%= form.label :Designation, "Designation" %>
-						<select class="form-control"  id="designation_select" >
-							<% @staff_roles.each do |role| %>
-								<option value="<%= role.name %>"> <%= role.name %> </option>
-							<% end %>
-						</select>
-						<%= form.hidden_field :designation, id:"f_designation" %>
+						<%= form.select(:designation, UserRole.all.collect {|role| [ role.name, role.name ] }, {}, { :class => 'form-control' }) %>
 					</div>
 				</div>
 			</div>
 			<div style="clear: left; margin-bottom: 50px;"></div>
-			<center><%= form.submit "Save", class: "btn btn-success" %>
+			<center><button type="button" class="btn btn-success" id="btn_edit_staff">Save</button>
 				<%= link_to staffs_path do %>	
 						<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
 				<% end %>
@@ -80,7 +75,26 @@
 	<% end %>
 </div>
 <script type="text/javascript">
-	$('#designation_select').on('change', function() {
-	  $("#f_designation").val(this.value);
-	});
+	$("#btn_edit_staff").click(function(){
+		var error = false;
+		var msg = "" 
+	    if ($("#account_staff_password").val().length < 6 ){
+	    	error = true;
+	    	msg += 'Password must be minimum 6 characters!\n';
+	    }
+	    if ($("#account_staff_phone").val().length == 0 ){
+    		error = true;
+			msg += 'Fill up the phone field!\n';
+	    }
+		if ($("#account_staff_name").val().length == 0) {
+			error = true;
+	    	msg += 'Fill up the name field!';
+	    }
+		if (!error) {
+		    $("#newStaff").submit();
+	    }
+	    else {
+	    	alert(msg);
+	    }
+  });
 </script>

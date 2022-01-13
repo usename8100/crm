@@ -3,7 +3,7 @@
 <% end -%>
 <div class="col-md-10 main">
 	<h2>Update Staff</h2>
-	<%= form_with(model: @account, url: update_staff_path(@account.id)) do |form| %>
+	<%= form_with(model: @account, url: update_staff_path(@account.id), id:"editStaff") do |form| %>
 	
 		<div class="add-lead-main">
 			<div class="add-lead-left">
@@ -75,7 +75,8 @@
 				</div>
 			</div>
 			<div style="clear: left; margin-bottom: 50px;"></div>
-			<center><%= form.submit "Save", class: "btn btn-success" %>
+			<center>
+				<button type="button" class="btn btn-success" id="btn_edit_staff">Save</button>
 				<%= link_to staffs_path do %>	
 						<button type="button" class="btn btn-secondary btn-sm"> Back</button>	
 				<% end %>
@@ -89,4 +90,26 @@
 	$('#designation_select').on('change', function() {
 	  $("#f_designation").val(this.value);
 	});
+	$("#btn_edit_staff").click(function(){
+		var error = false;
+		var msg = "" 
+	    if ($("#account_password").val().length > 0 && $("#account_password").val().length < 6 ){
+	    	error = true;
+	    	msg += 'Password must be minimum 6 characters!\n';
+	    }
+	    if ($("#account_phone").val().length == 0 ){
+    		error = true;
+			msg += 'Fill up the phone field!\n';
+	    }
+		if ($("#account_name").val().length == 0) {
+			error = true;
+	    	msg += 'Fill up the name field!';
+	    }
+		if (!error) {
+		    $("#editStaff").submit();
+	    }
+	    else {
+	    	alert(msg);
+	    }
+  });
 </script>
