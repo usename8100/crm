@@ -42,6 +42,7 @@ class CustomersController < ApplicationController
     respond_to do |format|
       format.html
       format.json {render json: @lead}
+      format.js
     end
   end
 

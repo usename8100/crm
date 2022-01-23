@@ -1,0 +1,4 @@
+<option selected disabled value="0">Select an item</option>
+<% @items2.each do |item| %>
+	<option value="<%= item.id %>"><%= item.name %></option>
+<% end -%>

@@ -1,5 +1,5 @@
 <%= content_for(:sidebar) do %>
-<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account, tab: "lead"} %>
 <% end -%>
 <div class="col-md-10 main">
 	<h2>Add Proposal to <b><%= @lead.name %></b></h2>
@@ -50,7 +50,6 @@
 				<span><b>City:</b> <%= @lead.city%></span>
 				<span><b>Email:</b> <%= @lead.email%></span>
 				<span><b>Phone:</b> <%= @lead.phone%></span>
-				<span id="item_list_json" data-items="<%= @items.to_json %>"></span>
 			</div>
 		</div>
 	</div>
@@ -139,19 +138,11 @@
 					<%= form.text_field :price, class:"form-control", placeholder: "Price"%>
 				</div>
 				<div class="mb-3 form-group">
-					<%= form.label :description, "Description" %>
-					<%= form.text_area :description, class:"form-control", placeholder: "Description"%>
-				</div>
-				<div class="mb-3 form-group">
 					<%= form.label :tax_id, "Tax" %>
 					<%= form.select(:tax_id, Tax.all.collect {|tax| [ tax.name, tax.id ] }, {}, { :class => 'form-control' }) %>
 				</div>
 				<div class="mb-3 form-group">
-					<%= form.label :status, "Status" %>
-					<%= form.select(:status, [["Active", true],["Inactive", false]], {}, { :class => 'form-control' }) %>
-				</div>
-				<div class="mb-3 form-group">
-					<%= form.submit "Add", class: "btn btn-success btn_item_inpro" %>
+					<button type="button" class="btn btn-success btn_item_inpro">Add</button>
 				</div>
 				<% end -%>
 			</div>
@@ -160,8 +151,6 @@
 </div>
 
 <script type="text/javascript">
-	var jsonStr = $("#item_list_json").attr("data-items");
-	var	items = JSON.parse(jsonStr);
 	var list_item_ids = [];
 
 	$('.btn-plus').click(function(){
@@ -175,46 +164,32 @@
 			list_item_ids.push($(this).data("itemid"));
 		});
 		let duplicate_id = list_item_ids.includes(parseInt(item_id));
-		console.log(list_item_ids);
-		items.forEach(function(item) {
-		  if(item.id == item_id && !duplicate_id){
-		  	html = 	'<tr class="tr_item" data-itemid="'+item.id+'">'+
-									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
-									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
-									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
-									'<td><input type="text" class="form-control table_price" disabled value="'+ item.price +'"></td>'+
-									'<td>'+
-										'<select class="form-control tax_select">'+
-											'<% @taxes.each do |tax| %>'+
-												'<% if tax.id == 1 %>'+
-												'<option selected value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>'+
-												'<% else -%>'+
-												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>'+
-												'<% end -%>'+
-											'<% end -%>'+
-										'</select>'+
-									'</td>'+
-									'<td><input type="text" class="form-control table_amount" placeholder="Amount" disabled value="'+ item.price +'"></td>'+
-								'</tr>';
-		  	$("#tbody_list_item").append(html);
-		  	$('.icon_del_item').click(function(){
-		  		//giau nut save
-					$('#btnSubmitNewProposalForm').css("display", "none");
-					$(this).closest(".tr_item").remove();
-				});
-				$('.tax_select').on('input', function() {
-					//giau nut save
-					$('#btnSubmitNewProposalForm').css("display", "none");
-				  var item_id = $(this).closest(".tr_item").data("itemid");
-					var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
-					var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
-					var tax_percent = parseInt($(this).find(":selected").data("taxp"))/100;
-				  var amount = quan*price;
-					var last_amount = amount+(amount*tax_percent);
-					$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
-				});
-		  }
-		})
+		if(!duplicate_id){
+	  	$.ajax({
+			  type:"GET",
+			  url:`/products/${item_id}`,
+			  dataType:"script",
+			  data: {
+			  	item_id: item_id
+			  }
+			});
+	  	$('.icon_del_item').click(function(){
+	  		//giau nut save
+				$('#btnSubmitNewProposalForm').css("display", "none");
+				$(this).closest(".tr_item").remove();
+			});
+			$('.tax_select').on('input', function() {
+				//giau nut save
+				$('#btnSubmitNewProposalForm').css("display", "none");
+			  var item_id = $(this).closest(".tr_item").data("itemid");
+				var quan = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_quantity").val());
+				var price = parseInt($(".tr_item[data-itemid='"+item_id+"'] .table_price").val());
+				var tax_percent = parseInt($(this).find(":selected").data("taxp"))/100;
+			  var amount = quan*price;
+				var last_amount = amount+(amount*tax_percent);
+				$(".tr_item[data-itemid='"+item_id+"'] .table_amount").val(last_amount);
+			});
+	  }
 		$('.table_quantity').on('input', function() {
 			//giau nut save
 			$('#btnSubmitNewProposalForm').css("display", "none");
@@ -293,8 +268,32 @@
   var list_item_tax_ids = [];
 
   $('.btn_item_inpro').click(function(){
-		var customer_id = $('input[name="proposal[customer_id]"]').val();
-		$('#f_customer_item').val(customer_id);
+  	$('#form_new_item').modal('hide');
+  	let cate_id = parseInt($('#category_id').find(":selected").val());
+  	let item_name = $("#name").val();
+  	let price	= $("#price").val();
+  	let tax_id	= parseInt($('#tax_id').find(":selected").val());
+		$.ajax({
+		  type:"POST",
+		  url:`/products/create_from_proposal`,
+		  data: {
+		  	name: item_name,
+		  	category_id: cate_id,
+		  	price: price,
+				tax_id: tax_id,
+				status: true
+		  }
+		});
+		$('#form_new_item').modal('hide');
+
+		//reload list item sau khi them item moi 1s
+		setTimeout(function() {
+			$.ajax({
+			  type:"GET",
+			  url:`/products`,
+			  dataType:"script"
+			});
+		}, 100);
   });
 
   $("#btnSubmitNewProposalForm").click(function(){

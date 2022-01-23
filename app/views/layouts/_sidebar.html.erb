@@ -1,7 +1,7 @@
 <div class="col-sm-3 col-md-2 sidebar">
 	<ul class="nav nav-sidebar">
 		<% if account.get_designation == 'Manager'%>
-			<li><%= link_to "Dashboard", root_path, class:"sidebar_button" %></li>
+			<li><%= link_to "Dashboard", root_path, class:"sidebar_button dashboard_link" %></li>
 		<% end -%>
 		<% if account.get_designation == 'Manager' || account.get_designation == 'Customer Officer' %>
 			<li>
@@ -83,6 +83,7 @@
 	  <% end -%>
 	</ul>
 </div>
+<span id="tab_name" style="display: none;" data-tab="<%= tab %>"></span>
 <script>
 	$('.leads_btn').click(function(){
 		$('.nav .leads_item').toggleClass("show");
@@ -101,5 +102,31 @@
 	});
 	$('.report_btn').click(function(){
 		$('.nav .report_item').toggleClass("show");
+	});
+	$( document ).ready(function() {
+	  let tab_name = $("#tab_name").data("tab");
+	  switch(tab_name) {
+		  case 'home':
+		    $('.dashboard_link').addClass('active');
+		    break;
+		  case 'lead':
+		    $('.leads_btn').addClass('active');
+		    break;
+	    case 'customer':
+		    $('.customer_btn').addClass('active');
+		    break;
+	    case 'catalog':
+		    $('.catalog_btn').addClass('active');
+		    break;
+	    case 'sale':
+		    $('.sale_btn').addClass('active');
+		    break;
+	    case 'staff':
+		    $('.staff_btn').addClass('active');
+		    break;
+	    case 'report':
+		    $('.report_btn').addClass('active');
+		    break;
+		}
 	});
 </script>

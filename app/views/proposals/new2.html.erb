@@ -1,5 +1,5 @@
 <%= content_for(:sidebar) do %>
-<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account, tab: "catalog"} %>
 <% end -%>
 <div class="col-md-10 main">
 	<h2>Add Proposal</b></h2>
@@ -184,29 +184,13 @@
 		console.log(list_item_ids);
 		items.forEach(function(item) {
 		  if(item.id == item_id && !duplicate_id){
-		  	html = 	'<tr class="tr_item" data-itemid="'+item.id+'">'+
-									'<td><a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>'+
-									'<input type="text" class="form-control" disabled value="'+ item.name +'"></td>'+
-									'<td><input type="number" class="form-control table_quantity" min=1 value=1></td>'+
-									'<td><input type="text" class="form-control table_price" disabled value="'+ item.price +'"></td>'+
-									'<td>'+
-										'<select class="form-control tax_select">'+
-											'<% @taxes.each do |tax| %>'+
-												'<% if tax.id == 1 %>'+
-												'<option selected value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>'+
-												'<% else -%>'+
-												'<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>'+
-												'<% end -%>'+
-											'<% end -%>'+
-										'</select>'+
-									'</td>'+
-									'<td><input type="text" class="form-control table_amount" placeholder="Amount" disabled value="'+ item.price +'"></td>'+
-								'</tr>';
-		  	$("#tbody_list_item").append(html);
-		  	$('.icon_del_item').click(function(){
-		  		//giau nut save
-					$('#btnSubmitNewProposalForm').css("display", "none");
-					$(this).closest(".tr_item").remove();
+		  	$.ajax({
+				  type:"GET",
+				  url:`/products/${item_id}`,
+				  dataType:"script",
+				  data: {
+				  	item_id: item_id
+				  }
 				});
 				$('.tax_select').on('input', function() {
 					//giau nut save
@@ -320,39 +304,23 @@
   });
 
   $( "#customer_in4_select" ).change(function() {
-  var customer_id = parseInt(this.value) ;
-  $.ajax({
-	  type:"GET",
-	  url:`/customers/${customer_id}`,
-	  dataType:"json",
-	  data: {
-	  	customer_id: customer_id
-	  },
-	  success:function(result){
-	    html = 	'<span><b>Name:</b> '+ result.name + '</span>' +
-							'<span><b>Address:</b> ' + result.detail_address + '</span>' +
-							'<span><b>City:</b> '+ result.city+ '</span>' +
-							'<span><b>Email:</b> '+ result.email+ '</span>' +
-							'<span><b>Phone:</b> '+ result.phone+ '</span>'
-	    $(".customer_in4").html(html);
-	  }
+	  var customer_id = parseInt(this.value) ;
+	  $.ajax({
+		  type:"GET",
+		  url:`/customers/${customer_id}`,
+		  dataType:"script",
+		  data: {
+		  	customer_id: customer_id
+		  }
+		});
 	});
-});
   var customer_id_onload = parseInt($( "#customer_in4_select" ).find(":selected").val()) ;
-  $.ajax({
+	$.ajax({
 	  type:"GET",
 	  url:`/customers/${customer_id_onload}`,
-	  dataType:"json",
+	  dataType:"script",
 	  data: {
 	  	customer_id: customer_id_onload
-	  },
-	  success:function(result){
-	    html = 	'<span><b>Name:</b> '+ result.name + '</span>' +
-							'<span><b>Address:</b> ' + result.detail_address + '</span>' +
-							'<span><b>City:</b> '+ result.city+ '</span>' +
-							'<span><b>Email:</b> '+ result.email+ '</span>' +
-							'<span><b>Phone:</b> '+ result.phone+ '</span>'
-	    $(".customer_in4").html(html);
 	  }
 	});
 </script>
