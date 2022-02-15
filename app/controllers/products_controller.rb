@@ -4,6 +4,7 @@ class ProductsController < ApplicationController
   def index
     @q = Item.ransack(params[:q])
     @pagy, @items = pagy(@q.result.includes(:tax), items: 20)
+    @items2 = Item.where(status: true)
   end
 
   def new
@@ -36,13 +37,7 @@ class ProductsController < ApplicationController
     @item.price = params[:price]
     @item.tax_id = params[:tax_id].to_i
     @item.status = params[:status]
-    customer_id = params[:customer_id].to_i
-    if @item.save
-      flash[:success] = "Add new product <b>"  + @item.name + "</b> successfully!"
-      redirect_to new_lead_proposal_path(customer_id)
-    else
-      redirect_to root_path
-    end
+    @item.save
   end 
 
   def edit
@@ -61,6 +56,8 @@ class ProductsController < ApplicationController
   end
 
   def show
+    @item = Item.find(params[:item_id])
+    @taxes = Tax.all
   end
 
   def convert_status

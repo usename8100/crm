@@ -1,5 +1,5 @@
 <%= content_for(:sidebar) do %>
-<%= render partial: "layouts/sidebar", locals: {account: current_account} %>
+<%= render partial: "layouts/sidebar", locals: {account: current_account, tab: "lead"} %>
 <% end -%>
 <div class="col-md-10 main">
 	<div class="lead-p-main">
@@ -7,7 +7,9 @@
 			<div class="lead-bo">
 				<div class="lead-p-center">
 					<h3><b><%= @lead.name %></b></h3>
-					<center><img src="https://infofinance.vn/wp-content/uploads/2020/09/bieu-tuong-y-nghia-lo-go-cua-ngan-hang-quan-doi-MB-Bank...jpg" class="img-thumbnail" ></center>
+					<center>
+						<img src="https://upload.wikimedia.org/wikipedia/commons/7/7c/Profile_avatar_placeholder_large.png" class="img-thumbnail">
+					</center>
 					<p><i class="fas fa-phone-alt"></i> Phone: <b><%= @lead.phone %></b></p>
 					<p><i class="fas fa-briefcase"></i> Email: <b><%= @lead.email %></b></p>
 					<div class="border-x"></div>

@@ -1,0 +1,27 @@
+<tr class="tr_item" data-itemid="<%= @item.id %>">
+	<td>
+		<a type="button" class="fas fa-times-circle icon_del_item" style="position:absolute;"></a>
+		<input type="text" class="form-control" disabled value="<%= @item.name %>">
+	</td>
+	<td><input type="number" class="form-control table_quantity" min=1 value=1></td>
+	<td><input type="text" class="form-control table_price" disabled value="<%= @item.price %>"></td>
+	<td>
+		<select class="form-control tax_select">
+			<% @taxes.each do |tax| %>
+			<% if tax.id == 1 %>
+			<option selected value=<%= tax.id %> data-taxp=<%= tax.tax_percent %> selected><%= tax.name %></option>
+			<% else -%>
+			<option value=<%= tax.id %> data-taxp=<%= tax.tax_percent %>><%= tax.name %></option>
+			<% end -%>
+			<% end -%>
+		</select>
+	</td>
+	<td><input type="text" class="form-control table_amount" placeholder="amount" disabled value="<%= @item.price %>"></td>
+</tr>
+<script type="text/javascript">
+	$('.icon_del_item').click(function(){
+		//giau nut save
+		$('#btnSubmitNewProposalForm').css("display", "none");
+		$(this).closest(".tr_item").remove();
+	});
+</script>
